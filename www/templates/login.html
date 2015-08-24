@@ -1,25 +1,23 @@
-<ion-modal-view>
-  <ion-header-bar>
-    <h1 class="title">Login</h1>
-    <div class="buttons">
-      <button class="button button-clear" ng-click="closeLogin()">Close</button>
-    </div>
-  </ion-header-bar>
-  <ion-content>
-    <form ng-submit="doLogin()">
-      <div class="list">
-        <label class="item item-input">
-          <span class="input-label">Username</span>
-          <input type="text" ng-model="loginData.username">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">Password</span>
-          <input type="password" ng-model="loginData.password">
-        </label>
-        <label class="item">
-          <button class="button button-block button-positive" type="submit">Log in</button>
-        </label>
-      </div>
-    </form>
-  </ion-content>
-</ion-modal-view>
+<ion-view hide-nav-bar="true" view-title="Login">
+    <ion-content>
+        <h1>Login</h1>
+        <p>How do you want to login to sportSocial?</p>
+        <!--
+        <div class="login-btns">
+            <div id="social-links">
+                <ul>
+                    <li ng-click="fbLogin()"><span class="ifacebook"><img src="img/social-icons/facebook.png"></span><a href="#" class="afacebook">sign in with facebook</a></li>
+                    <li ng-click="gplusLogin()"><span class="igoogleplus"><img src="img/social-icons/googleplus.png"></span><a href="#" class="agoogleplus">sign in with google+</a></li>
+                </ul>
+            </div>
+            <hr id="login-divider" />
+            <div id="login-reg">
+                <button id="btn-login" class="button button-clear button-positive uppercase">Login</button>
+                <button id="btn-reg" class="button button-clear button-positive uppercase">Register</button>
+            </div>
+        </div>
+        -->
+        <button class="button button-positive">Facebook</button>
+        <button class="button button-assertive">Google</button>
+    </ion-content>
+</ion-view>
