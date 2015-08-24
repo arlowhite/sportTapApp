@@ -12,24 +12,44 @@
     <ion-nav-view name="menuContent"></ion-nav-view>
   </ion-side-menu-content>
 
-  <ion-side-menu side="left">
-    <ion-header-bar class="bar-stable">
-      <h1 class="title">Left</h1>
+  <ion-side-menu side="left" expose-aside-when="large">
+    <ion-header-bar class="bar-energized" align-title="left">
+      <!-- TODO Dark text? -->
+      <h1 class="title">sportSocial</h1>
+      <div class="buttons">
+        <button class="button button-dark icon ion-plus" ng-click="addThing()"></button>
+      </div>
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item menu-close href="#/app/login">Login</ion-item>
-        <ion-item menu-close ng-click="login()">
-          Login Dialog
+        <!-- Badge indicates action, accept friend,
+        or information? # activities?
+        Buttons on right to add?
+        -->
+        <ion-item menu-close href="#/app/activities" class="item-icon-left">
+          <i class="icon ion-ios-football"></i>
+          Activities
         </ion-item>
-        <ion-item menu-close href="#/app/search">
-          Search
+        <ion-item menu-close href="#/app/friends" class="item-icon-left">
+          <i class="icon ion-person-stalker"></i>
+          Friends
         </ion-item>
-        <ion-item menu-close href="#/app/browse">
-          Browse
+        <ion-item class="item-icon-left" href="#">
+          <i class="icon ion-person-add"></i>
+          Friend requests
+          <span class="badge badge-positive">3</span>
         </ion-item>
-        <ion-item menu-close href="#/app/playlists">
-          Playlists
+        <ion-item menu-close href="#/app/account" class="item-icon-left">
+          <i class="icon ion-ios-body"></i>
+          Account
+        </ion-item>
+        <ion-item menu-close class="item-icon-left">
+          <i class="icon ion-refresh"></i>
+          Refresh
+        </ion-item>
+        <ion-item menu-close href="#/app/login" class="item-icon-left">
+          <i class="icon ion-log-in"></i>
+          Login
         </ion-item>
       </ion-list>
     </ion-content>

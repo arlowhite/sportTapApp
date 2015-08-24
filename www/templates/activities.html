@@ -1,0 +1,38 @@
+<ion-view view-title="Activities">
+  <ion-nav-buttons side="secondary">
+    <button class="button icon ion-android-add button-positive" ng-click="addActivity()"></button>
+  </ion-nav-buttons>
+  <!--<ion-content>-->
+  <!--<ion-nav-view></ion-nav-view>-->
+  <!--<ion-pane>-->
+    <ion-tabs class="tabs-positive tabs-striped tabs-top" ui-view="tabs">
+      <ion-tab title="Mine" href="#/app/activities/mine">
+        <!--ui-sref="mine"-->
+        <ion-nav-view name="mine-tab"></ion-nav-view>
+      </ion-tab>
+      <ion-tab title="Friend's" href="#/app/activities/friends">
+        <ion-nav-view name="friends-tab">
+          <ion-nav-buttons side="secondary">
+            <button class="button icon ion-android-add button-positive" ng-click="doSomething()"></button>
+          </ion-nav-buttons>
+
+        </ion-nav-view>
+      </ion-tab>
+        <!--For refresher, need:
+        <ion-content></ion-content>
+        <ion-scroll></ion-scroll>
+        <ion-refresher
+          pulling-text="Refresh activites..."
+          on-refresh="doRefresh()">
+        </ion-refresher>
+        -->
+        <!--<h2>Friend's activities</h2>-->
+      <!--</ion-tab>-->
+      <!--<ion-tab title="Discover">-->
+        <!--<h2>Discover</h2>-->
+        <!--<p>foo</p>-->
+      <!--</ion-tab>-->
+    </ion-tabs>
+  <!--</ion-pane>-->
+  <!--</ion-content>-->
+</ion-view>

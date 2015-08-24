@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('sportSocial', ['ionic', 'sportSocial.controllers'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -26,56 +26,91 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   $stateProvider
 
     .state('app', {
-    url: '/app',
-    abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
-  })
+      url: '/app',
+      abstract: true,
+      templateUrl: 'templates/menu.html',
+      controller: 'AppCtrl'
+    })
 // FIXME Login is getting put into state history
-  .state('app.login', {
-  url: '/login',
-  views: {
-  'menuContent':{
-  templateUrl: 'templates/login.html'}
-  }
-  })
+      .state('app.login', {
+        url: '/login',
+        views: {
+          'menuContent':{
+            templateUrl: 'templates/login.html'}
+        }
+      })
 
-  .state('app.search', {
-    url: '/search',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/search.html'
-      }
-    }
-  })
+      .state('app.dashboard', {
+        url: '/dashboard',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/dashboard.html'
+          }
+        }
+      })
 
-  .state('app.browse', {
-      url: '/browse',
+      .state('app.search', {
+        url: '/search',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/search.html'
+          }
+        }
+      })
+
+      .state('app.friends', {
+        url: '/friends',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/friends.html'
+          }
+        }
+      })
+      .state('app.activities', {
+      url: '/activities',
       views: {
         'menuContent': {
-          templateUrl: 'templates/browse.html'
+          templateUrl: 'templates/activities.html'
+          //controller: 'PlaylistsCtrl'
         }
       }
     })
-    .state('app.playlists', {
-      url: '/playlists',
+    .state('app.activities.mine', {
+      url: '/mine',
       views: {
-        'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
+        'mine-tab': {
+          templateUrl: 'templates/activities_list.html'
         }
       }
     })
-
-  .state('app.single', {
-    url: '/playlists/:playlistId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+    .state('app.activities.friends', {
+      url: '/friends',
+      views: {
+        'friends-tab':{
+          templateUrl: 'templates/activities_list.html'
+        }
       }
-    }
-  });
+    });
+      //.state('app.activities.mine', {
+      //  url: '/mine',
+      //  //views: {
+      //  //  'mine': {
+      //      templateUrl: 'templates/activities_list.html'
+      //    //}
+      //  //}
+      //});
+
+    // Starter example with ID
+    //.state('app.single', {
+    //  url: '/playlists/:playlistId',
+    //  views: {
+    //    'menuContent': {
+    //      templateUrl: 'templates/playlist.html',
+    //      controller: 'PlaylistCtrl'
+    //    }
+    //  }
+    //});
+
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/dashboard');
 });
