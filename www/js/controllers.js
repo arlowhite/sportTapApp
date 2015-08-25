@@ -9,6 +9,21 @@ angular.module('sportSocial.controllers', [])
     //$scope.$on('$ionicView.enter', function(e) {
     //});
 
+    // TODO lazy-load modals?
+    $ionicModal.fromTemplateUrl('templates/create_activity.html', {
+      scope: $scope
+      //animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.addActivityModal = modal;
+    });
+
+    $ionicModal.fromTemplateUrl('templates/invite_friends.html', {
+      scope: $scope
+      //animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.inviteFriendsModal = modal;
+    });
+
     // Form data for the login modal
     $scope.loginData = {};
 
@@ -41,11 +56,30 @@ angular.module('sportSocial.controllers', [])
         //  // add cancel code..
         //},
         buttonClicked: function(index) {
+          if(index==0){
+            $scope.addActivity();
+          }
+          else if(index==1){
+            $scope.inviteFriends();
+          }
           return true;
         }
       });
     };
 
+    $scope.addActivity = function(){
+      $scope.addActivityModal.show();
+    };
+
+    $scope.inviteFriends = function () {
+      $scope.inviteFriendsModal.show();
+    }
+
+    $scope.$on('$destroy', function() {
+      $scope.addActivityModal.remove();
+      $scope.inviteFriendsModal.remove();
+      $scope.modal.remove();
+    });
 
     // Perform the login action when the user submits the login form
     $scope.doLogin = function() {
@@ -57,6 +91,37 @@ angular.module('sportSocial.controllers', [])
         $scope.closeLogin();
       }, 1000);
     };
+  })
+
+  // Displays a list of activities
+  .controller('ActivitiesCtrl', function($scope, $state, $timeout) {
+    console.info($state.current);
+    var tabUrl = $state.current.url;
+    if (tabUrl=='/mine') {
+      $scope.activities = [
+        {title: 'Scuba Diving', id: 1},
+        {title: 'Ultimate frisbee', id: 2}
+      ];
+    }
+    else{
+      $scope.activities = [
+        {title: 'Soccer', id: 1},
+        {title: 'Basketball', id: 2}
+      ];
+    }
+
+    $scope.refresh = function() {
+    //$http.get('/new-items')
+    // .success(function(newItems) {
+    //   $scope.items = newItems;
+    // })
+    // .finally(function() {
+       // Stop the ion-refresher from spinning
+      $timeout(function () {
+        $scope.$broadcast('scroll.refreshComplete');
+      }, 2000);
+     //});
+  };
   })
 
   .controller('PlaylistsCtrl', function($scope) {

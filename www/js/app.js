@@ -49,15 +49,6 @@ angular.module('sportSocial', ['ionic', 'sportSocial.controllers'])
         }
       })
 
-      .state('app.search', {
-        url: '/search',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/search.html'
-          }
-        }
-      })
-
       .state('app.friends', {
         url: '/friends',
         views: {
@@ -71,7 +62,7 @@ angular.module('sportSocial', ['ionic', 'sportSocial.controllers'])
       views: {
         'menuContent': {
           templateUrl: 'templates/activities.html'
-          //controller: 'PlaylistsCtrl'
+          //controller: 'ActivitiesCtrl'
         }
       }
     })
@@ -79,7 +70,8 @@ angular.module('sportSocial', ['ionic', 'sportSocial.controllers'])
       url: '/mine',
       views: {
         'mine-tab': {
-          templateUrl: 'templates/activities_list.html'
+          templateUrl: 'templates/activities_list.html',
+          controller: 'ActivitiesCtrl'
         }
       }
     })
@@ -87,30 +79,12 @@ angular.module('sportSocial', ['ionic', 'sportSocial.controllers'])
       url: '/friends',
       views: {
         'friends-tab':{
-          templateUrl: 'templates/activities_list.html'
+          templateUrl: 'templates/activities_list.html',
+          controller: 'ActivitiesCtrl'
         }
       }
     });
-      //.state('app.activities.mine', {
-      //  url: '/mine',
-      //  //views: {
-      //  //  'mine': {
-      //      templateUrl: 'templates/activities_list.html'
-      //    //}
-      //  //}
-      //});
 
-    // Starter example with ID
-    //.state('app.single', {
-    //  url: '/playlists/:playlistId',
-    //  views: {
-    //    'menuContent': {
-    //      templateUrl: 'templates/playlist.html',
-    //      controller: 'PlaylistCtrl'
-    //    }
-    //  }
-    //});
-
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/dashboard');
+    // if none of the above states are matched, use this as the fallback
+    $urlRouterProvider.otherwise('/app/dashboard');
 });

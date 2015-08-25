@@ -1,12 +1,15 @@
 <!-- ion-view causes problems
 navbar title changes and button doesn't stay
+ion-nav-view seems to fix it
 -->
-<!--<ion-view>-->
-  <!-- Buttons need to be created here instead of activities tab definition -->
-  <!--<ion-nav-buttons side="secondary">-->
-    <!--<button class="button icon ion-android-add button-positive" ng-click="doSomething()"></button>-->
-  <!--</ion-nav-buttons>-->
+<ion-nav-view>
   <ion-content>
-    <h1>Activities list</h1>
+    <ion-refresher on-refresh="refresh()"></ion-refresher>
+    <ion-list>
+      <ion-item ng-repeat="act in activities">
+        {{act.title}}
+      </ion-item>
+    </ion-list>
+
   </ion-content>
-<!--</ion-view>-->
+</ion-nav-view>
