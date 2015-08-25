@@ -22,7 +22,15 @@ angular.module('sportSocial', ['ionic', 'sportSocial.controllers'])
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+    // Native scrolling recommended by:
+    // http://julienrenaux.fr/2015/08/24/ultimate-angularjs-and-ionic-performance-cheat-sheet/
+    // http://blog.ionic.io/native-scrolling-in-ionic-a-tale-in-rhyme/
+    // TODO iOS works or not? Fallsback?
+    // Disables browser pull-refresh
+    // Doesn't seem smoother in Android...
+    //$ionicConfigProvider.scrolling.jsScrolling(false);
+
   $stateProvider
 
     .state('app', {

@@ -6,7 +6,7 @@ ion-nav-view seems to fix it
   <ion-content>
     <ion-refresher on-refresh="refresh()"></ion-refresher>
     <ion-list>
-      <ion-item ng-repeat="act in activities">
+      <ion-item ng-repeat="act in activities track by act.id">
         {{act.title}}
       </ion-item>
     </ion-list>
