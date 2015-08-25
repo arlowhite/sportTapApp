@@ -29,7 +29,9 @@ angular.module('sportSocial', ['ionic', 'sportSocial.controllers'])
     // TODO iOS works or not? Fallsback?
     // Disables browser pull-refresh
     // Doesn't seem smoother in Android...
-    //$ionicConfigProvider.scrolling.jsScrolling(false);
+    if(ionic.Platform.isAndroid()) {
+      $ionicConfigProvider.scrolling.jsScrolling(false);
+    }
 
   $stateProvider
 
