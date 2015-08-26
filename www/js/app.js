@@ -6,23 +6,23 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('sportSocial', ['ionic', 'ngCordova', 'sportSocial.controllers'])
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
+  .run(function($ionicPlatform) {
+    $ionicPlatform.ready(function() {
+      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+      // for form inputs)
+      if (window.cordova && window.cordova.plugins.Keyboard) {
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+        cordova.plugins.Keyboard.disableScroll(true);
 
-    }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
-    }
-  });
-})
+      }
+      if (window.StatusBar) {
+        // org.apache.cordova.statusbar required
+        StatusBar.styleDefault();
+      }
+    });
+  })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+  .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     // Native scrolling recommended by:
     // http://julienrenaux.fr/2015/08/24/ultimate-angularjs-and-ionic-performance-cheat-sheet/
     // http://blog.ionic.io/native-scrolling-in-ionic-a-tale-in-rhyme/
@@ -33,14 +33,14 @@ angular.module('sportSocial', ['ionic', 'ngCordova', 'sportSocial.controllers'])
       $ionicConfigProvider.scrolling.jsScrolling(false);
     }
 
-  $stateProvider
+    $stateProvider
 
-    .state('app', {
-      url: '/app',
-      abstract: true,
-      templateUrl: 'templates/menu.html',
-      controller: 'AppCtrl'
-    })
+      .state('app', {
+        url: '/app',
+        abstract: true,
+        templateUrl: 'templates/menu.html',
+        controller: 'AppCtrl'
+      })
 // FIXME Login is getting put into state history
       .state('app.login', {
         url: '/login',
@@ -55,6 +55,7 @@ angular.module('sportSocial', ['ionic', 'ngCordova', 'sportSocial.controllers'])
         views: {
           'menuContent': {
             templateUrl: 'templates/dashboard.html'
+            //controller: 'AppCtrl'
           }
         }
       })
@@ -67,37 +68,56 @@ angular.module('sportSocial', ['ionic', 'ngCordova', 'sportSocial.controllers'])
           }
         }
       })
+
+      .state('app.friend_invites', {
+        url: '/friend_invites',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/friend_invites.html'
+          }
+        }
+      })
+
       .state('app.activities', {
-      url: '/activities',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/activities.html'
-          //controller: 'ActivitiesCtrl'
+        url: '/activities',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/activities.html'
+            //controller: 'ActivitiesCtrl'
+          }
         }
-      }
-    })
-    .state('app.activities.mine', {
-      url: '/mine',
-      views: {
-        'mine-tab': {
-          templateUrl: 'templates/activities_list.html',
-          controller: 'ActivitiesCtrl'
+      })
+      .state('app.activities.mine', {
+        url: '/mine',
+        views: {
+          'mine-tab': {
+            templateUrl: 'templates/activities_list.html',
+            controller: 'ActivitiesCtrl'
+          }
         }
-      }
-    })
-    .state('app.activities.friends', {
-      url: '/friends',
-      views: {
-        'friends-tab':{
-          templateUrl: 'templates/activities_list.html',
-          controller: 'ActivitiesCtrl'
+      })
+      .state('app.activities.friends', {
+        url: '/friends',
+        views: {
+          'friends-tab':{
+            templateUrl: 'templates/activities_list.html',
+            controller: 'ActivitiesCtrl'
+          }
         }
-      }
-    });
+      })
+
+      .state('app.account', {
+        url: '/account',
+        views: {
+          'menuContent':{
+            templateUrl: 'templates/account.html'
+          }
+        }
+      });
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/dashboard');
-});
+  });
 //
 //.directive('nativeDatePicker', function ($cordovaDatePicker) {
 //  return {

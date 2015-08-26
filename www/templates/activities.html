@@ -1,7 +1,18 @@
 <ion-view view-title="Activities">
-  <ion-nav-buttons side="secondary">
-    <button class="button icon ion-android-add button-positive" ng-click="addActivity()"></button>
-  </ion-nav-buttons>
+  <!-- These overrides so we can color bar,
+  but loses default side-menu button, so need to add it again -->
+  <ion-nav-bar class="has-tabs-top bar-positive">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="secondary">
+      <button class="button icon ion-android-add button-dark" ng-click="addActivity()"></button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <!-- TODO:UI tabs do not scroll if window too narrow
+  (Truncated titles instead)
+  -->
   <ion-tabs class="tabs-positive tabs-striped tabs-top" ui-view="tabs">
     <ion-tab title="Mine" href="#/app/activities/mine">
       <!--ui-sref="mine"-->
@@ -9,11 +20,18 @@
     </ion-tab>
     <ion-tab title="Friend's" href="#/app/activities/friends">
       <ion-nav-view name="friends-tab">
-        <ion-nav-buttons side="secondary">
-          <button class="button icon ion-android-add button-positive" ng-click="doSomething()"></button>
-        </ion-nav-buttons>
+        <!--<ion-nav-buttons side="secondary">-->
+          <!--<button class="button icon ion-android-add button-positive" ng-click="doSomething()"></button>-->
+        <!--</ion-nav-buttons>-->
 
       </ion-nav-view>
+    </ion-tab>
+    <ion-tab title="Community">
+      <ion-nav-view>
+        <ion-content>
+          <p>Public events in this area?</p>
+          <p>Alternative names: Discover, Public</p>
+        </ion-content>
     </ion-tab>
   </ion-tabs>
 </ion-view>

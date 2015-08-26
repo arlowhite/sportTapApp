@@ -81,6 +81,11 @@ angular.module('sportSocial.controllers', [])
       $scope.modal.remove();
     });
 
+    $scope.devCommentary = false;
+    $scope.toggleDevCommentary = function () {
+      $scope.devCommentary = !$scope.devCommentary;
+    };
+
     // Perform the login action when the user submits the login form
     $scope.doLogin = function() {
       console.log('Doing login', $scope.loginData);
@@ -141,7 +146,8 @@ angular.module('sportSocial.controllers', [])
         $scope.$broadcast('scroll.refreshComplete');
       }, 2000);
      //});
-  };
+    };
+
   })
 
   // FIXME modal controller?

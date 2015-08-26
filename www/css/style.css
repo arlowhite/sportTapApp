@@ -1,1 +1,54 @@
 /* Empty. Add your own CSS if you like */
+.activity-tags{
+  font-style: italic;
+  font-weight: bold;
+  color: dodgerblue;
+}
+.time{
+  font-weight: bold;
+}
+
+.slow-pulse,
+.slow-pulse .icon {
+  animation-delay: 0.5s;
+  animation-iteration-count: infinite;
+  animation-duration: 6s;
+  animation-timing-function: ease;
+}
+.slow-pulse{
+  animation-name: slowPulse;
+}
+.slow-pulse .icon{
+  animation-name: slowPulseIcon;
+  /* icon isn't centered (element height taller than icon) */
+  transform-origin: 50% 26px;
+}
+
+@keyframes slowPulse {
+  /* tab-item starts at 0.7 opacity */
+  from{
+    opacity: 0.7;
+  }
+  12% {
+    opacity: 0.9;
+  }
+  /* wait time */
+  24% {
+    opacity: 0.7;
+  }
+  to{
+    opacity: 0.7;
+  }
+}
+@keyframes slowPulseIcon {
+  from{
+    transform: rotate(0deg);
+  }
+  /* wait time */
+  16% {
+    transform: rotate(360deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+}

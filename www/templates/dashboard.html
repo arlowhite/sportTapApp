@@ -1,5 +1,112 @@
 <ion-view view-title="Home">
+  <ion-nav-buttons side="secondary">
+    <button class="button button-clear" ng-click="toggleDevCommentary()">
+      <i class="icon ion-chatbubble" ng-class="{calm: devCommentary}"></i>
+    </button>
+  </ion-nav-buttons>
+
   <ion-content>
-    <h1>Dashboard</h1>
+    <ion-refresher></ion-refresher>
+
+    <div ng-if="devCommentary" class="padding">
+    <p>An overview of recent activity, pending actions, etc.
+      Instead of <b>Friend Requests</b> in the side-menu, maybe user's should just see actions to take here.
+      Similar to Google Now.
+    </p>
+    <p>Maybe prompt users to fill in different information. For example, encourage them to switch from Maybe to Going
+    if the event is within 48hours.
+    As an example, I played around with animations a bit to make the Maybe try to get attention.
+    </p>
+    <p>I haven't implemented functionality yet. Such as switching Maybe to Going.
+    This is because a MaterialUI library will probably be used for this kind of thing and I haven't selected one yet.
+    </p>
+    </div>
+
+    <div class="list card">
+
+      <div class="item item-divider positive">
+        Friend invitations
+      </div>
+
+      <div class="item item-avatar">
+        <img src="img/demo/scuba_avatar.jpg">
+        <h2>Arlo White</h2>
+        <p><strong style="margin-right: 1em;">30</strong>
+          <i class="icon ion-android-walk"></i>
+          <span class="activity-tags">scuba-diving, rock-climbing</span></p>
+      </div>
+
+      <div class="item item-avatar">
+        <img src="img/demo/raquel_avatar.png">
+        <h2>Raquel</h2>
+        <p>
+          <i class="icon ion-android-walk"></i>
+          <span class="activity-tags">mountain-biking, marathons, road-biking</span></p>
+      </div>
+
+
+      <button class="button button-positive button-full item">Accept all friends</button>
+
+    </div>
+
+    <div class="item item-divider">
+      <h2 class="positive">Upcoming events</h2>
+    </div>
+
+    <div class="card">
+      <div class="item item-divider">
+        <h3>Scuba dive @ Target Rock</h3>
+      </div>
+
+      <div class="item">
+        <h4>
+          <i class="icon ion-android-time"></i>
+          <span class="time padding-right">9:00am - 11:00am</span>
+          Saturday, August 29th</h4>
+        <!-- FIXME text does not wrap, want this? click to expand? -->
+        <p>You must bring scuba gear. Make sure to rent gear from the shop before it closes at 6pm.</p>
+      </div>
+
+      <div class="item tabs tabs-secondary tabs-icon-left">
+        <a class="tab-item balanced" href="#">
+          <i class="icon ion-checkmark-circled"></i>
+          Going
+        </a>
+        <a class="tab-item" href="#">
+          <i class="icon ion-chatbox"></i>
+          Comment
+        </a>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="item item-divider">
+        <h3>Ultimate Frisbee game</h3>
+      </div>
+
+      <div class="item">
+        <h4>
+          <i class="icon ion-android-time"></i>
+          <span class="time padding-right">4:30pm - 6:00pm</span>
+          Sunday, August 30th</h4>
+        <button class="button icon-left icon button-small button-clear button-positive ion-android-people">8 people</button>
+        <p>Casual game, bring water and sunscreen.</p>
+      </div>
+
+      <div class="item tabs tabs-secondary tabs-icon-left">
+        <a class="tab-item assertive slow-pulse" href="#">
+          <i class="icon ion-help-circled"></i>
+          Maybe
+        </a>
+        <a class="tab-item" href="#">
+          <i class="icon ion-chatbox"></i>
+          Comment
+        </a>
+      </div>
+
+    </div>
+
+
   </ion-content>
 </ion-view>

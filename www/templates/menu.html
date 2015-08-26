@@ -5,6 +5,7 @@
       </ion-nav-back-button>
 
       <ion-nav-buttons side="left">
+        <!-- TODO hide menu-toggle when exposed -->
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
         </button>
       </ion-nav-buttons>
@@ -26,6 +27,12 @@
         or information? # activities?
         Buttons on right to add?
         -->
+        <ion-item menu-close href="#/app/dashboard" class="item-icon-left">
+          <i class="icon ion-home"></i>
+          Home
+          <span class="badge badge-positive">2</span>
+          <span class="badge badge-balanced" style="margin-right: 2em;">2</span>
+        </ion-item>
         <ion-item menu-close href="#/app/activities" class="item-icon-left">
           <i class="icon ion-ios-football"></i>
           Activities
@@ -34,10 +41,10 @@
           <i class="icon ion-person-stalker"></i>
           Friends
         </ion-item>
-        <ion-item class="item-icon-left" href="#">
+        <ion-item menu-close href="#/app/friend_invites" class="item-icon-left">
           <i class="icon ion-person-add"></i>
           Friend requests
-          <span class="badge badge-positive">3</span>
+          <span class="badge badge-positive">2</span>
         </ion-item>
         <ion-item menu-close href="#/app/account" class="item-icon-left">
           <i class="icon ion-ios-body"></i>
