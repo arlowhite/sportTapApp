@@ -3,8 +3,86 @@
     <h1 class="title">Create Activity</h1>
   </ion-header-bar>
   <ion-content>
-    <form ng-submit="">
+    <!-- form.name causes it to be published into $scope -->
+    <form name="activityForm" ng-submit="submitActivity(activityForm)" novalidate>
+      <div class="list list-inset">
 
+        <label class="item item-input">
+          <!-- Standing person, football/soccer also -->
+          <i class="icon ion-android-walk placeholder-icon"></i>
+          <input name="title" ng-model="act.title" placeholder="Title"
+                 type="text" required ng-minlength="5" ng-maxlength="80">
+        </label>
+
+        <label class="item item-input">
+          <i class="icon ion-calendar placeholder-icon"></i>
+          <input name="startDate" ng-model="act.startDate" type="date" placeholder="Date" data-native-datepicker>
+        </label>
+        <!-- TODO multi-day event UI -->
+
+        <!-- Date & Time Picker Notes
+
+        * Android *
+        datetime does nothing
+        date UI is ok, but not great
+        On Tablet, a Calendar view is shown, making it much better
+
+        Time (Similar dial UI) really sucks, too many clicks.
+
+        Number doesn't have spinner in Android (desktop does), but #'s keyboard
+
+        Solutions:
+        For Time, just type="number" reformatted I think is the way to go
+        AM/PM swap
+
+        Look at others
+
+        cordovaDatePicker
+        Seems like the same thing as type="date" or "time"
+        The only advantage seems to be the various options (minDate, etc)
+        TODO Test DatePicker in iOS
+
+        Other solutions
+        https://github.com/derekbrameyer/android-betterpickers/
+        Though HTML-based might be better. TODO Search Angular/Ionic Calendar pickers
+        -->
+        <div class="row" style="padding: 0;">
+          <!-- TODO remove col padding -->
+          <div class="col" style="padding: 0;">
+            <label class="item item-input">
+              <i class="icon ion-android-time placeholder-icon"></i>
+              <input name="startTime" ng-model="act.startTime" type="time" placeholder="Start time" size="6">
+            </label>
+          </div>
+          <div class="col" style="padding: 0;">
+            <label class="item item-input">
+              <i class="icon ion-android-time placeholder-icon"></i>
+              <input name="endTime" ng-model="act.endTime" type="number" placeholder="until..." size="6">
+            </label>
+          </div>
+        </div>
+
+        <label class="item item-input">
+          <!-- GPS and Compass icons also available-->
+          <i class="icon ion-android-pin placeholder-icon"></i>
+          <input name="location" ng-model="act.location" placeholder="Location"
+                 type="text">
+        </label>
+
+        <label class="item item-input">
+          <i class="icon ion-chatbox-working placeholder-icon"></i>
+          <textarea name="descr" ng-model="act.descr" placeholder="Description"></textarea>
+        </label>
+
+        <label class="item item-input">
+          <i class="icon ion-person-add placeholder-icon"></i>
+          <input type="search" placeholder="Invite friends...">
+        </label>
+
+        <button class="button button-full button-balanced" type="submit">
+          Create Activity
+        </button>
+      </div>
     </form>
   </ion-content>
 </ion-modal-view>

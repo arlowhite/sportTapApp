@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('sportSocial', ['ionic', 'sportSocial.controllers'])
+angular.module('sportSocial', ['ionic', 'ngCordova', 'sportSocial.controllers'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -98,3 +98,46 @@ angular.module('sportSocial', ['ionic', 'sportSocial.controllers'])
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/dashboard');
 });
+//
+//.directive('nativeDatePicker', function ($cordovaDatePicker) {
+//  return {
+//    restrict: "AE",
+//    replace: false,
+//    link: function (scope, elem, attrs) {
+//
+//      //cache current index
+//      var c_index = scope.inputNavParams.current_position - 1;
+//
+//      //update label
+//      scope.label = scope.inputs.list[c_index].label;
+//
+//      //show date format (set via form builder)
+//      scope.format = scope.inputs.list[c_index].datetime_format;
+//
+//      //display cached/default/empty value on view
+//      scope.setCachedValue(c_index);
+//
+//      scope.datePicker = function () {
+//
+//        // $cordovaDatePicker.show({
+//        // date : new Date(),
+//        // mode : "date"
+//        // }, function(date) {
+//        // console.log(date);
+//        // });
+//
+//        var options = {
+//          date: new Date(),
+//          mode: 'date'
+//        };
+//        $cordovaDatePicker.show(options, function (date) {
+//          //console.log("date result " + date);
+//          alert(date);
+//        });
+//        // TODO date picker error with ANdroid
+//
+//      };
+//
+//    }
+//  }
+//});

@@ -1,6 +1,6 @@
 angular.module('sportSocial.controllers', [])
 
-  .controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicActionSheet) {
+  .controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicActionSheet, $cordovaDatePicker) {
 
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
@@ -91,7 +91,27 @@ angular.module('sportSocial.controllers', [])
         $scope.closeLogin();
       }, 1000);
     };
+
+    $scope.showDatePicker = function () {
+      var options = {
+        date: new Date(),
+        mode: 'date', // or 'time'
+        minDate: new Date() - 10000,
+        allowOldDates: true,
+        allowFutureDates: false,
+        doneButtonLabel: 'DONE',
+        doneButtonColor: '#F2F3F4',
+        cancelButtonLabel: 'CANCEL',
+        cancelButtonColor: '#000000'
+      };
+      // Need to check ready?
+      $cordovaDatePicker.show(options).then(function (date) {
+        alert(date);
+      });
+    };
   })
+
+
 
   // Displays a list of activities
   .controller('ActivitiesCtrl', function($scope, $state, $timeout) {
@@ -122,6 +142,14 @@ angular.module('sportSocial.controllers', [])
       }, 2000);
      //});
   };
+  })
+
+  // FIXME modal controller?
+  .controller('CreateActivityCtrl', function ($scope, $cordovaDatePicker, $ionicPlatform) {
+    $ionicPlatform.ready(function () {
+      alert('ready!')
+    });
+//deviceready
   })
 
   .controller('PlaylistsCtrl', function($scope) {
