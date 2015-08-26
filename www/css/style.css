@@ -8,6 +8,7 @@
   font-weight: bold;
 }
 
+/* FIXME CSS3 animations not working on Android */
 .slow-pulse,
 .slow-pulse .icon {
   animation-delay: 0.5s;
