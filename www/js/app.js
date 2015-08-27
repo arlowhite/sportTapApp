@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('sportSocial', ['ionic', 'ngCordova', 'sportSocial.controllers'])
 
-  .run(function($ionicPlatform) {
+  .run(function($ionicPlatform, $rootScope) {
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -110,7 +110,8 @@ angular.module('sportSocial', ['ionic', 'ngCordova', 'sportSocial.controllers'])
         url: '/account',
         views: {
           'menuContent':{
-            templateUrl: 'templates/account.html'
+            templateUrl: 'templates/account.html',
+            controller: 'AccountCtrl'
           }
         }
       });

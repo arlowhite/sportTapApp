@@ -158,6 +158,10 @@ angular.module('sportSocial.controllers', [])
 //deviceready
   })
 
+  .controller('AccountCtrl', function ($scope) {
+    $scope.wantFriends = true;
+  })
+
   .controller('PlaylistsCtrl', function($scope) {
     $scope.playlists = [
       { title: 'Reggae', id: 1 },

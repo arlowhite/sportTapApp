@@ -3,7 +3,7 @@
 
     <div class="card">
       <div class="item item-divider">
-        <h2>Your information</h2>
+        <h2>Your public profile</h2>
       </div>
       <div class="item item-avatar" ng-click="alert('hi')">
         <img src="img/demo/scuba_avatar.jpg">
@@ -18,6 +18,26 @@
           November 1984
         </div>
       </div>
+      <div class="item">
+        Corvallis, OR
+      </div>
+        <!--
+          <label class="toggle">
+            <input type="checkbox">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+          -->
+        <!-- ion-toggle has "item" class
+        toggle-class="toggle-calm"
+        -->
+      <ion-toggle ng-model="wantFriends" class="item-text-wrap" ng-checked="true">
+        Looking for friends
+        <p class="info-text" ng-if="wantFriends">Other sportSocial users in your area <b>may send you friend invitations</b>.</p>
+        <p class="info-text" ng-if="!wantFriends">Other sportSocial users <b>cannot search for your profile</b>.</p>
+      </ion-toggle>
+
       <div class="item">
         <h2>Favorite activities</h2>
         <span class="activity-tags">scuba-diving, rock-climbing</span></p>

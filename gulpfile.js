@@ -11,6 +11,8 @@ var paths = {
   sass: ['./scss/**/*.scss']
 };
 
+gulp.task('bump', require('gulp-cordova-bump'));
+
 gulp.task('default', ['sass']);
 
 gulp.task('sass', function(done) {
