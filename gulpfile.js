@@ -6,6 +6,7 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var zip = require('gulp-zip');
 
 var paths = {
   sass: ['./scss/**/*.scss']
@@ -51,4 +52,11 @@ gulp.task('git-check', function(done) {
     process.exit(1);
   }
   done();
+});
+
+gulp.task('phonegap_zip', function(){
+  return gulp.src(['./www/**', './config.xml'])
+        .pipe(zip('phonegap.zip'))
+//        .on('error', swallowError)
+        .pipe(gulp.dest('./phonegap/'));
 });

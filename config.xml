@@ -16,10 +16,7 @@
   <preference name="BackupWebStorage" value="none"/>
   <preference name="SplashScreen" value="screen"/>
   <preference name="SplashScreenDelay" value="3000"/>
-  <!-- PhoneGap Build looks for this, not sure if needed -->
-  <!--
   <preference name='phonegap-version' value='cli-5.1.1' />
-  -->
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
@@ -76,7 +73,6 @@
   <!-- PhoneGap Build plugins -->
   <!-- Crosswalk supported June 2015
        http://phonegap.com/blog/2015/06/16/phonegap-updated-on-build/
-       version="1.3.0", removed to go with default.
   -->
-  <gap:plugin name="org.crosswalk.engine" source="pgb"/>
+  <gap:plugin name="org.crosswalk.engine" version="1.3.0" source="pgb"/>
 </widget>
