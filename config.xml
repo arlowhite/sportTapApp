@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.ionicframework.sportsocial177582" version="0.0.1">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0"
+	xmlns:gap="http://phonegap.com/ns/1.0"
+	id="com.ionicframework.sportsocial177582" version="0.0.1">
   <name>sportSocial</name>
   <description>
         sportSocial: get outside! with friends!
@@ -16,6 +18,10 @@
   <preference name="BackupWebStorage" value="none"/>
   <preference name="SplashScreen" value="screen"/>
   <preference name="SplashScreenDelay" value="3000"/>
+  <!-- PhoneGap Build looks for this, not sure if needed -->
+  <!--
+  <preference name='phonegap-version' value='cli-5.1.1' />
+  -->
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
@@ -39,4 +45,9 @@
     <splash src="resources/android/splash/drawable-port-xxhdpi-screen.png" density="port-xxhdpi"/>
     <splash src="resources/android/splash/drawable-port-xxxhdpi-screen.png" density="port-xxxhdpi"/>
   </platform>
+  <!-- PhoneGap Build plugins -->
+  <!-- Crosswalk supported June 2015
+       http://phonegap.com/blog/2015/06/16/phonegap-updated-on-build/
+  -->
+  <gap:plugin name='org.crosswalk.engine' version='1.3.0' source='pgb' />
 </widget>
