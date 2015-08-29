@@ -1,6 +1,6 @@
 {
   "name": "sportsocial",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "sportSocial: An Ionic project",
   "dependencies": {
     "gulp": "^3.5.6",
