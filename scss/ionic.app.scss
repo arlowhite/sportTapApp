@@ -24,6 +24,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "../www/lib/ionic/scss/ionic";
 
-@import "_mixins.app";
+@import "mixins.app";
 @import "text.app";
 @import "animations.app";
+@import "ngProgress.scss";

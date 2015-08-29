@@ -50,17 +50,17 @@
           <i class="icon ion-ios-body"></i>
           Account
         </ion-item>
-        <ion-item menu-close class="item-icon-left">
-          <i class="icon ion-refresh"></i>
-          Refresh
-          <p>last update 3 hours ago</p>
-        </ion-item>
         <ion-item menu-close href="#/app/login" class="item-icon-left">
           <i class="icon ion-log-in"></i>
           Login
         </ion-item>
-        <ion-item style="text-align: right;">
-          <h3>Mockup #1</h3>
+        <ion-item menu-close class="item-icon-left" ng-click="checkForUpdates()"
+                  ng-class="{'item-balanced':hasUpdate,'item-calm':checkingUpdates}">
+          <i class="icon ion-android-download"></i>
+          Update app
+        </ion-item>
+        <ion-item>
+          <span class="item-note">Version: Mockup #1</span>
         </ion-item>
       </ion-list>
     </ion-content>

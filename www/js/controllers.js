@@ -1,6 +1,7 @@
 angular.module('sportSocial.controllers', [])
 
-  .controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicActionSheet, $cordovaDatePicker) {
+  .controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicActionSheet, $cordovaDatePicker, $ionicDeploy,
+                                  $ionicPopup, $ionicLoading, ngProgressFactory, $ionicBody) {
 
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
@@ -8,6 +9,116 @@ angular.module('sportSocial.controllers', [])
     // listen for the $ionicView.enter event:
     //$scope.$on('$ionicView.enter', function(e) {
     //});
+
+    // Ionic Deploy
+    $ionicDeploy.setChannel("dev");
+    $scope.checkingUpdates = false;
+
+    // Doesn't ever have information
+    $ionicDeploy.info().then(function(deployInfo) {
+      // deployInfo will be a JSON object that contains
+      // information relating to the latest update deployed
+      // on the device
+      console.log('Deploy info', deployInfo);
+    }, function() {
+      console.error('No deploy info 1', arguments);
+    }, function() {
+      console.error('No deploy info 2', arguments);
+    });
+
+    // Update app code with new release from Ionic Deploy
+    $scope.doUpdate = function() {
+      if($scope.doingUpdate){
+        console.error('Already doingUpdate');
+        return;
+      }
+      $scope.doingUpdate = true;
+      $ionicLoading.show({
+        template: '<ion-spinner></ion-spinner><p>Updating app...</p>'
+      });
+
+      // Progress bar needs to be added after dialog shows
+      // Watching isShown seems like the best way, could also watch body.loading-active
+      // Loader template promise
+      $ionicLoading._getLoader()
+        .then(function (loader) {
+          var dereg = $scope.$watch(function () {
+              return loader.isShown;
+            }, function (val) {
+              if(val){
+                console.log('Adding progress to loader', loader.isShown);
+                dereg();
+                //Dialog box is the only child
+                var box = loader.element.children()[0];
+                var progressbar = ngProgressFactory.createInstance();
+                progressbar.setParent(box);
+                progressbar.setColor('#11c1f3'); // calm
+                $scope.progressbar = progressbar;
+              }
+            }
+          );
+        });
+
+      $ionicDeploy.update().then(function (res) {
+        console.log('Ionic Deploy: Update Success! ', res);
+        $scope.progressbar.complete();
+        // Don't hide or set doingUpdate = false since rebooting now.
+      }, function (err) {
+        console.log('Ionic Deploy: Update error! ', err);
+        $ionicLoading.hide();
+        $ionicPopup.alert({
+          title: 'Error updating!'
+        });
+        $scope.doingUpdate = false;
+      }, function (prog) {
+        console.log('Ionic Deploy: Progress... ', prog);
+        if($scope.progressbar){
+          $scope.progressbar.set(prog * 100);
+        }
+      });
+
+    };
+
+    // Check Ionic Deploy for new code
+    $scope.checkForUpdates = function() {
+      if($scope.checkingUpdates){
+        return;
+      }
+      $scope.checkingUpdates = true;
+      try {
+        console.log('Ionic Deploy: Checking for updates');
+        $ionicDeploy.check().then(function (hasUpdate) {
+          console.log('Ionic Deploy: Update available: ' + hasUpdate);
+          $scope.hasUpdate = hasUpdate;
+          if (hasUpdate) {
+            $ionicPopup.confirm({
+              title: 'Update available',
+              template: 'Update now and restart app?',
+              okText: 'Update'
+            })
+              .then(function (res) {
+                if (res) {
+                  $scope.doUpdate();
+                }
+              });
+          }
+          else {
+            $ionicPopup.alert({
+              title: 'No update available.'
+            });
+          }
+
+        }, function (err) {
+          console.error('Ionic Deploy: Unable to check for updates', err);
+          $ionicPopup.alert({
+            title: 'Error checking for update.'
+          });
+        });
+      }
+      finally {
+        $scope.checkingUpdates = false;
+      }
+    };
 
     // TODO lazy-load modals?
     $ionicModal.fromTemplateUrl('templates/create_activity.html', {
@@ -24,25 +135,6 @@ angular.module('sportSocial.controllers', [])
       $scope.inviteFriendsModal = modal;
     });
 
-    // Form data for the login modal
-    $scope.loginData = {};
-
-    // Create the login modal that we will use later
-    $ionicModal.fromTemplateUrl('templates/login-dialog.html', {
-      scope: $scope
-    }).then(function(modal) {
-      $scope.modal = modal;
-    });
-
-    // Triggered in the login modal to close it
-    $scope.closeLogin = function() {
-      $scope.modal.hide();
-    };
-
-    // Open the login modal
-    $scope.login = function() {
-      $scope.modal.show();
-    };
 
     $scope.addThing = function(){
       $ionicActionSheet.show({
@@ -73,7 +165,7 @@ angular.module('sportSocial.controllers', [])
 
     $scope.inviteFriends = function () {
       $scope.inviteFriendsModal.show();
-    }
+    };
 
     $scope.$on('$destroy', function() {
       $scope.addActivityModal.remove();
@@ -84,17 +176,6 @@ angular.module('sportSocial.controllers', [])
     $scope.devCommentary = false;
     $scope.toggleDevCommentary = function () {
       $scope.devCommentary = !$scope.devCommentary;
-    };
-
-    // Perform the login action when the user submits the login form
-    $scope.doLogin = function() {
-      console.log('Doing login', $scope.loginData);
-
-      // Simulate a login delay. Remove this and replace with your login
-      // code if using a login system
-      $timeout(function() {
-        $scope.closeLogin();
-      }, 1000);
     };
 
     $scope.showDatePicker = function () {
