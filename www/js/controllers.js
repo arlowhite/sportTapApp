@@ -1,7 +1,7 @@
 angular.module('sportSocial.controllers', [])
 
   .controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicActionSheet, $cordovaDatePicker, $ionicDeploy,
-                                  $ionicPopup, $ionicLoading, ngProgressFactory, $ionicBody) {
+                                  $ionicPopup, $ionicLoading, ngProgressFactory) {
 
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
