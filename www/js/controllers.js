@@ -14,17 +14,20 @@ angular.module('sportSocial.controllers', [])
     $ionicDeploy.setChannel("dev");
     $scope.checkingUpdates = false;
 
-    // Doesn't ever have information
-    $ionicDeploy.info().then(function(deployInfo) {
-      // deployInfo will be a JSON object that contains
-      // information relating to the latest update deployed
-      // on the device
-      console.log('Deploy info', deployInfo);
-    }, function() {
-      console.error('No deploy info 1', arguments);
-    }, function() {
-      console.error('No deploy info 2', arguments);
-    });
+    // No deploy info unless wait for some reason.
+    $timeout(function () {
+      $ionicDeploy.info().then(function(deployInfo) {
+        // deployInfo will be a JSON object that contains
+        // information relating to the latest update deployed
+        // on the device
+        console.log('Delayed Deploy info: ' + angular.toJson(deployInfo));
+        $scope.appVersion = deployInfo.binary_version;
+      }, function() {
+        console.error('Delayed, No deploy info 1');
+      }, function() {
+        console.error('Delayed, No deploy info 2');
+      });
+    }, 2000);
 
     // Update app code with new release from Ionic Deploy
     $scope.doUpdate = function() {
@@ -71,12 +74,31 @@ angular.module('sportSocial.controllers', [])
         });
         $scope.doingUpdate = false;
       }, function (prog) {
-        console.log('Ionic Deploy: Progress... ', prog);
+        // prog float 0 to 100
         if($scope.progressbar){
-          $scope.progressbar.set(prog * 100);
+          $scope.progressbar.set(prog);
         }
       });
 
+    };
+
+    $scope.askToUpdate = function() {
+      if (!$scope.hasUpdate){
+        console.error('askToUpdate called, but no update available, checking instead.');
+        $scope.checkForUpdates();
+        return;
+      }
+
+      $ionicPopup.confirm({
+        title: 'Update available',
+        template: 'Update now and restart app?',
+        okText: 'Update'
+      })
+        .then(function (res) {
+          if (res) {
+            $scope.doUpdate();
+          }
+        });
     };
 
     // Check Ionic Deploy for new code
@@ -84,40 +106,33 @@ angular.module('sportSocial.controllers', [])
       if($scope.checkingUpdates){
         return;
       }
+      if($scope.hasUpdate){
+        $scope.askToUpdate();
+        return;
+      }
       $scope.checkingUpdates = true;
-      try {
-        console.log('Ionic Deploy: Checking for updates');
-        $ionicDeploy.check().then(function (hasUpdate) {
-          console.log('Ionic Deploy: Update available: ' + hasUpdate);
-          $scope.hasUpdate = hasUpdate;
-          if (hasUpdate) {
-            $ionicPopup.confirm({
-              title: 'Update available',
-              template: 'Update now and restart app?',
-              okText: 'Update'
-            })
-              .then(function (res) {
-                if (res) {
-                  $scope.doUpdate();
-                }
-              });
-          }
-          else {
-            $ionicPopup.alert({
-              title: 'No update available.'
-            });
-          }
-
-        }, function (err) {
-          console.error('Ionic Deploy: Unable to check for updates', err);
-          $ionicPopup.alert({
-            title: 'Error checking for update.'
-          });
-        });
-      }
-      finally {
+      console.log('Ionic Deploy: Checking for updates');
+      $ionicDeploy.check().then(function (hasUpdate) {
         $scope.checkingUpdates = false;
-      }
+        console.log('Ionic Deploy: Update available: ' + hasUpdate);
+        $scope.hasUpdate = hasUpdate;
+        if (hasUpdate) {
+          $scope.askToUpdate();
+        }
+        else {
+          // Toast?
+          $ionicPopup.alert({
+            title: 'No update available.'
+          });
+        }
+
+      }, function (err) {
+        $scope.checkingUpdates = false;
+        console.error('Ionic Deploy: Unable to check for updates', err);
+        $ionicPopup.alert({
+          title: 'Error checking for update.'
+        });
+      });
     };
 
     // TODO lazy-load modals?

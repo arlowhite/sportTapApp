@@ -59,8 +59,8 @@
           <i class="icon ion-android-download"></i>
           Update app
         </ion-item>
-        <ion-item>
-          <span class="item-note">Version: Mockup #1</span>
+        <ion-item ng-if="appVersion">
+          <span class="item-note">Version: {{appVersion}}</span>
         </ion-item>
       </ion-list>
     </ion-content>

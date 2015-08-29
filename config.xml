@@ -8,13 +8,6 @@
       Arlo White
     </author>
   <content src="index.html"/>
-  <!-- Needed? file:// default -->
-  <!--<allow-navigation href="data:*" />-->
-  <!-- Allow Hydration to work -->
-  <!-- Hydration didn't work, so just disable this.
-  <access origin="http://build.phonegap.com"/>
-  -->
-
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
@@ -74,11 +67,7 @@
     <splash src="resources/ios/splash/Default@2x~iphone.png" height="960" width="640"/>
     <splash src="resources/ios/splash/Default~iphone.png" height="480" width="320"/>
   </platform>
-  <gap:platform name="ios" />
-  <gap:platform name="android" />
-  <!-- PhoneGap Build plugins -->
-  <!-- Crosswalk supported June 2015
-       http://phonegap.com/blog/2015/06/16/phonegap-updated-on-build/
-  -->
+  <gap:platform name="ios"/>
+  <gap:platform name="android"/>
   <gap:plugin name="org.crosswalk.engine" version="1.3.0" source="pgb"/>
 </widget>
