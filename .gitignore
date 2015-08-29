@@ -7,3 +7,4 @@ plugins/
 www/lib/
 www/css/ionic.app.*
 .idea/
+.io-config.json
