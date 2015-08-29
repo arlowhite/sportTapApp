@@ -8,7 +8,13 @@
       Arlo White
     </author>
   <content src="index.html"/>
-  <access origin="*"/>
+  <!-- Needed? file:// default -->
+  <!--<allow-navigation href="data:*" />-->
+  <!-- Allow Hydration to work -->
+  <!-- Hydration didn't work, so just disable this.
+  <access origin="http://build.phonegap.com"/>
+  -->
+
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
@@ -16,7 +22,7 @@
   <preference name="BackupWebStorage" value="none"/>
   <preference name="SplashScreen" value="screen"/>
   <preference name="SplashScreenDelay" value="3000"/>
-  <preference name='phonegap-version' value='cli-5.1.1' />
+  <preference name='phonegap-version' value='cli-5.2.0' />
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
