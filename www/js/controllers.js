@@ -258,6 +258,27 @@ angular.module('sportSocial.controllers', [])
     $scope.wantFriends = true;
   })
 
+  .controller('FriendsCtrl', function ($scope, friends) {
+    $scope.friends = friends;
+  })
+
+  .controller('FriendCtrl', function ($scope, $ionicPopover, friend) {
+    $scope.friend = friend;
+    //$ionicNavBarDelegate.title('Some Friend');
+
+    /**
+     * View all of this user's activity tags
+     */
+    $scope.viewActivityTags = function ($event) {
+      $ionicPopover.fromTemplateUrl('my-popover.html', {
+        scope: $scope
+      }).then(function(popover) {
+        $scope.popover = popover;
+        $scope.popover.show($event);
+      });
+    }
+  })
+
   .controller('PlaylistsCtrl', function($scope) {
     $scope.playlists = [
       { title: 'Reggae', id: 1 },

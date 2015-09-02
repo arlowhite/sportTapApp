@@ -13,5 +13,27 @@
       <b>2</b> friend invites
       <!--<i class="icon ion-person-add"></i>-->
     </a>
+
+    <div class="list">
+      <a class="item item-avatar" href="#/app/friend/{{friend.id}}" ng-repeat="friend in friends track by friend.id">
+        <img src="{{friend.avatarUrl}}" />
+        <h2>{{friend.name}}</h2>
+        <div class="age-gender-corner">
+          <strong ng-if="friend.age">{{friend.age}}</strong>
+          <i class="icon ion-{{friend.gender}}"></i>
+        </div>
+        <p>
+          <i class="icon ion-android-walk"></i>
+          <span class="activity-tags">{{friend.mainActivityTags}}</span>
+        </p>
+        <div ng-if="friend.nextActivity" class="left-under-avatar">
+          <b>{{friend.nextActivityDate}}</b>
+          <i class="icon ion-arrow-right-b"></i>
+          {{friend.nextActivity}}
+        </div>
+      </a>
+
+    </div>
+
   </ion-content>
 </ion-view>

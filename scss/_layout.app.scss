@@ -1,0 +1,13 @@
+// TODO use item padding SASS property
+.age-gender-corner {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  font-size: 14px;
+  color: #666666;
+}
+.left-under-avatar {
+  position: relative;
+  left: -$item-avatar-width - $item-padding;
+  top: $item-padding/2;
+}

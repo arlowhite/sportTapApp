@@ -1,0 +1,68 @@
+<ion-view view-title="{{friend.name}}">
+  <!-- FIXME dynamic view title, friend's name -->
+  <ion-content class="has-header">
+
+    <div class="list card">
+      <div class="item item-divider positive" ng-if="friend.invitedYou">
+          Wants to be your friend
+      </div>
+      <div class="item item-avatar">
+        <img src="{{friend.avatarUrl}}">
+        <h2>{{friend.name}}</h2>
+        <div class="age-gender-corner">
+          <strong ng-if="friend.age">{{friend.age}}</strong>
+          <i class="icon ion-{{friend.gender}}"></i>
+        </div>
+      </div>
+      <div class="item item-icon-left">
+        <i class="icon ion-location"></i>
+        {{friend.city}}
+      </div>
+      <div class="item activity-tags" ng-click="viewActivityTags($event)">
+        <i class="icon ion-android-walk"></i>
+        <span>{{friend.mainActivityTags}}</span>
+        <span class="badge positive">+3</span>
+      </div>
+      <div class="item button-bar" ng-if="friend.invitedYou">
+        <button class="button button-assertive icon-left ion-thumbsdown">Reject</button>
+        <button class="button button-positive icon-left ion-thumbsup">Accept</button>
+      </div>
+    </div>
+
+    <div class="list card" ng-if="!friend.invitedYou">
+      <div class="item item-divider">
+        Upcoming activities
+      </div>
+      <div ng-if="friend.nextActivity" class="item">
+        <b><i class="icon ion-android-time"></i> {{friend.nextActivityDate}}</b>
+        <p>{{friend.nextActivity}}</p>
+      </div>
+      <!-- FIXME hardcoded data -->
+      <div class="item">
+        <b><i class="icon ion-android-time"></i> Monday 8:00pm</b>
+        <p>2 mile run in town</p>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>
+
+<script id="my-popover.html" type="text/ng-template">
+  <ion-popover-view>
+    <!-- <ion-header-bar>
+      <h1 class="title">Arlo's Activities</h1>
+    </ion-header-bar> -->
+    <ion-content>
+      <div class="list">
+        <div class="item item-note item-text-wrap">
+          Just an example, not a fan of this popup UI.
+        </div>
+        <!-- FIXME clicking tag link does not close popup -->
+        <a class="item" href="#/activity-tag/{{tag.id}}" ng-repeat="tag in friend.activityTags">
+          {{tag.name}}
+          <span class="badge">{{tag.num}}</span>
+        </a>
+      </div>
+    </ion-content>
+  </ion-popover-view>
+</script>

@@ -27,23 +27,19 @@
       <div class="item item-divider positive">
         Friend invitations
       </div>
-
-      <div class="item item-avatar">
-        <img src="img/demo/scuba_avatar.jpg">
-        <h2>Arlo White</h2>
-        <p><strong style="margin-right: 1em;">30</strong>
-          <i class="icon ion-android-walk"></i>
-          <span class="activity-tags">scuba-diving, rock-climbing</span></p>
-      </div>
-
-      <div class="item item-avatar">
-        <img src="img/demo/raquel_avatar.png">
-        <h2>Raquel</h2>
+      <!-- TODO share common code with friend_invites.html directives? -->
+      <a class="item item-avatar" ng-repeat="friend in friends track by friend.id" href="#/app/friend/{{friend.id}}">
+        <img src="{{friend.avatarUrl}}">
+        <h2>{{friend.name}}</h2>
+        <div class="age-gender-corner">
+          <strong ng-if="friend.age">{{friend.age}}</strong>
+          <i class="icon ion-{{friend.gender}}"></i>
+        </div>
         <p>
           <i class="icon ion-android-walk"></i>
-          <span class="activity-tags">mountain-biking, marathons, road-biking</span></p>
-      </div>
-
+          <span class="activity-tags">{{friend.mainActivityTags}}</span>
+        </p>
+      </a>
 
       <button class="button button-positive button-full item">Accept all friends</button>
 

@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deploy', 'ngCordova', 'ngProgress',
-  'sportSocial.controllers'])
+  'sportSocial.controllers', 'sportSocial.services'])
 
   .run(function($ionicPlatform, $rootScope) {
     $ionicPlatform.ready(function() {
@@ -55,8 +55,14 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
         url: '/dashboard',
         views: {
           'menuContent': {
-            templateUrl: 'templates/dashboard.html'
-            //controller: 'AppCtrl'
+            templateUrl: 'templates/dashboard.html',
+            // Just reusing simple controller for now
+            controller: 'FriendsCtrl'
+          }
+        },
+        resolve: {
+          friends: function(db) {
+            return db.invitedMe();
           }
         }
       })
@@ -65,7 +71,28 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
         url: '/friends',
         views: {
           'menuContent': {
-            templateUrl: 'templates/friends.html'
+            templateUrl: 'templates/friends.html',
+            controller: 'FriendsCtrl'
+          }
+        },
+        resolve: {
+          friends: function(db){
+            return db.myFriends();
+          }
+        }
+      })
+
+      .state('app.friend_detail', {
+        url: '/friend/{friendId}',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/friend_detail.html',
+            controller: 'FriendCtrl'
+          }
+        },
+        resolve: {
+          friend: function ($stateParams, db) {
+            return db.user($stateParams.friendId);
           }
         }
       })
@@ -74,7 +101,13 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
         url: '/friend_invites',
         views: {
           'menuContent': {
-            templateUrl: 'templates/friend_invites.html'
+            templateUrl: 'templates/friend_invites.html',
+            controller: 'FriendsCtrl'
+          }
+        },
+        resolve: {
+          friends: function(db) {
+            return db.invitedMe();
           }
         }
       })
