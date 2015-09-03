@@ -6,9 +6,6 @@
       <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
       </button>
     </ion-nav-buttons>
-    <ion-nav-buttons side="secondary">
-      <button class="button icon ion-android-add button-dark" ng-click="addActivity()"></button>
-    </ion-nav-buttons>
   </ion-nav-bar>
   <!-- TODO:UI tabs do not scroll if window too narrow
   (Truncated titles instead)
@@ -34,4 +31,15 @@
         </ion-content>
     </ion-tab>
   </ion-tabs>
+  <md-button class="md-fab md-primary md-fab-bottom-right" aria-label="Create Activity"
+             ng-click="addActivity()">
+    <!-- md-icon?-->
+    <!--https://material.angularjs.org/latest/#/api/material.components.icon/directive/mdIcon-->
+    <!--<i class="icon ion-plus"></i>-->
+    <!--<md-icon md-svg-src="img/material-icons/ic_add_black_24px.svg" class=""></md-icon>-->
+    <!--<md-icon md-font-set="material-icons">add</md-icon>-->
+    <md-icon>add</md-icon>
+    <!--<md-icon md-font-library="material-icons" class="md-light md-48">face</md-icon>-->
+    <!--<md-icon class="material-icons md-light md-24"> add </md-icon>-->
+  </md-button>
 </ion-view>

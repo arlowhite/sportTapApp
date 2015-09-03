@@ -4,7 +4,8 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deploy', 'ngCordova', 'ngProgress',
+angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deploy', 'ngCordova', 'ngMaterial',
+  'ngProgress',
   'sportSocial.controllers', 'sportSocial.services'])
 
   .run(function($ionicPlatform, $rootScope, $ionicUser, $window, $localStorage) {
@@ -41,7 +42,7 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
     });
   })
 
-  .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+  .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $mdGestureProvider) {
     // Native scrolling recommended by:
     // http://julienrenaux.fr/2015/08/24/ultimate-angularjs-and-ionic-performance-cheat-sheet/
     // http://blog.ionic.io/native-scrolling-in-ionic-a-tale-in-rhyme/
@@ -51,6 +52,10 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
     if(ionic.Platform.isAndroid()) {
       $ionicConfigProvider.scrolling.jsScrolling(false);
     }
+
+    // FIXME need skipClickHijack?
+    // http://forum.ionicframework.com/t/is-there-a-tutorial-for-using-ionic-and-angular-material/14662/23
+    //$mdGestureProvider.skipClickHijack();
 
     $stateProvider
 

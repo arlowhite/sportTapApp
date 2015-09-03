@@ -1,10 +1,11 @@
 <ion-modal-view>
   <ion-header-bar class="bar-dark">
     <h1 class="title">Create Activity</h1>
-    <button class="button button-positive">
-      <i class="icon ion-android-done"></i>
-      Save
-    </button>
+    <!--<button class="button button-positive">-->
+      <!--<i class="icon ion-android-done"></i>-->
+      <!--Save-->
+    <!--</button>-->
+    <button class="button icon ion-close button-light button-clear" ng-click="hideAddActivity()"></button>
   </ion-header-bar>
   <ion-content>
     <!-- form.name causes it to be published into $scope -->
@@ -83,9 +84,15 @@
           <input type="search" placeholder="Invite friends...">
         </label>
 
-        <button class="button button-full button-balanced" type="submit">
-          Create Activity
-        </button>
+        <!--<button class="button button-full button-balanced" type="submit">-->
+          <!--Create Activity-->
+        <!--</button>-->
+        <section layout="row" layout-align="end">
+        <md-button ng-click="hideAddActivity()" class="md-primary md-raised">
+          <md-icon>done</md-icon>
+          Create
+        </md-button>
+          </section>
       </div>
     </form>
   </ion-content>

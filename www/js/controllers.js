@@ -182,9 +182,17 @@ angular.module('sportSocial.controllers', [])
     $scope.addActivity = function(){
       $scope.addActivityModal.show();
     };
+    $scope.hideAddActivity = function(){
+      $scope.addActivityModal.hide();
+    };
 
     $scope.inviteFriends = function () {
       $scope.inviteFriendsModal.show();
+    };
+
+    $scope.hideInviteFriends = function () {
+      $scope.inviteFriendsModal.hide();
+      //console.warn('HERE2'); FIXME fires twice
     };
 
     $scope.$on('$destroy', function() {

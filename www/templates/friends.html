@@ -1,7 +1,4 @@
 <ion-view view-title="Friends">
-  <ion-nav-buttons side="secondary">
-    <button class="button icon ion-person-add button-positive" ng-click="inviteFriends()"></button>
-  </ion-nav-buttons>
   <ion-content>
     <label class="item item-input">
       <i class="icon ion-search placeholder-icon"></i>
@@ -36,4 +33,9 @@
     </div>
 
   </ion-content>
+
+  <md-button class="md-fab md-primary md-fab-bottom-right" aria-label="Invite Activity"
+             ng-click="inviteFriends()">
+    <md-icon>person_add</md-icon>
+  </md-button>
 </ion-view>
