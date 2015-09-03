@@ -15,6 +15,13 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
 
+// Override Ionic
+$font-family-sans-serif:          RobotoDraft !default;
+//$font-family-sans-serif:          RobotoDraft, "Helvetica Neue", "Roboto", "Segoe UI", sans-serif !default;
+//$font-family-light-sans-serif:    "HelveticaNeue-Light", "Roboto-Light", "Segoe UI-Light", sans-serif-light !default;
+//$font-family-serif:               serif !default;
+//$font-family-monospace:           monospace !default;
+
 // 10px default too small
 $tabs-text-font-size-side-icon:   14px !default;
 
@@ -30,3 +37,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "material-font-icons";
 @import "animations.app";
 @import "ngProgress.scss";
+
+$RobotoDraftFontPath: "../lib/robotodraft/fonts"; // REMINDER: edit as appropriate!
+$RobotoDraftFontName: "RobotoDraft";
+$RobotoDraftFontVersion: "1.1.0";
+@import "../www/lib/robotodraft/robotodraft";
