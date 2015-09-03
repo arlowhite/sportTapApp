@@ -1,7 +1,7 @@
 angular.module('sportSocial.controllers', [])
 
   .controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicActionSheet, $cordovaDatePicker, $ionicDeploy,
-                                  $ionicPopup, $ionicLoading, ngProgressFactory) {
+                                  $ionicPopup, $ionicLoading, ngProgressFactory, $ionicPlatform) {
 
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
@@ -9,25 +9,30 @@ angular.module('sportSocial.controllers', [])
     // listen for the $ionicView.enter event:
     //$scope.$on('$ionicView.enter', function(e) {
     //});
+    //console.log(window.device.uuid);
+    console.log('appctrl');
 
     // Ionic Deploy
-    $ionicDeploy.setChannel("dev");
     $scope.checkingUpdates = false;
+    // TODO move to app.js run() ?
+    $ionicPlatform.ready(function () {
+      $ionicDeploy.setChannel("dev");
 
-    // No deploy info unless wait for some reason.
-    $timeout(function () {
-      $ionicDeploy.info().then(function(deployInfo) {
-        // deployInfo will be a JSON object that contains
-        // information relating to the latest update deployed
-        // on the device
-        console.log('Delayed Deploy info: ' + angular.toJson(deployInfo));
-        $scope.appVersion = deployInfo.binary_version;
-      }, function() {
-        console.error('Delayed, No deploy info 1');
-      }, function() {
-        console.error('Delayed, No deploy info 2');
-      });
-    }, 2000);
+      // No deploy info unless wait for some reason.
+      $timeout(function () {
+        $ionicDeploy.info().then(function(deployInfo) {
+          // deployInfo will be a JSON object that contains
+          // information relating to the latest update deployed
+          // on the device
+          console.log('Delayed Deploy info: ' + angular.toJson(deployInfo));
+          $scope.appVersion = deployInfo.binary_version;
+        }, function() {
+          console.error('Delayed, No deploy info 1');
+        }, function() {
+          console.error('Delayed, No deploy info 2');
+        });
+      }, 2000);
+    });
 
     // Update app code with new release from Ionic Deploy
     $scope.doUpdate = function() {
@@ -251,7 +256,6 @@ angular.module('sportSocial.controllers', [])
     $ionicPlatform.ready(function () {
       alert('ready!')
     });
-//deviceready
   })
 
   .controller('AccountCtrl', function ($scope) {

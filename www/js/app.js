@@ -7,8 +7,9 @@
 angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deploy', 'ngCordova', 'ngProgress',
   'sportSocial.controllers', 'sportSocial.services'])
 
-  .run(function($ionicPlatform, $rootScope) {
+  .run(function($ionicPlatform, $rootScope, $ionicUser, $window, $localStorage) {
     $ionicPlatform.ready(function() {
+      console.info('ionic ready');
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
       if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -20,6 +21,23 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
         // org.apache.cordova.statusbar required
         StatusBar.styleDefault();
       }
+
+      // TODO iOS cloud backup can backup localStorage, (config.xml preference disables)
+      // http://learn.ionicframework.com/formulas/localstorage/
+      // Don't use device UUID
+      // https://www.nowsecure.com/resources/secure-mobile-development/handling-sensitive-data/limit-use-of-uuid/
+      var user_id = $localStorage.get('user_id');
+      if (user_id===undefined){
+        user_id = $ionicUser.generateGUID();
+        console.info('Generated user_id='+user_id);
+        $localStorage.set('user_id', user_id);
+      }
+      else {
+        console.log('user_id', user_id);
+      }
+      $ionicUser.identify({
+        user_id: user_id
+      });
     });
   })
 
