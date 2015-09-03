@@ -267,6 +267,13 @@ angular.module('sportSocial.controllers', [])
 
   .controller('FriendsCtrl', function ($scope, friends) {
     $scope.friends = friends;
+
+    var originatorEv; // Example uses to pop dialog from menu button
+    // https://material.angularjs.org/latest/#/demo/material.components.menu
+    $scope.openMenu = function($mdOpenMenu, ev) {
+      originatorEv = ev;
+      $mdOpenMenu(ev);
+    };
   })
 
   .controller('FriendCtrl', function ($scope, $ionicPopover, friend) {

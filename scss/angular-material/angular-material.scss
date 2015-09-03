@@ -1272,7 +1272,7 @@ md-backdrop {
 }
 
 
-$card-padding: 16px !default;
+$card-padding: 10px 14px 4px 14px !default;
 $card-box-shadow: $whiteframe-shadow-z1 !default;
 
 md-card {
@@ -2981,7 +2981,7 @@ md-menu-item {
 }
 
 .md-menu {
-  padding: $baseline-grid 0;
+  padding: 2px 0px;
 }
 
 md-toolbar {

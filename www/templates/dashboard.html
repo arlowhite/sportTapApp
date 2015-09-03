@@ -31,31 +31,52 @@
       <h2 class="positive">Upcoming events</h2>
     </div>
 
-    <div class="card">
-      <div class="item item-divider">
-        <h3>Scuba dive @ Target Rock</h3>
-      </div>
+    <!--<md-content>-->
+      <md-card ng-click="" class="a-activity">
+        <md-card-content>
+          <h2>
+            Scuba dive @ Target Rock
+          </h2>
+          <h3>
+            <i class="icon ion-android-time"></i>
+            <span class="time padding-right">9:00am - 11:00am</span>
+            Saturday, August 29th
+          </h3>
+          <!-- FIXME text does not wrap, want this? click to expand? -->
+          <p>You must bring scuba gear. Make sure to rent gear from the shop before it closes at 6pm.</p>
+        </md-card-content>
+        <div class="md-actions" layout="row" layout-align="center center">
+          <md-button>
+            <md-icon>chat</md-icon>
+            Comment
+          </md-button>
+          <md-menu>
+            <md-button aria-label="Open RSVP menu" class="md-primary md-raised"
+                       ng-click="openMenu($mdOpenMenu, $event)">
+              <md-icon md-menu-origin>done</md-icon>
+              Going
+            </md-button>
+            <md-menu-content>
+              <!-- TODO populate menu with other choices -->
+              <md-menu-item>
+                <md-button ng-click="">
+                  <md-icon md-menu-align-target>help</md-icon>
+                  Maybe
+                </md-button>
+              </md-menu-item>
+              <md-menu-divider></md-menu-divider>
+              <md-menu-item>
+                <md-button ng-click="" class="md-warn">
+                  <md-icon>thumb_down</md-icon>
+                  Not going
+                </md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
 
-      <div class="item">
-        <h4>
-          <i class="icon ion-android-time"></i>
-          <span class="time padding-right">9:00am - 11:00am</span>
-          Saturday, August 29th</h4>
-        <!-- FIXME text does not wrap, want this? click to expand? -->
-        <p>You must bring scuba gear. Make sure to rent gear from the shop before it closes at 6pm.</p>
-      </div>
-
-      <div class="item tabs tabs-secondary tabs-icon-left">
-        <a class="tab-item balanced" href="#">
-          <i class="icon ion-checkmark-circled"></i>
-          Going
-        </a>
-        <a class="tab-item" href="#">
-          <i class="icon ion-chatbox"></i>
-          Comment
-        </a>
-      </div>
-    </div>
+        </div>
+      </md-card>
+    <!--</md-content>-->
 
 
     <div class="card">
