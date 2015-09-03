@@ -6,8 +6,10 @@
 
       <ion-nav-buttons side="left">
         <!-- TODO hide menu-toggle when exposed -->
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
-        </button>
+        <!--<button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>-->
+        <md-button class="md-icon-button md-primary" aria-label="Menu" menu-toggle="left">
+          <md-icon>menu</md-icon>
+        </md-button>
       </ion-nav-buttons>
     </ion-nav-bar>
     <ion-nav-view name="menuContent"></ion-nav-view>
@@ -15,9 +17,9 @@
 
   <ion-side-menu side="left" expose-aside-when="large">
     <a href="#/app/dashboard" menu-close class="bar bar-header bar-energized">
-      <div class="buttons">
-        <button class="button button-dark icon ion-home"></button>
-      </div>
+      <!--<div class="buttons">-->
+      <button class="button button-dark icon ion-home button-clear"></button>
+      <!--</div>-->
       <h1 class="title">sportSocial</h1>
     </a>
     </ion-header-bar>
@@ -27,12 +29,11 @@
         or information? # activities?
         Buttons on right to add?
         -->
-        <ion-item menu-close href="#/app/dashboard" class="item-icon-left">
-          <i class="icon ion-home"></i>
-          Home
-          <span class="badge badge-positive">2</span>
-          <span class="badge badge-balanced" style="margin-right: 2em;">2</span>
-        </ion-item>
+        <!--<ion-item menu-close href="#/app/dashboard" class="item-icon-left">-->
+          <!--<i class="icon ion-home"></i>-->
+          <!--Home-->
+          <!--<span class="badge badge-positive">2</span>-->
+        <!--</ion-item>-->
         <ion-item menu-close href="#/app/activities" class="item-icon-left">
           <i class="icon ion-ios-football"></i>
           Activities
@@ -40,10 +41,6 @@
         <ion-item menu-close href="#/app/friends" class="item-icon-left">
           <i class="icon ion-person-stalker"></i>
           Friends
-        </ion-item>
-        <ion-item menu-close href="#/app/friend_invites" class="item-icon-left">
-          <i class="icon ion-person-add"></i>
-          Friend requests
           <span class="badge badge-positive">2</span>
         </ion-item>
         <ion-item menu-close href="#/app/account" class="item-icon-left">

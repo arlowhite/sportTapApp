@@ -11,3 +11,8 @@
   left: -$item-avatar-width - $item-padding;
   top: $item-padding/2;
 }
+// Hack to fit md-buttons in ion headers
+ion-header-bar .md-button {
+  position: relative;
+  top: -8px;
+}
