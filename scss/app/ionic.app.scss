@@ -29,16 +29,16 @@ $tabs-text-font-size-side-icon:   14px !default;
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
-@import "../www/lib/ionic/scss/ionic";
+@import "../../www/lib/ionic/scss/ionic";
 
 @import "mixins.app";
 @import "layout.app";
 @import "text.app";
 @import "material-font-icons";
 @import "animations.app";
-@import "ngProgress.scss";
+@import "ngProgress";
 
 $RobotoDraftFontPath: "../lib/robotodraft/fonts"; // REMINDER: edit as appropriate!
 $RobotoDraftFontName: "RobotoDraft";
 $RobotoDraftFontVersion: "1.1.0";
-@import "../www/lib/robotodraft/robotodraft";
+@import "../../www/lib/robotodraft/robotodraft";

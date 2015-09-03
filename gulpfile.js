@@ -9,7 +9,8 @@ var sh = require('shelljs');
 var zip = require('gulp-zip');
 
 var paths = {
-  sass: ['./scss/**/*.scss']
+  sass: ['./scss/app/**/*.scss'],
+  material_sass: ['./scss/angular-material/**/*.scss']
 };
 
 gulp.task('bump', require('gulp-cordova-bump'));
@@ -17,7 +18,21 @@ gulp.task('bump', require('gulp-cordova-bump'));
 gulp.task('default', ['sass']);
 
 gulp.task('sass', function(done) {
-  gulp.src('./scss/ionic.app.scss')
+  gulp.src('./scss/app/ionic.app.scss')
+    .pipe(sass({
+      errLogToConsole: true
+    }))
+    .pipe(gulp.dest('./www/css/'))
+    .pipe(minifyCss({
+      keepSpecialComments: 0
+    }))
+    .pipe(rename({ extname: '.min.css' }))
+    .pipe(gulp.dest('./www/css/'))
+    .on('end', done);
+});
+
+gulp.task('material_sass', function(done) {
+  gulp.src('./scss/angular-material/angular-material.scss')
     .pipe(sass({
       errLogToConsole: true
     }))
@@ -32,6 +47,7 @@ gulp.task('sass', function(done) {
 
 gulp.task('watch', function() {
   gulp.watch(paths.sass, ['sass']);
+  gulp.watch(paths.material_sass, ['material_sass']);
 });
 
 gulp.task('install', ['git-check'], function() {

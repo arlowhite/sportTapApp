@@ -10,6 +10,7 @@
   ],
   "gulpStartupTasks": [
     "sass",
+    "material_sass",
     "watch"
   ],
   "watchPatterns": [
