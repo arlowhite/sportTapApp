@@ -23,10 +23,16 @@
         <span>{{friend.mainActivityTags}}</span>
         <span class="badge positive">+3</span>
       </div>
-      <div class="item button-bar" ng-if="friend.invitedYou">
-        <button class="button button-assertive icon-left ion-thumbsdown">Reject</button>
-        <button class="button button-positive icon-left ion-thumbsup">Accept</button>
-      </div>
+      <section layout="row" layout-align="space-around center">
+        <md-button class="md-warn md-raised">
+          <md-icon>thumb_down</md-icon>
+          Reject
+        </md-button>
+        <md-button class="md-primary md-raised">
+          <md-icon>thumb_up</md-icon>
+          Accept
+        </md-button>
+      </section>
     </div>
 
     <div class="list card" ng-if="!friend.invitedYou">

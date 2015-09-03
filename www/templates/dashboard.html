@@ -1,26 +1,6 @@
 <ion-view view-title="Home">
-  <ion-nav-buttons side="secondary">
-    <button class="button button-clear" ng-click="toggleDevCommentary()">
-      <i class="icon ion-chatbubble" ng-class="{calm: devCommentary}"></i>
-    </button>
-  </ion-nav-buttons>
-
   <ion-content>
     <ion-refresher></ion-refresher>
-
-    <div ng-if="devCommentary" class="padding">
-    <p>An overview of recent activity, pending actions, etc.
-      Instead of <b>Friend Requests</b> in the side-menu, maybe user's should just see actions to take here.
-      Similar to Google Now.
-    </p>
-    <p>Maybe prompt users to fill in different information. For example, encourage them to switch from Maybe to Going
-    if the event is within 48hours.
-    As an example, I played around with animations a bit to make the Maybe try to get attention.
-    </p>
-    <p>I haven't implemented functionality yet. Such as switching Maybe to Going.
-    This is because a MaterialUI library will probably be used for this kind of thing and I haven't selected one yet.
-    </p>
-    </div>
 
     <div class="list card">
 

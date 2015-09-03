@@ -201,11 +201,6 @@ angular.module('sportSocial.controllers', [])
       $scope.modal.remove();
     });
 
-    $scope.devCommentary = false;
-    $scope.toggleDevCommentary = function () {
-      $scope.devCommentary = !$scope.devCommentary;
-    };
-
     $scope.showDatePicker = function () {
       var options = {
         date: new Date(),
