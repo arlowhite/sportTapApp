@@ -33,9 +33,32 @@
     </div>
 
   </ion-content>
+  <md-fab-speed-dial md-direction="up" class="md-fling md-fab-bottom-right"
+                     md-open="isFabOpen">
+    <md-fab-trigger>
+      <md-button class="md-fab md-primary" aria-label="Invite friends" ng-click="hideFab(isFabOpen)">
+        <md-tooltip md-direction="left">Invite friends using...</md-tooltip>
+        <!--<md-icon>{{isFabOpen ? 'keyboard_arrow_down' : 'person_add'}}</md-icon>-->
+        <md-icon>person_add</md-icon>
+      </md-button>
+    </md-fab-trigger>
+    <md-fab-actions>
+      <md-button aria-label="Invitation link" class="md-fab md-raised" style="background-color: #46b065">
+        <md-tooltip md-direction="left" md-visible="showActionTooltips">Invitation link</md-tooltip>
+        <!-- TODO different share icon on iOS-->
+        <md-icon>share</md-icon>
+      </md-button>
+      <md-button aria-label="Google Plus" class="md-fab md-raised google-plus-bg">
+        <md-tooltip md-direction="left" md-visible="showActionTooltips">Google+</md-tooltip>
+        <i class="icon ion-social-googleplus"></i>
+        <!-- Image has border, not usable -->
+        <!--<img src="/img/btn_google+_dark_normal_ios.png">-->
+      </md-button>
+      <md-button aria-label="Facebook" class="md-fab md-raised facebook-bg">
+        <md-tooltip md-direction="left" md-visible="showActionTooltips">Facebook</md-tooltip>
+        <i class="icon ion-social-facebook"></i>
+      </md-button>
+    </md-fab-actions>
+  </md-fab-speed-dial>
 
-  <md-button class="md-fab md-primary md-fab-bottom-right" aria-label="Invite Activity"
-             ng-click="inviteFriends()">
-    <md-icon>person_add</md-icon>
-  </md-button>
 </ion-view>

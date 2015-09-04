@@ -286,7 +286,7 @@ angular.module('sportSocial.controllers', [])
     $scope.wantFriends = true;
   })
 
-  .controller('FriendsCtrl', function ($scope, friends) {
+  .controller('FriendsCtrl', function ($scope, $timeout, friends) {
     $scope.friends = friends;
 
     var originatorEv; // Example uses to pop dialog from menu button
@@ -295,6 +295,30 @@ angular.module('sportSocial.controllers', [])
       originatorEv = ev;
       $mdOpenMenu(ev);
     };
+
+    $scope.hideFab = function(hide){
+      console.log('hideFab', hide);
+      // Maybe works fine on mobile?
+      //if(hide){
+      //  $scope.isFabOpen = false;
+      //}
+    };
+
+    var delayedShowTooltips = function () {
+      if($scope.isFabOpen){
+        $scope.showActionTooltips = $scope.isFabOpen;
+      }
+    };
+
+    $scope.$watch('isFabOpen', function(open){
+      console.log('isfab', arguments);
+      if(open){
+        $timeout(delayedShowTooltips, 1000);
+      }
+      else{
+        $scope.showActionTooltips = false;
+      }
+    });
   })
 
   .controller('FriendCtrl', function ($scope, $ionicPopover, friend) {
