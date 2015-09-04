@@ -221,16 +221,37 @@ angular.module('sportSocial.controllers', [])
   })
 
 
+  .controller('ActivitiesTabsCtrl', function($scope, $state, $timeout, $ionicPlatform) {
+    //$scope.$watch('selectedIndex', function (current, old, childScope) {
+    //  console.log('watch.selectedIndex', current, childScope);
+    //  // FIXME use ion-nav-view or not?
+    //  //http://ionicframework.com/docs/api/directive/ionNavView/
+    //  //childScope.content = 'Foo';
+    //  //$state.go('app.activities.friends');
+    //});
+
+    $scope.mineSelected = function () {
+      console.log('mineSelected', arguments);
+    }
+  })
 
   // Displays a list of activities
   .controller('ActivitiesCtrl', function($scope, $state, $timeout) {
     console.info($state.current);
+
     var tabUrl = $state.current.url;
     if (tabUrl=='/mine') {
       $scope.activities = [
         {title: 'Scuba Diving', id: 1},
         {title: 'Ultimate frisbee', id: 2}
       ];
+      // Duplicate 2 * 10
+      var nextId = 3;
+      for(var i=0; i<20; i++){
+        $scope.activities.push({title:'Another one', id:nextId});
+        nextId++;
+      }
+
     }
     else{
       $scope.activities = [

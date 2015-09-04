@@ -10,27 +10,44 @@
   <!-- TODO:UI tabs do not scroll if window too narrow
   (Truncated titles instead)
   -->
-  <ion-tabs class="tabs-positive tabs-striped tabs-top" ui-view="tabs">
-    <ion-tab title="Mine" href="#/app/activities/mine">
-      <!--ui-sref="mine"-->
-      <ion-nav-view name="mine-tab"></ion-nav-view>
-    </ion-tab>
-    <ion-tab title="Friend's" href="#/app/activities/friends">
-      <ion-nav-view name="friends-tab">
+  <!--<md-content>-->
+  <!-- TODO set selected tab based on URL-->
+  <!--md-selected="selectedIndex"
+  2-way binding?
+  -->
+  <!-- FIXME tabs first load race condition, no content!?
+  Debug view content loaded.
+  http://angular-ui.github.io/ui-router/site/#/api/ui.router.state.directive:ui-view
+  FIXME tab swipe doesn't load content?
+  -->
+  <!-- Layout stuff needed to make md-tabs takeup vertical space-->
+  <div layout="column" layout-fill>
+    <md-tabs class="has-header" md-swipe-content="true" md-dynamic-height="false" flex>
+      <md-tab label="Upcoming" ui-sref="app.activities.mine" md-on-select="mineSelected()">
+        <!--<ion-nav-view name="mine-tab"></ion-nav-view>-->
+        <div ui-view="mine-tab"></div>
+        <!--<div ng-bind="content" class="padding"></div>-->
+        <!-- md-tabs Example uses div ng-bind-->
+      </md-tab>
+      <md-tab label="Friend's" ui-sref="app.activities.friends">
+        <!--href="#/app/activities/friends"-->
+        <!--<ion-nav-view name="friends-tab">-->
+        <!-- Animations go screwy with ion-nav-view here -->
+        <div ui-view="friends-tab"></div>
         <!--<ion-nav-buttons side="secondary">-->
-          <!--<button class="button icon ion-android-add button-positive" ng-click="doSomething()"></button>-->
+        <!--<button class="button icon ion-android-add button-positive" ng-click="doSomething()"></button>-->
         <!--</ion-nav-buttons>-->
-
-      </ion-nav-view>
-    </ion-tab>
-    <ion-tab title="Community">
-      <ion-nav-view>
+      </md-tab>
+      <md-tab label="Community">
         <ion-content>
           <p>Public events in this area?</p>
           <p>Alternative names: Discover, Public</p>
         </ion-content>
-    </ion-tab>
-  </ion-tabs>
+      </md-tab>
+    </md-tabs>
+  </div>
+  <!--</md-content>-->
+
   <md-button class="md-fab md-primary md-fab-bottom-right" aria-label="Create Activity"
              ng-click="addActivity()">
     <!-- md-icon?-->

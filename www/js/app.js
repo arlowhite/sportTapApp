@@ -23,6 +23,11 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
         StatusBar.styleDefault();
       }
 
+      $rootScope.$on('$stateChangeError',
+        function(event, toState, toParams, fromState, fromParams, error){
+          console.error('stateChangeError', arguments);
+        });
+
       // TODO iOS cloud backup can backup localStorage, (config.xml preference disables)
       // http://learn.ionicframework.com/formulas/localstorage/
       // Don't use device UUID
@@ -53,9 +58,11 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
       $ionicConfigProvider.scrolling.jsScrolling(false);
     }
 
+    //$mdThemingProvider.theme('default');
+
     // FIXME need skipClickHijack?
     // http://forum.ionicframework.com/t/is-there-a-tutorial-for-using-ionic-and-angular-material/14662/23
-    //$mdGestureProvider.skipClickHijack();
+    $mdGestureProvider.skipClickHijack();
 
     $stateProvider
 
@@ -139,8 +146,8 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
         url: '/activities',
         views: {
           'menuContent': {
-            templateUrl: 'templates/activities.html'
-            //controller: 'ActivitiesCtrl'
+            templateUrl: 'templates/activities.html',
+            controller: 'ActivitiesTabsCtrl'
           }
         }
       })
