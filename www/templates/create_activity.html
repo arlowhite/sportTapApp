@@ -7,22 +7,33 @@
     <!--</button>-->
     <button class="button icon ion-close button-light button-clear" ng-click="hideAddActivity()"></button>
   </ion-header-bar>
-  <ion-content>
+  <ion-content layout-padding>
     <!-- form.name causes it to be published into $scope -->
     <form name="activityForm" ng-submit="submitActivity(activityForm)" novalidate>
-      <div class="list list-inset">
+      <!--https://docs.angularjs.org/guide/forms#custom-triggers-->
+      <!-- TODO form tab index, next button in mobile -->
+      <div>
 
-        <label class="item item-input">
+        <md-input-container class="md-icon-float">
           <!-- Standing person, football/soccer also -->
-          <i class="icon ion-android-walk placeholder-icon"></i>
+          <!--<i class="icon ion-android-walk placeholder-icon"></i>-->
+          <md-icon>directions_run</md-icon>
+          <!-- TODO work on debounce behavior ng-model-options="{ debounce: 500 }"-->
           <input name="title" ng-model="act.title" placeholder="Title"
-                 type="text" required ng-minlength="5" ng-maxlength="80">
-        </label>
-
-        <label class="item item-input">
-          <i class="icon ion-calendar placeholder-icon"></i>
+                 type="text" required ng-minlength="5" md-maxlength="20">
+          <!--ng-show="activityForm.title.$touched"-->
+          <div ng-messages="activityForm.title.$error" ng-show="activityForm.title.$touched">
+            <div ng-message="required">This is required.</div>
+            <div ng-message="ng-minlength">too short!</div>
+            <div ng-message="md-maxlength">too long! (example error)</div>
+          </div>
+        </md-input-container>
+        <md-input-container>
+          <!--<label class="item item-input"></label>-->
+          <!--<i class="icon ion-calendar placeholder-icon"></i>-->
+          <md-icon>today</md-icon>
           <input name="startDate" ng-model="act.startDate" type="date" placeholder="Date" data-native-datepicker>
-        </label>
+        </md-input-container>
         <!-- TODO multi-day event UI -->
 
         <!-- Date & Time Picker Notes
@@ -51,38 +62,44 @@
         https://github.com/derekbrameyer/android-betterpickers/
         Though HTML-based might be better. TODO Search Angular/Ionic Calendar pickers
         -->
-        <div class="row" style="padding: 0;">
-          <!-- TODO remove col padding -->
-          <div class="col" style="padding: 0;">
-            <label class="item item-input">
-              <i class="icon ion-android-time placeholder-icon"></i>
+        <div layout="row">
+            <md-input-container>
+              <!--<i class="icon ion-android-time placeholder-icon"></i>-->
+              <md-icon>access_time</md-icon>
               <input name="startTime" ng-model="act.startTime" type="time" placeholder="Start time" size="6">
-            </label>
-          </div>
-          <div class="col" style="padding: 0;">
-            <label class="item item-input">
-              <i class="icon ion-android-time placeholder-icon"></i>
+            </md-input-container>
+            <md-input-container>
+              <!--<i class="icon ion-android-time placeholder-icon"></i>-->
+              <md-icon>timelapse</md-icon>
               <input name="endTime" ng-model="act.endTime" type="time" placeholder="until..." size="6">
-            </label>
-          </div>
+            </md-input-container>
         </div>
 
-        <label class="item item-input">
+        <md-input-container>
           <!-- GPS and Compass icons also available-->
-          <i class="icon ion-android-pin placeholder-icon"></i>
+          <!--<i class="icon ion-android-pin placeholder-icon"></i>-->
+          <md-icon>location_on</md-icon>
           <input name="location" ng-model="act.location" placeholder="Location"
                  type="text">
-        </label>
+        </md-input-container>
 
-        <label class="item item-input">
-          <i class="icon ion-chatbox-working placeholder-icon"></i>
-          <textarea name="descr" ng-model="act.descr" placeholder="Description"></textarea>
-        </label>
+        <md-input-container>
+          <!--<i class="icon ion-chatbox-working placeholder-icon"></i>-->
+          <label style="margin-left: 36px;">Description</label>
+          <!-- textarea icon broken?-->
+          <md-icon>description</md-icon>
+          <textarea name="descr" ng-model="act.descr" columns="1"></textarea>
+        </md-input-container>
 
-        <label class="item item-input">
-          <i class="icon ion-person-add placeholder-icon"></i>
+        <!-- TODO contact chips -->
+        <!--https://material.angularjs.org/latest/#/demo/material.components.chips-->
+        <md-input-container>
+          <!--<label>Invite friends...</label>-->
+          <!--<i class="icon ion-person-add placeholder-icon"></i>-->
+          <md-icon>person_add</md-icon>
           <input type="search" placeholder="Invite friends...">
-        </label>
+        </md-input-container>
+
 
         <!--<button class="button button-full button-balanced" type="submit">-->
           <!--Create Activity-->

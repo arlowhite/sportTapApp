@@ -1,4 +1,4 @@
-angular.module('sportSocial.controllers', [])
+angular.module('sportSocial.controllers', ['ngMessages'])
 
   .controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicActionSheet, $cordovaDatePicker, $ionicDeploy,
                                   $ionicPopup, $ionicLoading, ngProgressFactory, $ionicPlatform) {
