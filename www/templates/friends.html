@@ -1,15 +1,16 @@
 <ion-view view-title="Friends">
   <ion-content>
-    <label class="item item-input">
-      <i class="icon ion-search placeholder-icon"></i>
-      <input type="search" placeholder="Search">
-    </label>
+    <!-- TODO padding? -->
+    <md-input-container md-no-float style="padding-bottom: 0px;">
+      <!--<i class="icon ion-search placeholder-icon"></i>-->
+      <md-icon>search</md-icon>
+      <input type="search" placeholder="Search friends...">
+    </md-input-container>
 
-    <a class="button button-positive button-full icon ion-person-add" href="#/app/friend_invites">
-
+    <md-button class="md-primary md-raised" href="#/app/friend_invites">
+      <md-icon>person_add</md-icon>
       <b>2</b> friend invites
-      <!--<i class="icon ion-person-add"></i>-->
-    </a>
+    </md-button>
 
     <div class="list">
       <a class="item item-avatar" href="#/app/friend/{{friend.id}}" ng-repeat="friend in friends track by friend.id">
