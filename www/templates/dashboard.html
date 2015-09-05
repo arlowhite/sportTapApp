@@ -8,7 +8,7 @@
         Friend invitations
       </div>
       <!-- TODO share common code with friend_invites.html directives? -->
-      <a class="item item-avatar" ng-repeat="friend in friends track by friend.id" href="#/app/friend/{{friend.id}}">
+      <a class="item item-avatar" ng-repeat="friend in inviters track by friend.id" href="#/app/friend/{{friend.id}}">
         <img src="{{friend.avatarUrl}}">
         <h2>{{friend.name}}</h2>
         <div class="age-gender-corner">
@@ -33,14 +33,16 @@
 
     <!--<md-content>-->
       <md-card ng-click="" class="a-activity">
-        <md-card-content>
+        <md-card-content ng-click="openActivityDetail()">
           <h2>
             Scuba dive @ Target Rock
           </h2>
           <h3>
-            <i class="icon ion-android-time"></i>
-            <span class="time padding-right">9:00am - 11:00am</span>
-            Saturday, August 29th
+            <md-icon class="material-icons md-18">today</md-icon>
+            <span class="padding-right">Saturday, August 29th</span>
+            <!--<i class="icon ion-android-time padding-left"></i>-->
+            <md-icon class="material-icons md-18">access_time</md-icon>
+            <span class="time">9:00am &ndash; 11:00am</span>
           </h3>
           <!-- FIXME text does not wrap, want this? click to expand? -->
           <p>You must bring scuba gear. Make sure to rent gear from the shop before it closes at 6pm.</p>
@@ -51,29 +53,37 @@
             Comment
           </md-button>
           <md-menu>
-            <md-button aria-label="Open RSVP menu" class="md-primary md-raised"
+            <md-button aria-label="Open RSVP menu" class="md-raised"
+                       ng-class="activity.rsvp.buttonClass"
                        ng-click="openMenu($mdOpenMenu, $event)">
-              <md-icon md-menu-origin>done</md-icon>
-              Going
+              <md-icon md-menu-origin>{{activity.rsvp.icon}}</md-icon>
+              {{activity.rsvp.label}}
             </md-button>
             <md-menu-content>
-              <!-- TODO populate menu with other choices -->
-              <md-menu-item>
-                <md-button ng-click="">
+              <!-- TODO populate menu with other choices in better way?
+               FIXME Menu changes before fades, connect to hide event?
+               -->
+              <md-menu-item ng-show="activity.rsvp.label != 'Going'">
+                <md-button ng-click="rsvp('Going', 'done', 'md-primary')" class="md-primary">
+                  <md-icon md-menu-align-target>done</md-icon>
+                  Going
+                </md-button>
+              </md-menu-item>
+              <md-menu-item ng-show="activity.rsvp.label != 'Maybe'">
+                <md-button ng-click="rsvp('Maybe', 'help', '')">
                   <md-icon md-menu-align-target>help</md-icon>
                   Maybe
                 </md-button>
               </md-menu-item>
               <md-menu-divider></md-menu-divider>
-              <md-menu-item>
-                <md-button ng-click="" class="md-warn">
+              <md-menu-item ng-show="activity.rsvp.label != 'Not going'">
+                <md-button ng-click="rsvp('Not going', 'thumb_down', 'md-warn')" class="md-warn">
                   <md-icon>thumb_down</md-icon>
                   Not going
                 </md-button>
               </md-menu-item>
             </md-menu-content>
           </md-menu>
-
         </div>
       </md-card>
     <!--</md-content>-->

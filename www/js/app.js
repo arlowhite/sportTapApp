@@ -87,11 +87,11 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
           'menuContent': {
             templateUrl: 'templates/dashboard.html',
             // Just reusing simple controller for now
-            controller: 'FriendsCtrl'
+            controller: 'DashboardCtrl'
           }
         },
         resolve: {
-          friends: function(db) {
+          inviters: function(db) {
             return db.invitedMe();
           }
         }

@@ -286,8 +286,25 @@ angular.module('sportSocial.controllers', ['ngMessages'])
     $scope.wantFriends = true;
   })
 
-  .controller('FriendsCtrl', function ($scope, $timeout, friends) {
-    $scope.friends = friends;
+  .controller('DashboardCtrl', function ($scope, $timeout, $mdToast, inviters) {
+    $scope.inviters = inviters;
+
+    $scope.activity = {rsvp: {
+      label: 'Going',
+      icon: 'done',
+      buttonClass: 'md-primary'
+    }};
+
+    $scope.rsvp = function(label, icon, buttonClass) {
+      console.log('rsvp', arguments);
+      $scope.activity.rsvp.label = label;
+      $scope.activity.rsvp.icon = icon;
+      $scope.activity.rsvp.buttonClass = buttonClass;
+    };
+
+    $scope.openActivityDetail = function () {
+      $mdToast.show($mdToast.simple().content('TODO: Activity detail view.'));
+    };
 
     var originatorEv; // Example uses to pop dialog from menu button
     // https://material.angularjs.org/latest/#/demo/material.components.menu
@@ -295,6 +312,11 @@ angular.module('sportSocial.controllers', ['ngMessages'])
       originatorEv = ev;
       $mdOpenMenu(ev);
     };
+
+  })
+
+  .controller('FriendsCtrl', function ($scope, $timeout, friends) {
+    $scope.friends = friends;
 
     $scope.hideFab = function(hide){
       console.log('hideFab', hide);

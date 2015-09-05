@@ -8,7 +8,9 @@
   padding-right: 4em;
 }
 .time{
-  font-weight: bold;
+  //font-weight: bold;
+  //font-family: $font-family-monospace;
+  //font-weight: 500;
 }
 .info-text {
   font-style: italic;
@@ -16,10 +18,10 @@
 
 .a-activity {
   h2{
-    font-size: 130%;
+    font-size: 120%;
   }
   h3{
     font-size: 110%;
-    font-weight: 400;
+    font-weight: 500;
   }
 }
