@@ -1,12 +1,4 @@
-<ion-modal-view>
-  <ion-header-bar class="bar-dark">
-    <h1 class="title">Create Activity</h1>
-    <!--<button class="button button-positive">-->
-      <!--<i class="icon ion-android-done"></i>-->
-      <!--Save-->
-    <!--</button>-->
-    <button class="button icon ion-close button-light button-clear" ng-click="hideAddActivity()"></button>
-  </ion-header-bar>
+<ion-view view-title="Create Activity">
   <ion-content layout-padding>
     <!-- form.name causes it to be published into $scope -->
     <form name="activityForm" ng-submit="submitActivity(activityForm)" novalidate>
@@ -91,15 +83,21 @@
           <textarea name="descr" ng-model="act.descr" columns="1"></textarea>
         </md-input-container>
 
-        <!-- TODO contact chips -->
-        <!--https://material.angularjs.org/latest/#/demo/material.components.chips-->
-        <md-input-container>
-          <!--<label>Invite friends...</label>-->
-          <!--<i class="icon ion-person-add placeholder-icon"></i>-->
-          <md-icon>person_add</md-icon>
-          <input type="search" placeholder="Invite friends...">
-        </md-input-container>
-
+        <!--
+        Notes:
+        TODO contact chips icon (layout bugs?)
+        md-highlight-flags??
+        md-contact-email="email"-->
+        <md-contact-chips
+          ng-model="act.invited"
+          md-contacts="queryFriends($query)"
+          md-contact-name="name"
+          md-contact-image="avatarUrl"
+          md-require-match
+          md-highlight-flags="i"
+          filter-selected="true"
+          secondary-placeholder="another friend?"
+          placeholder="Invite friends..."></md-contact-chips>
 
         <!--<button class="button button-full button-balanced" type="submit">-->
           <!--Create Activity-->
@@ -113,4 +111,4 @@
       </div>
     </form>
   </ion-content>
-</ion-modal-view>
+</ion-view>

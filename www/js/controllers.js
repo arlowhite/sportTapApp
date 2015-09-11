@@ -141,13 +141,6 @@ angular.module('sportSocial.controllers', ['ngMessages'])
     };
 
     // TODO lazy-load modals?
-    $ionicModal.fromTemplateUrl('templates/create_activity.html', {
-      scope: $scope
-      //animation: 'slide-in-up'
-    }).then(function(modal) {
-      $scope.addActivityModal = modal;
-    });
-
     $ionicModal.fromTemplateUrl('templates/invite_friends.html', {
       scope: $scope
       //animation: 'slide-in-up'
@@ -179,13 +172,6 @@ angular.module('sportSocial.controllers', ['ngMessages'])
       });
     };
 
-    $scope.addActivity = function(){
-      $scope.addActivityModal.show();
-    };
-    $scope.hideAddActivity = function(){
-      $scope.addActivityModal.hide();
-    };
-
     $scope.inviteFriends = function () {
       $scope.inviteFriendsModal.show();
     };
@@ -196,7 +182,6 @@ angular.module('sportSocial.controllers', ['ngMessages'])
     };
 
     $scope.$on('$destroy', function() {
-      $scope.addActivityModal.remove();
       $scope.inviteFriendsModal.remove();
       $scope.modal.remove();
     });
@@ -275,11 +260,34 @@ angular.module('sportSocial.controllers', ['ngMessages'])
 
   })
 
-  // FIXME modal controller?
-  .controller('CreateActivityCtrl', function ($scope, $cordovaDatePicker, $ionicPlatform) {
-    $ionicPlatform.ready(function () {
-      alert('ready!')
+  .controller('CreateActivityCtrl', function ($scope, db, $q) {
+    $scope.act = {invited: []};
+
+    $scope.$watch('act', function () {
+      console.log(arguments);
     });
+
+    var searchablePeople = [];
+    $q.all([db.myFriends(), db.invitedMe()]).then(function (results) {
+      searchablePeople.push.apply(searchablePeople, results[0]);
+      searchablePeople.push.apply(searchablePeople, results[1]);
+      for(var i=0; i<searchablePeople.length; i++){
+        searchablePeople[i]._lowername = searchablePeople[i].name.toLowerCase();
+      }
+      console.log('peeps', searchablePeople);
+    });
+
+    function createFilterFor(query) {
+      var lowercaseQuery = angular.lowercase(query);
+      return function filterFn(contact) {
+        return (contact._lowername.indexOf(lowercaseQuery) != -1);;
+      };
+    }
+
+    $scope.queryFriends = function (query) {
+      // query is what user typed into auto-complete search
+      return searchablePeople.filter(createFilterFor(query));
+    }
   })
 
   .controller('AccountCtrl', function ($scope) {
@@ -358,20 +366,5 @@ angular.module('sportSocial.controllers', ['ngMessages'])
         $scope.popover.show($event);
       });
     }
-  })
-
-  .controller('PlaylistsCtrl', function($scope) {
-    $scope.playlists = [
-      { title: 'Reggae', id: 1 },
-      { title: 'Chill', id: 2 },
-      { title: 'Dubstep', id: 3 },
-      { title: 'Indie', id: 4 },
-      { title: 'Rap', id: 5 },
-      { title: 'Cowbell', id: 6 },
-      {title: 'Foo', id: 7},
-      {title: 'Bar', id: 8}
-    ];
-  })
-
-  .controller('PlaylistCtrl', function($scope, $stateParams) {
   });
+

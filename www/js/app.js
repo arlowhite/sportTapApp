@@ -151,6 +151,17 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
           }
         }
       })
+
+      .state('app.create_activity', {
+        url: '/create_activity',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/create_activity.html',
+            controller: 'CreateActivityCtrl'
+          }
+        }
+      })
+
       .state('app.activities.mine', {
         url: '/mine',
         views: {
