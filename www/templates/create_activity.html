@@ -20,12 +20,10 @@
             <div ng-message="md-maxlength">too long! (example error)</div>
           </div>
         </md-input-container>
-        <md-input-container>
-          <!--<label class="item item-input"></label>-->
-          <!--<i class="icon ion-calendar placeholder-icon"></i>-->
-          <md-icon>today</md-icon>
-          <input name="startDate" ng-model="act.startDate" type="date" placeholder="Date" data-native-datepicker>
-        </md-input-container>
+
+        <!--TODO fix datepicker padding -->
+        <md-datepicker ng-model="act.startDate" md-placeholder="Date" md-min-date="today"></md-datepicker>
+
         <!-- TODO multi-day event UI -->
 
         <!-- Date & Time Picker Notes
@@ -77,31 +75,33 @@
 
         <md-input-container>
           <!--<i class="icon ion-chatbox-working placeholder-icon"></i>-->
-          <label style="margin-left: 36px;">Description</label>
-          <!-- textarea icon broken?-->
-          <md-icon>description</md-icon>
-          <textarea name="descr" ng-model="act.descr" columns="1"></textarea>
+          <!-- textarea md-icon has issues, but putting it in label looks ok. -->
+          <label><md-icon>description</md-icon> Description</label>
+          <textarea name="descr" ng-model="act.descr"></textarea>
         </md-input-container>
 
         <!--
         Notes:
         TODO contact chips icon (layout bugs?)
-        md-highlight-flags??
-        md-contact-email="email"-->
+        md-contact-email="email" needed?
+
+        TODO contact-chips filter-selected was removed? I need to implement in query?
+        filter-selected="true"
+        Surrounding with md-input-container makes label float over input.
+        -->
+
         <md-contact-chips
           ng-model="act.invited"
           md-contacts="queryFriends($query)"
           md-contact-name="name"
           md-contact-image="avatarUrl"
-          md-require-match
+          md-contact-email="email"
           md-highlight-flags="i"
-          filter-selected="true"
+          md-require-match="true"
           secondary-placeholder="another friend?"
           placeholder="Invite friends..."></md-contact-chips>
 
-        <!--<button class="button button-full button-balanced" type="submit">-->
-          <!--Create Activity-->
-        <!--</button>-->
+        <!-- TODO type="submit"? -->
         <section layout="row" layout-align="end">
         <md-button ng-click="hideAddActivity()" class="md-primary md-raised">
           <md-icon>done</md-icon>

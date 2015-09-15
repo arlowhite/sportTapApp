@@ -263,9 +263,11 @@ angular.module('sportSocial.controllers', ['ngMessages'])
   .controller('CreateActivityCtrl', function ($scope, db, $q) {
     $scope.act = {invited: []};
 
-    $scope.$watch('act', function () {
-      console.log(arguments);
-    });
+    $scope.today = new Date();
+
+    //$scope.$watch('act', function () {
+    //  console.log(arguments);
+    //});
 
     var searchablePeople = [];
     $q.all([db.myFriends(), db.invitedMe()]).then(function (results) {
@@ -273,6 +275,7 @@ angular.module('sportSocial.controllers', ['ngMessages'])
       searchablePeople.push.apply(searchablePeople, results[1]);
       for(var i=0; i<searchablePeople.length; i++){
         searchablePeople[i]._lowername = searchablePeople[i].name.toLowerCase();
+        searchablePeople[i].email = 'foo@foo.com';
       }
       console.log('peeps', searchablePeople);
     });
@@ -286,8 +289,11 @@ angular.module('sportSocial.controllers', ['ngMessages'])
 
     $scope.queryFriends = function (query) {
       // query is what user typed into auto-complete search
-      return searchablePeople.filter(createFilterFor(query));
-    }
+      var results = query ? searchablePeople.filter(createFilterFor(query)) : [];
+      //console.log('results', results);
+      return results;
+    };
+
   })
 
   .controller('AccountCtrl', function ($scope) {
