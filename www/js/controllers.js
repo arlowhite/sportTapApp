@@ -287,10 +287,25 @@ angular.module('sportSocial.controllers', ['ngMessages'])
       };
     }
 
+    function excludeSelected(contact) {
+      //return contact.id not in $scope.act.invited;
+      var invited = $scope.act.invited;
+      for(var i=0; i<invited.length; i++){
+        if(contact.id==invited[i].id){
+          return false;
+        }
+      }
+      // Not already selected
+      return true;
+    }
+
     $scope.queryFriends = function (query) {
       // query is what user typed into auto-complete search
       var results = query ? searchablePeople.filter(createFilterFor(query)) : [];
       //console.log('results', results);
+
+      // filter-out selected
+      results = results.filter(excludeSelected);
       return results;
     };
 
