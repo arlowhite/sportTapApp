@@ -22,7 +22,9 @@
         </md-input-container>
 
         <!--TODO fix datepicker padding -->
+        <md-input-container>
         <md-datepicker ng-model="act.startDate" md-placeholder="Date" md-min-date="today"></md-datepicker>
+        </md-input-container>
 
         <!-- TODO multi-day event UI -->
 
@@ -56,7 +58,7 @@
             <md-input-container>
               <!--<i class="icon ion-android-time placeholder-icon"></i>-->
               <md-icon>access_time</md-icon>
-              <input name="startTime" ng-model="act.startTime" type="time" placeholder="Start time" size="6">
+              <input name="startTime" ng-model="act.startTime" type="time" placeholder="Time" size="6">
             </md-input-container>
             <md-input-container>
               <!--<i class="icon ion-android-time placeholder-icon"></i>-->
@@ -101,11 +103,22 @@
           secondary-placeholder="another friend?"
           placeholder="Invite friends..."></md-contact-chips>
 
+        <section layout="row" layout-align="center center">
+          <md-button>
+            <md-icon>people</md-icon>
+            Browse friends
+          </md-button>
+          <md-button>
+            <md-icon>send</md-icon>
+            Direct invite
+          </md-button>
+        </section>
+
         <!-- TODO type="submit"? -->
         <section layout="row" layout-align="end">
         <md-button ng-click="hideAddActivity()" class="md-primary md-raised">
           <md-icon>done</md-icon>
-          Create
+          Create Activity
         </md-button>
           </section>
       </div>

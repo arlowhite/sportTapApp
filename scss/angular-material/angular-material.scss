@@ -12,3 +12,18 @@ $card-padding: 10px 14px 4px 14px;
 //}
 
 // git://06c0bfe62ed4c59814c6849cfb72f99befe3639f textarea changes?
+
+// Make datepicker line-up with forms
+form {
+  md-datepicker {
+    position: relative;
+    left: -18px;
+
+    .md-datepicker-input-container{
+      margin-left: 0;
+    }
+    .md-datepicker-button.md-icon-button {
+      margin-right: 0;
+    }
+  }
+}
