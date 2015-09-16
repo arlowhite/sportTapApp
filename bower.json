@@ -14,6 +14,7 @@
     "angular-material": "master",
     "angular-messages": "1.4.5",
     "angular-sanitize": "1.4.5",
+    "moment": "~2.10.6",
     "robotodraft": "1.1.0"
   },
   "resolutions": {
