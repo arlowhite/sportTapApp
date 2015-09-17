@@ -32,11 +32,11 @@
         <!-- ion-toggle has "item" class
         toggle-class="toggle-calm"
         -->
-      <ion-toggle ng-model="wantFriends" class="item-text-wrap" ng-checked="true">
+      <md-switch ng-model="wantFriends">
         Looking for friends
-        <p class="info-text" ng-if="wantFriends">Other sportSocial users in your area <b>may send you friend invitations</b>.</p>
-        <p class="info-text" ng-if="!wantFriends">Other sportSocial users <b>cannot search for your profile</b>.</p>
-      </ion-toggle>
+      </md-switch>
+      <p class="info-text" ng-if="wantFriends">Other sportSocial users in your area <b>may send you friend invitations</b>.</p>
+      <p class="info-text" ng-if="!wantFriends">Other sportSocial users <b>cannot search for your profile</b>.</p>
 
       <div class="item">
         <h2>Favorite activities</h2>

@@ -260,7 +260,7 @@ angular.module('sportSocial.controllers', ['ngMessages'])
 
   })
 
-  .controller('CreateActivityCtrl', function ($scope, db, $q) {
+  .controller('CreateActivityCtrl', function ($scope, db, $q, $mdToast, $location) {
     $scope.act = {invited: []};
 
     $scope.today = new Date();
@@ -307,6 +307,11 @@ angular.module('sportSocial.controllers', ['ngMessages'])
       // filter-out selected
       results = results.filter(excludeSelected);
       return results;
+    };
+
+    $scope.createActivity = function(){
+      $location.path('/app/activities');
+      $mdToast.show($mdToast.simple().content($scope.act.title+' activity created'));
     };
 
   })

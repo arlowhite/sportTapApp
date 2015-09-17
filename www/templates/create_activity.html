@@ -114,7 +114,7 @@
 
         <!-- TODO type="submit"? -->
         <section layout="row" layout-align="end">
-        <md-button ng-click="hideAddActivity()" class="md-primary md-raised">
+        <md-button ng-click="createActivity()" class="md-primary md-raised" ng-disabled="activityForm.$invalid">
           <md-icon>done</md-icon>
           Create Activity
         </md-button>

@@ -23,7 +23,7 @@
         <span>{{friend.mainActivityTags}}</span>
         <span class="badge positive">+3</span>
       </div>
-      <section layout="row" layout-align="space-around center">
+      <section layout="row" layout-align="space-around center" ng-if="friend.invitedYou">
         <md-button class="md-warn md-raised">
           <md-icon>thumb_down</md-icon>
           Reject
