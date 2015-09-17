@@ -11,13 +11,14 @@
           <!--<i class="icon ion-android-walk placeholder-icon"></i>-->
           <md-icon>directions_run</md-icon>
           <!-- TODO work on debounce behavior ng-model-options="{ debounce: 500 }"-->
+          <!-- TODO ng-trim doesn't do anything -->
           <input name="title" ng-model="act.title" placeholder="Title"
-                 type="text" required ng-minlength="5" md-maxlength="20">
+                 type="text" required minlength="5" md-maxlength="20" ng-trim="true">
           <!--ng-show="activityForm.title.$touched"-->
           <div ng-messages="activityForm.title.$error" ng-show="activityForm.title.$touched">
             <div ng-message="required">This is required.</div>
-            <div ng-message="ng-minlength">too short!</div>
-            <div ng-message="md-maxlength">too long! (example error)</div>
+            <div ng-message="minlength">too short!</div>
+            <div ng-message="md-maxlength">too long!</div>
           </div>
         </md-input-container>
 
