@@ -262,7 +262,24 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
 
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/dashboard');
+  })
+
+  // TODO reorganize code by features
+  // TODO Production: template cache  https://thinkster.io/templatecache-tutorial/
+  // gulp-angular-templatecache for use with Gulp
+  .directive('ssPersonItem', function(){
+    return {
+      restrict: "E",
+      scope: {
+        person: "="
+      },
+
+      // Can be a function to return different templates based on attrs
+      templateUrl:"templates/widgets/person-item.html"
+    }
+
   });
+
 //
 //.directive('nativeDatePicker', function ($cordovaDatePicker) {
 //  return {

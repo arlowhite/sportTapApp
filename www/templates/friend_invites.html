@@ -8,18 +8,7 @@
         Friend invitations
       </div>
 
-      <a class="item item-avatar" ng-repeat="friend in friends track by friend.id" href="#/app/friend/{{friend.id}}">
-        <img src="{{friend.avatarUrl}}">
-        <h2>{{friend.name}}</h2>
-        <div class="age-gender-corner">
-          <strong ng-if="friend.age">{{friend.age}}</strong>
-          <i class="icon ion-{{friend.gender}}"></i>
-        </div>
-        <p>
-          <i class="icon ion-android-walk"></i>
-          <span class="activity-tags">{{friend.mainActivityTags}}</span>
-        </p>
-      </a>
+      <ss-person-item person="friend" ng-repeat="friend in friends track by friend.id"></ss-person-item>
     </div>
 
     <section layout="center" layout-align="center">
