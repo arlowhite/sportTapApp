@@ -323,6 +323,10 @@ angular.module('sportSocial.controllers', ['ngMessages'])
   .controller('DashboardCtrl', function ($scope, $timeout, $mdToast, inviters) {
     $scope.inviters = inviters;
 
+    $scope.$on('$ionicView.enter', function(){
+      $mdToast.show($mdToast.simple().content('Demonstrating material headers, possible performance issues.'));
+    });
+
     $scope.activity = {rsvp: {
       label: 'Going',
       icon: 'done',

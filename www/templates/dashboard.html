@@ -1,112 +1,152 @@
-<ion-view view-title="Home">
-  <ion-content>
-    <ion-refresher></ion-refresher>
+<ion-view view-title="Home" hide-nav-bar="true">
+  <!--<nav-page hide-nav-bar="true"></nav-page>-->
+  <!-- Not sure if ion-content does anything md-content does not -->
+  <!--<ion-content style="height: 100%;">-->
+  <div layout="column" style="height: 100%;">
 
-    <div class="list card">
+    <!-- Issue: Android scrolling
+    header stickyness is jerky on chrome device emulator and Android.
+    Is this Crosswalk?
+    Does disabling JS native scroll not do anything? Only affects ion-content and ion-scroll
 
-      <div class="item item-divider positive">
-        Friend invitations
+    Maybe update mdSticky directly from JS scroll events?
+        sticky.js: contentEl.on('$scroll', onScroll);
+    -->
+    <!-- Should be sibling of md-content according to docs-->
+    <md-toolbar md-scroll-shrink>
+      <div class="md-toolbar-tools">
+        <md-button menu-toggle="left">
+          <md-icon>menu</md-icon>
+        </md-button>
+        <span>Home</span>
       </div>
-      <!-- TODO share common code with friend_invites.html directives? -->
-      <ss-person-item person="friend" ng-repeat="friend in inviters track by friend.id"></ss-person-item>
+    </md-toolbar>
 
-      <!--<button class="button button-positive button-full item">Accept all friends</button>-->
-      <section layout="center" layout-align="center">
-        <md-button class="md-primary md-raised">Accept all friends</md-button>
+    <!-- md-content necessary for sticky headers -->
+    <!--<ion-content overflow-scroll="true" flex>-->
+    <md-content flex>
+
+
+      <!--<ion-refresher></ion-refresher>-->
+      <!--<md-content style="height: 600px;">-->
+      <section>
+        <md-subheader>Friend invitations</md-subheader>
+        <!--<md-card>-->
+        <!--<md-card-content>-->
+        <md-list>
+          <md-divider></md-divider>
+          <!-- TODO share common code with friend_invites.html directives? -->
+          <ss-person-item person="friend" ng-repeat="friend in inviters track by friend.id"></ss-person-item>
+        </md-list>
+        <!--<button class="button button-positive button-full item">Accept all friends</button>-->
+        <section layout="center" layout-align="center">
+          <md-button class="md-primary md-raised">Accept all friends</md-button>
+        </section>
+
+
+        <!--</md-card-content>-->
+        <!--</md-card>-->
       </section>
-    </div>
 
-    <div class="item item-divider">
-      <h2 class="positive">Upcoming events</h2>
-    </div>
+      <section>
+        <md-subheader class="md-primary">Upcoming events</md-subheader>
 
-    <!--<md-content>-->
-      <md-card ng-click="" class="a-activity">
-        <md-card-content ng-click="openActivityDetail()">
-          <h2>
-            Scuba dive @ Target Rock
-          </h2>
-          <h3>
-            <md-icon class="material-icons md-18">today</md-icon>
-            <span class="padding-right">Saturday, August 29th</span>
-            <!--<i class="icon ion-android-time padding-left"></i>-->
-            <md-icon class="material-icons md-18">access_time</md-icon>
-            <span class="time">9:00am &ndash; 11:00am</span>
-          </h3>
-          <!-- FIXME text does not wrap, want this? click to expand? -->
-          <p>You must bring scuba gear. Make sure to rent gear from the shop before it closes at 6pm.</p>
-        </md-card-content>
-        <div class="md-actions" layout="row" layout-align="center center">
-          <md-button>
-            <md-icon>chat</md-icon>
-            Comment
-          </md-button>
-          <md-menu>
-            <md-button aria-label="Open RSVP menu" class="md-raised"
-                       ng-class="activity.rsvp.buttonClass"
-                       ng-click="openMenu($mdOpenMenu, $event)">
-              <md-icon md-menu-origin>{{activity.rsvp.icon}}</md-icon>
-              {{activity.rsvp.label}}
+        <ss-activity-card activity="act1"></ss-activity-card>
+        <ss-activity-card activity="act2"></ss-activity-card>
+        <ss-activity-card activity="act3"></ss-activity-card>
+
+        <!--<md-content>-->
+        <md-card ng-click="" class="a-activity">
+          <md-card-content ng-click="openActivityDetail()">
+            <h2>
+              Scuba dive @ Target Rock
+            </h2>
+            <h3>
+              <md-icon class="material-icons md-18">today</md-icon>
+              <span class="padding-right">Saturday, August 29th</span>
+              <!--<i class="icon ion-android-time padding-left"></i>-->
+              <md-icon class="material-icons md-18">access_time</md-icon>
+              <span class="time">9:00am &ndash; 11:00am</span>
+            </h3>
+            <!-- FIXME text does not wrap, want this? click to expand? -->
+            <p>You must bring scuba gear. Make sure to rent gear from the shop before it closes at 6pm.</p>
+          </md-card-content>
+          <div class="md-actions" layout="row" layout-align="center center">
+            <md-button>
+              <md-icon>chat</md-icon>
+              Comment
             </md-button>
-            <md-menu-content>
-              <!-- TODO populate menu with other choices in better way?
-               FIXME Menu changes before fades, connect to hide event?
-               -->
-              <md-menu-item ng-show="activity.rsvp.label != 'Going'">
-                <md-button ng-click="rsvp('Going', 'done', 'md-primary')" class="md-primary">
-                  <md-icon md-menu-align-target>done</md-icon>
-                  Going
-                </md-button>
-              </md-menu-item>
-              <md-menu-item ng-show="activity.rsvp.label != 'Maybe'">
-                <md-button ng-click="rsvp('Maybe', 'help', '')">
-                  <md-icon md-menu-align-target>help</md-icon>
-                  Maybe
-                </md-button>
-              </md-menu-item>
-              <md-menu-divider></md-menu-divider>
-              <md-menu-item ng-show="activity.rsvp.label != 'Not going'">
-                <md-button ng-click="rsvp('Not going', 'thumb_down', 'md-warn')" class="md-warn">
-                  <md-icon>thumb_down</md-icon>
-                  Not going
-                </md-button>
-              </md-menu-item>
-            </md-menu-content>
-          </md-menu>
+            <md-menu>
+              <md-button aria-label="Open RSVP menu" class="md-raised"
+                         ng-class="activity.rsvp.buttonClass"
+                         ng-click="openMenu($mdOpenMenu, $event)">
+                <md-icon md-menu-origin>{{activity.rsvp.icon}}</md-icon>
+                {{activity.rsvp.label}}
+              </md-button>
+              <md-menu-content>
+                <!-- TODO populate menu with other choices in better way?
+                 FIXME Menu changes before fades, connect to hide event?
+                 -->
+                <md-menu-item ng-show="activity.rsvp.label != 'Going'">
+                  <md-button ng-click="rsvp('Going', 'done', 'md-primary')" class="md-primary">
+                    <md-icon md-menu-align-target>done</md-icon>
+                    Going
+                  </md-button>
+                </md-menu-item>
+                <md-menu-item ng-show="activity.rsvp.label != 'Maybe'">
+                  <md-button ng-click="rsvp('Maybe', 'help', '')">
+                    <md-icon md-menu-align-target>help</md-icon>
+                    Maybe
+                  </md-button>
+                </md-menu-item>
+                <md-menu-divider></md-menu-divider>
+                <md-menu-item ng-show="activity.rsvp.label != 'Not going'">
+                  <md-button ng-click="rsvp('Not going', 'thumb_down', 'md-warn')" class="md-warn">
+                    <md-icon>thumb_down</md-icon>
+                    Not going
+                  </md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
+          </div>
+        </md-card>
+        <!--</md-content>-->
+
+
+        <div class="card">
+          <div class="item item-divider">
+            <h3>Ultimate Frisbee game</h3>
+          </div>
+
+          <div class="item">
+            <h4>
+              <i class="icon ion-android-time"></i>
+              <span class="time padding-right">4:30pm - 6:00pm</span>
+              Sunday, August 30th</h4>
+            <button class="button icon-left icon button-small button-clear button-positive ion-android-people">8 people</button>
+            <p>Casual game, bring water and sunscreen.</p>
+          </div>
+
+          <div class="item tabs tabs-secondary tabs-icon-left">
+            <!-- TODO:polish Animate when in-viwe https://github.com/thenikso/angular-inview-->
+            <!-- There are other solutions too, research more. -->
+            <a class="tab-item assertive slow-pulse" href="#">
+              <i class="icon ion-help-circled"></i>
+              Maybe
+            </a>
+            <a class="tab-item" href="#">
+              <i class="icon ion-chatbox"></i>
+              Comment
+            </a>
+          </div>
+
         </div>
-      </md-card>
-    <!--</md-content>-->
+      </section>
 
+    </md-content>
+    <!--</ion-content>-->
 
-    <div class="card">
-      <div class="item item-divider">
-        <h3>Ultimate Frisbee game</h3>
-      </div>
+  </div>
+  <!--</ion-content>-->
 
-      <div class="item">
-        <h4>
-          <i class="icon ion-android-time"></i>
-          <span class="time padding-right">4:30pm - 6:00pm</span>
-          Sunday, August 30th</h4>
-        <button class="button icon-left icon button-small button-clear button-positive ion-android-people">8 people</button>
-        <p>Casual game, bring water and sunscreen.</p>
-      </div>
-
-      <div class="item tabs tabs-secondary tabs-icon-left">
-        <!-- TODO:polish Animate when in-viwe https://github.com/thenikso/angular-inview-->
-        <!-- There are other solutions too, research more. -->
-        <a class="tab-item assertive slow-pulse" href="#">
-          <i class="icon ion-help-circled"></i>
-          Maybe
-        </a>
-        <a class="tab-item" href="#">
-          <i class="icon ion-chatbox"></i>
-          Comment
-        </a>
-      </div>
-
-    </div>
-
-
-  </ion-content>
 </ion-view>

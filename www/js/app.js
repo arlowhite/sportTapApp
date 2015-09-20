@@ -267,7 +267,7 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
   // TODO reorganize code by features
   // TODO Production: template cache  https://thinkster.io/templatecache-tutorial/
   // gulp-angular-templatecache for use with Gulp
-  .directive('ssPersonItem', function(){
+  .directive('ssPersonItem', function($state){
     return {
       restrict: "E",
       scope: {
@@ -275,9 +275,52 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
       },
 
       // Can be a function to return different templates based on attrs
-      templateUrl:"templates/widgets/person-item.html"
+      templateUrl:"templates/widgets/person-item.html",
+      link: function(scope, element, attrs) {
+        scope.goToPerson = function () {
+          $state.go('app.friend_detail', {friendId: scope.person.id});
+        };
+      }
     }
 
+  })
+
+  .directive('ssActivityCard', function ($mdToast) {
+    return {
+      restrict: "E",
+      scope: {
+        activity: "="
+      },
+      templateUrl:"templates/widgets/activity-card.html",
+
+      link: function(scope, element, attrs) {
+
+        scope.activity = {rsvp: {
+          label: 'Going',
+          icon: 'done',
+          buttonClass: 'md-primary'
+        }};
+
+        scope.rsvp = function(label, icon, buttonClass) {
+          console.log('rsvp', arguments);
+          scope.activity.rsvp.label = label;
+          scope.activity.rsvp.icon = icon;
+          scope.activity.rsvp.buttonClass = buttonClass;
+        };
+
+        var originatorEv; // Example uses to pop dialog from menu button
+        // https://material.angularjs.org/latest/#/demo/material.components.menu
+        scope.openMenu = function($mdOpenMenu, ev) {
+          originatorEv = ev;
+          $mdOpenMenu(ev);
+        };
+
+        scope.openActivityDetail = function () {
+          $mdToast.show($mdToast.simple().content('TODO: Activity detail view.'));
+        };
+
+      }
+    }
   });
 
 //
