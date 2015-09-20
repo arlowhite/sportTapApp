@@ -7,13 +7,14 @@
       <!-- TODO form tab index, next button in mobile -->
       <div>
 
-        <md-input-container>
+        <md-input-container class="md-icon-float">
           <!-- Standing person, football/soccer also -->
           <!--<i class="icon ion-android-walk placeholder-icon"></i>-->
+          <label>Title</label>
           <md-icon>directions_run</md-icon>
           <!-- TODO work on debounce behavior ng-model-options="{ debounce: 500 }"-->
           <!-- TODO ng-trim doesn't do anything -->
-          <input name="title" ng-model="act.title" placeholder="Title"
+          <input name="title" ng-model="act.title"
                  type="text" required minlength="5" md-maxlength="20" ng-trim="true">
           <!--ng-show="activityForm.title.$touched"-->
           <div ng-messages="activityForm.title.$error" ng-show="activityForm.title.$touched">
@@ -54,23 +55,26 @@
         Though HTML-based might be better. TODO Search Angular/Ionic Calendar pickers
         -->
         <div layout="row">
-            <md-input-container>
+            <md-input-container class="md-icon-float">
               <!--<i class="icon ion-android-time placeholder-icon"></i>-->
+              <label>Time</label>
               <md-icon>access_time</md-icon>
-              <input name="startTime" ng-model="act.startTime" type="time" placeholder="Time" size="6">
+              <input name="startTime" ng-model="act.startTime" type="time" size="6">
             </md-input-container>
-            <md-input-container>
+            <md-input-container class="md-icon-float">
               <!--<i class="icon ion-android-time placeholder-icon"></i>-->
+              <label>until...</label>
               <md-icon>timelapse</md-icon>
-              <input name="endTime" ng-model="act.endTime" type="time" placeholder="until..." size="6">
+              <input name="endTime" ng-model="act.endTime" type="time" size="6">
             </md-input-container>
         </div>
 
-        <md-input-container>
+        <md-input-container class="md-icon-float">
           <!-- GPS and Compass icons also available-->
           <!--<i class="icon ion-android-pin placeholder-icon"></i>-->
-          <md-icon>location_on</md-icon>
-          <input name="location" ng-model="act.location" placeholder="Location"
+          <label>Location</label>
+          <md-icon>place</md-icon>
+          <input name="location" ng-model="act.location"
                  type="text">
         </md-input-container>
 
