@@ -59,15 +59,20 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
   'ngProgress',
   'sportSocial.controllers', 'sportSocial.services'])
 
-  .run(function($ionicPlatform, $rootScope, $ionicUser, $window, $localStorage) {
+  .run(function($ionicPlatform, $rootScope, $ionicUser, $window, $localStorage, $ionicConfig) {
     $ionicPlatform.ready(function() {
       console.info('ionic ready');
+
+      var jsScrolling = $ionicConfig.scrolling.jsScrolling();
+      console.log('jsScrolling', jsScrolling);
+
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
-      if (window.cordova && window.cordova.plugins.Keyboard) {
+      $rootScope.hasKeyboardPlugin = window.cordova && window.cordova.plugins.Keyboard;
+      if ($rootScope.hasKeyboardPlugin) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-        cordova.plugins.Keyboard.disableScroll(true);
-
+        // Disable native scrolling if jsScrolling
+        cordova.plugins.Keyboard.disableScroll(jsScrolling);
       }
       if (window.StatusBar) {
         // org.apache.cordova.statusbar required

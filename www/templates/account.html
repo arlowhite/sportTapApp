@@ -5,7 +5,7 @@
       <div class="item item-divider">
         <h2>Your public profile</h2>
       </div>
-      <div class="item item-avatar" ng-click="alert('hi')">
+      <div class="item item-avatar" ng-click="editName($event)">
         <img src="img/demo/scuba_avatar.jpg">
         <h2>Arlo White</h2>
         <i class="icon ion-male"> Male</i>
@@ -15,11 +15,30 @@
           Age 30
         </div>
         <div class="col">
+          <md-icon>cake</md-icon>
           November 1984
         </div>
       </div>
-      <div class="item">
-        Corvallis, OR
+      <!-- TODO scroll buttons into view -->
+      <div id="location-container" class="item animate-switch-container" ng-click="showLocationEditor($event)"
+           ng-switch="editingLocation">
+        <div ng-switch-default>
+          <md-icon>place</md-icon>
+          Corvallis, OR
+        </div>
+        <div class="animate-switch" id="location-editor" ng-switch-when="true">
+          <md-input-container class="md-icon-float">
+            <label>New location?</label>
+            <md-icon>place</md-icon>
+            <input id="profile-location" type="text">
+          </md-input-container>
+          <div layout="row" layout-align="end center">
+            <md-button ng-click="hideLocationEditor($event)">Cancel</md-button>
+            <md-button class="md-raised md-primary" ng-click="hideLocationEditor($event)">
+              <md-icon>done</md-icon> Save
+            </md-button>
+          </div>
+        </div>
       </div>
         <!--
           <label class="toggle">
@@ -32,7 +51,7 @@
         <!-- ion-toggle has "item" class
         toggle-class="toggle-calm"
         -->
-      <md-switch ng-model="wantFriends">
+      <md-switch ng-model="wantFriends" class="md-primary md-body-2">
         Looking for friends
       </md-switch>
       <p class="info-text" ng-if="wantFriends">Other sportSocial users in your area <b>may send you friend invitations</b>.</p>
@@ -80,4 +99,14 @@
       </div>
     </div>
   </ion-content>
+  <!-- Alternate save buttons idea.
+  Pros: next to keyboard
+  Cons: disconnected from input
+  -->
+  <!--<ion-footer-bar keyboard-attach layout="row" layout-align="end center" ng-show="editingLocation">-->
+    <!--<md-button ng-click="hideLocationEditor($event)">Cancel</md-button>-->
+    <!--<md-button class="md-raised md-primary" ng-click="hideLocationEditor($event)">-->
+      <!--<md-icon>done</md-icon> Save-->
+    <!--</md-button>-->
+ <!--</ion-footer-bar>-->
 </ion-view>

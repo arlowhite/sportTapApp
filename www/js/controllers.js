@@ -265,6 +265,19 @@ angular.module('sportSocial.controllers', ['ngMessages'])
 
     $scope.today = new Date();
 
+    $scope.$on('$ionicView.enter', function(){
+      if($scope.hasKeyboardPlugin) {
+        console.log('showing keyboard accessory bar');
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
+      }
+    });
+    $scope.$on('$ionicView.leave', function(){
+      if($scope.hasKeyboardPlugin) {
+        console.log('hiding keyboard accessory bar');
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      }
+    });
+
     //$scope.$watch('act', function () {
     //  console.log(arguments);
     //});
@@ -316,8 +329,113 @@ angular.module('sportSocial.controllers', ['ngMessages'])
 
   })
 
-  .controller('AccountCtrl', function ($scope) {
+  .controller('AccountCtrl', function ($scope, $mdDialog, $timeout, $document, $animate, $mdToast) {
     $scope.wantFriends = true;
+
+    $scope.$on('$ionicView.enter', function(){
+      $mdToast.show($mdToast.simple().content('Click name & location for edit examples'));
+    });
+
+    $animate.on('enter', document.getElementById('location-container'),
+      function callback(element, phase) {
+        // fires initially when loading, so check element id
+        console.log('animate enter!', element, phase);
+        // called twice, phase='start', phase='close' duration defined by CSS animations
+        // Focus after animation is done
+        if(element[0].id=='location-editor'){
+          console.log('focus editor!');
+
+          if (phase=='start') {
+            //var h = element[0].offsetHeight;
+            // 78 initially, then 128, so may as well hardcode in CSS for now
+            $timeout(function () {
+              // focus at start looks fine
+              document.getElementById('profile-location').focus();
+            });
+          }
+        }
+
+      }
+    );
+
+    $scope.showLocationEditor = function (ev) {
+      if($scope.editingLocation){
+        return;
+      }
+      console.log('showLocationEditor');
+      // Tried this to prevent auto-focus being undone. Fixed with $timeout focus()
+      //ev.preventDefault();
+      //ev.stopPropagation();
+      $scope.editingLocation=true;
+      // animate.enter will be called now.
+    };
+
+    $scope.$watch('editingLocation', function () {
+      console.log(arguments);
+      //document.getElementById('profile-location').focus();
+    });
+
+    $scope.hideLocationEditor = function (ev) {
+      $scope.editingLocation = false;
+      // Prevent click on buttons from triggering item click and showLocationEditor()
+      ev.preventDefault();
+      ev.stopPropagation();
+    };
+
+    window.addEventListener('native.keyboardshow', function (e) {
+      //e.keyboardHeight
+      if ($scope.pendingDialog){
+        console.log('KeyboardShow, showing pendingDialog');
+        $scope.pendingDialog();
+      }
+    });
+
+    $scope.editName = function (ev) {
+      var confirm = $mdDialog.confirm()
+        .title('Change your name')
+        .content('<md-input-container><input id="profile-name" type="text" value="Arlo White" md-autofocus></md-input-container>')
+        .ariaLabel('Change your name')
+        .targetEvent(ev)
+        .ok('Save')
+        .cancel('Cancel');
+
+      // Hackish, but works
+      confirm._options.clickOutsideToClose = true;
+
+      // Looks best to force show keyboard, then open dialog
+      $scope.pendingDialog = function() {
+        $mdDialog.show(confirm).then(function () {
+          $scope.status = 'You decided to get rid of your debt.';
+        }, function () {
+          $scope.status = 'You decided to keep your debt.';
+        });
+        delete $scope.pendingDialog;
+      };
+
+      function checkPendingDialog() {
+        if ($scope.pendingDialog) {
+          console.log('No KeyboardShow in time, showing pendingDialog');
+          $scope.pendingDialog();
+        }
+      }
+
+      if($scope.hasKeyboardPlugin){
+        console.log('showing keyboard before dialog');
+        cordova.plugins.Keyboard.show();
+        // Keyboard can fail to show if already open due to editing another field
+        // It will hide instead during blur and never show
+        $timeout(checkPendingDialog, 1000);
+      }
+      else {
+        $scope.pendingDialog();
+      }
+
+      // Needed without md-autofocus
+      //$timeout(function () {
+        //document.getElementById('profile-name').focus();
+      //});
+    }
+
   })
 
   .controller('DashboardCtrl', function ($scope, $timeout, $mdToast, inviters) {
