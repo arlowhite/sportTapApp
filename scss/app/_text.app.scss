@@ -26,3 +26,12 @@
     font-weight: 500;
   }
 }
+
+.no-disabled-styling .md-button[disabled] {
+  color: black;
+
+  md-icon {
+    // Should reference SASS variable, but not exactly sure where this is defined
+    color: rgba(0, 0, 0, 0.54);
+  }
+}

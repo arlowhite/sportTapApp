@@ -278,10 +278,6 @@ angular.module('sportSocial.controllers', ['ngMessages'])
       }
     });
 
-    //$scope.$watch('act', function () {
-    //  console.log(arguments);
-    //});
-
     var searchablePeople = [];
     $q.all([db.myFriends(), db.invitedMe()]).then(function (results) {
       searchablePeople.push.apply(searchablePeople, results[0]);
@@ -332,10 +328,7 @@ angular.module('sportSocial.controllers', ['ngMessages'])
   .controller('AccountCtrl', function ($scope, $mdDialog, $timeout, $document, $animate, $mdToast,
                                        $ionicScrollDelegate, $ionicPosition) {
     $scope.wantFriends = true;
-
-    $scope.$on('$ionicView.enter', function(){
-      $mdToast.show($mdToast.simple().content('Click name & location for edit examples'));
-    });
+    $scope.editingProfile = false;
 
     $animate.on('enter', document.getElementById('location-container'),
       function callback(element, phase) {
@@ -355,6 +348,7 @@ angular.module('sportSocial.controllers', ['ngMessages'])
             }, 200);
           }
           else if(phase=='close'){
+            // TODO only scroll on mobile
             var inputContainer = document.getElementById('profile-location').parentNode;
             //console.log(inputContainer);
             //var pos = ionic.DomUtil.getPositionInParent(inputContainer);
@@ -372,12 +366,8 @@ angular.module('sportSocial.controllers', ['ngMessages'])
       }
     );
 
-    $scope.editProfile = function () {
-      $mdToast.show($mdToast.simple().content('Would turn-on editing mode'));
-    };
-
     $scope.showLocationEditor = function (ev) {
-      if($scope.editingLocation){
+      if($scope.editingLocation || !$scope.editingProfile){
         return;
       }
       console.log('showLocationEditor');
@@ -388,16 +378,33 @@ angular.module('sportSocial.controllers', ['ngMessages'])
       // animate.enter will be called now.
     };
 
-    $scope.$watch('editingLocation', function () {
-      console.log(arguments);
-      //document.getElementById('profile-location').focus();
-    });
+    $scope.editingProfileChanged = function (value) {
+      // For some reason, md-switch is not updating the Controller's $scope
+      // So for now, just do this workaround
+      if($scope.editingProfile != value){
+        console.log('switch changed, but did not update editingProfile, forcing to', value);
+        $scope.editingProfile = value;
+      }
+      else {
+        // Bug fixed upstream?
+        console.warn('Remove this switch onchange code');
+      }
+
+      // Close all open editors
+      if(!value){
+        if($scope.editingLocation){
+          $scope.hideLocationEditor();
+        }
+      }
+    };
 
     $scope.hideLocationEditor = function (ev) {
       $scope.editingLocation = false;
       // Prevent click on buttons from triggering item click and showLocationEditor()
-      ev.preventDefault();
-      ev.stopPropagation();
+      if(ev){
+        ev.preventDefault();
+        ev.stopPropagation();
+      }
     };
 
     window.addEventListener('native.keyboardshow', function (e) {
@@ -409,9 +416,15 @@ angular.module('sportSocial.controllers', ['ngMessages'])
     });
 
     $scope.editName = function (ev) {
+      console.log('editName, editingProfile', $scope.editingProfile);
+      if(!$scope.editingProfile){
+        // Shouldn't happen
+        console.warn('Not editingProfile, return!');
+        return;
+      }
       var confirm = $mdDialog.confirm()
         .title('Change your name')
-        .content('<md-input-container><input id="profile-name" type="text" value="Arlo White" md-autofocus></md-input-container>')
+        .content('<md-input-container><input id="profile-name" type="text" aria-label="New name" value="Arlo White" md-autofocus></md-input-container>')
         .ariaLabel('Change your name')
         .targetEvent(ev)
         .ok('Save')

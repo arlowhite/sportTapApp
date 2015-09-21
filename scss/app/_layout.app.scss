@@ -19,3 +19,11 @@ ion-header-bar .md-button {
 .md-fab-action-item i.icon {
   font-size: 24px;
 }
+
+md-list-item md-icon.editable {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  // 18, 24, 36
+  font-size: 18px;
+}

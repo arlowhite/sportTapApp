@@ -7,36 +7,36 @@
        Couldn't figure out why angular's position: relative isn't taking effect.
        -->
       <!-- Need md-list to prevent item clicks from staying shaded -->
-    <md-list style="padding: 0;">
-      <md-list-item style="position: relative;"
-        ng-click="editProfile(true)">
+    <md-list style="padding: 0;" class="no-disabled-styling">
+      <!-- Seems to automatically toggle switch without ng-click being added -->
+      <md-list-item style="position: relative;" class="md-primary" md-ink-ripple>
         <md-subheader class="md-primary">Your public profile</md-subheader>
-        <md-button class="md-icon-button md-secondary" ng-click="editProfile(true)"
-          aria-label="Edit profile">
-          <md-icon class="md-primary">edit</md-icon>
-        </md-button>
+        <md-icon ng-class="{'md-primary':editingProfile}">edit</md-icon>
+        <md-switch class="md-secondary md-primary md-icon-button" aria-label="Toggle looking for friends"
+                   ng-model="editingProfile" ng-change="editingProfileChanged(editingProfile)"></md-switch>
       </md-list-item>
       <md-divider></md-divider>
-      <md-list-item ng-click="editName($event)" class="md-2-line">
+      <md-list-item ng-click="editName($event)" class="md-2-line" ng-disabled="!editingProfile">
         <img src="img/demo/scuba_avatar.jpg" class="md-avatar">
         <div class="md-list-item-text">
           <h3>Arlo White</h3>
           <i class="icon ion-male"> Male</i>
         </div>
+        <md-icon class="editable md-primary" ng-if="editingProfile">edit</md-icon>
       </md-list-item>
       <md-divider></md-divider>
-      <md-list-item layout="row" layout-padding>
-        <div flex>
-          Age 30
-        </div>
+      <md-list-item layout="row">
         <div flex>
           <md-icon>cake</md-icon>
           November 1984
         </div>
+        <div flex>
+          Age 30
+        </div>
       </md-list-item>
       <md-divider></md-divider>
       <md-list-item id="location-container" class="animate-switch-container" ng-click="showLocationEditor($event)"
-           ng-switch="editingLocation" aria-label="Edit location">
+           ng-switch="editingLocation" aria-label="Edit location" ng-disabled="!editingProfile">
         <div ng-switch-default flex="100">
           <md-icon>place</md-icon>
           Corvallis, OR
@@ -55,11 +55,12 @@
             </md-button>
           </div>
         </div>
+        <md-icon class="editable md-primary" ng-if="editingProfile">edit</md-icon>
       </md-list-item>
       <md-divider></md-divider>
-      <md-list-item class="md-2-line no-inner-padding">
+      <md-list-item class="md-2-line no-inner-padding" ng-disabled="!editingProfile">
         <div layout="column" style="min-height: 84px;">
-          <md-switch ng-model="wantFriends" class="md-primary md-body-2">
+          <md-switch ng-model="wantFriends" class="md-primary md-body-2" ng-disabled="!editingProfile">
             Looking for friends
           </md-switch>
           <div ng-switch="wantFriends">
@@ -67,6 +68,7 @@
             <p class="info-text animate-text-switch" ng-switch-when="false">Other sportSocial users <b>cannot search for your profile</b>.</p>
           </div>
         </div>
+        <md-icon class="editable md-primary" ng-if="editingProfile">edit</md-icon>
       </md-list-item>
       <md-divider></md-divider>
       <md-list-item class="md-2-line">

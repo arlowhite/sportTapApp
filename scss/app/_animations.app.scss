@@ -45,6 +45,34 @@
   }
 }
 
+md-list-item md-icon.editable{
+  @include animation-iteration-count(infinite);
+  @include animation-duration(4s);
+  @include animation-timing-function(ease);
+  @include animation-name(editablePulse);
+
+  &.ng-leave {
+    display: none;
+  }
+}
+
+@include keyframes(editablePulse) {
+  $low-opacity: 0.4;
+  from{
+    opacity: $low-opacity;
+  }
+  15% {
+    opacity: 0.95;
+  }
+  /* wait time */
+  30% {
+    opacity: $low-opacity;
+  }
+  to{
+    opacity: $low-opacity;
+  }
+}
+
 // animate-switch
 // TODO give better class name, don't hardcode heights
 // top example doesn't look good
