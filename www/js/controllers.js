@@ -329,7 +329,8 @@ angular.module('sportSocial.controllers', ['ngMessages'])
 
   })
 
-  .controller('AccountCtrl', function ($scope, $mdDialog, $timeout, $document, $animate, $mdToast) {
+  .controller('AccountCtrl', function ($scope, $mdDialog, $timeout, $document, $animate, $mdToast,
+                                       $ionicScrollDelegate, $ionicPosition) {
     $scope.wantFriends = true;
 
     $scope.$on('$ionicView.enter', function(){
@@ -351,12 +352,29 @@ angular.module('sportSocial.controllers', ['ngMessages'])
             $timeout(function () {
               // focus at start looks fine
               document.getElementById('profile-location').focus();
-            });
+            }, 200);
+          }
+          else if(phase=='close'){
+            var inputContainer = document.getElementById('profile-location').parentNode;
+            //console.log(inputContainer);
+            //var pos = ionic.DomUtil.getPositionInParent(inputContainer);
+            // $ionicPosition needs an angular.element
+            var element = angular.element(inputContainer);
+            // offset is relative to scroll
+            var pos = $ionicPosition.offset(element);
+            //var pos = $ionicPosition.offset(inputContainer);
+            console.log('scrolling to ', pos);
+            // Need to subtract header height (44) plus a couple more pixels
+            $ionicScrollDelegate.scrollBy(0, pos.top - 52, true);
           }
         }
 
       }
     );
+
+    $scope.editProfile = function () {
+      $mdToast.show($mdToast.simple().content('Would turn-on editing mode'));
+    };
 
     $scope.showLocationEditor = function (ev) {
       if($scope.editingLocation){

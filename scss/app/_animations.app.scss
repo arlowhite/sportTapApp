@@ -62,39 +62,46 @@
 }
 
 .animate-switch.ng-animate {
-  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-
-  //position:absolute;
-  //top:0;
-  //left:0;
-  //right:0;
-  //bottom:0;
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.75s;
 }
-
-//.animate-switch.ng-leave.ng-leave-active,
-//.animate-switch.ng-enter {
-//  top:-50px;
-//}
-//.animate-switch.ng-leave,
-//.animate-switch.ng-enter.ng-enter-active {
-//  top: 0;
-//}
 
 .animate-switch.ng-leave.ng-leave-active {
   // When leaving, only show buttons
   height: 0;
   md-input-container {
-    // TODO This causes the buttons to jump
     display: none;
   }
 }
+
 .animate-switch.ng-leave {
-  height: 128px - 52px;
+  height: 112px - 44px;
 }
 
 .animate-switch.ng-enter {
-  height: 52px;
+  height: 44px;
 }
 .animate-switch.ng-enter.ng-enter-active {
-  height: 128px;
+  height: 112px;
+}
+
+// Example
+.animate-text-switch.ng-animate {
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+
+  position:absolute;
+  top:54px;
+  left:0;
+  right:0;
+  bottom:0;
+}
+
+.animate-text-switch.ng-leave.ng-leave-active,
+.animate-text-switch.ng-enter {
+  left:-100px;
+  opacity: 0.0;
+}
+.animate-text-switch.ng-leave,
+.animate-text-switch.ng-enter.ng-enter-active {
+  left: 0;
+  opacity: 1.0;
 }

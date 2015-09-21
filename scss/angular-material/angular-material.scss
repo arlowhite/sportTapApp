@@ -3,6 +3,7 @@
 $font-family: RobotoDraft, Roboto, 'Helvetica Neue', sans-serif;
 $card-padding: 10px 14px 4px 14px;
 //$baseline-grid: 6px;
+$list-item-height: 44px;
 
 @import "../../www/lib/angular-material/angular-material";
 
@@ -26,4 +27,8 @@ form {
       margin-right: 0;
     }
   }
+}
+
+.no-inner-padding .md-list-item-inner {
+  padding: 0;
 }

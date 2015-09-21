@@ -1,32 +1,48 @@
 <ion-view view-title="Account">
-  <ion-content>
+  <ion-content class="md-padding">
 
-    <div class="card">
-      <div class="item item-divider">
-        <h2>Your public profile</h2>
-      </div>
-      <div class="item item-avatar" ng-click="editName($event)">
-        <img src="img/demo/scuba_avatar.jpg">
-        <h2>Arlo White</h2>
-        <i class="icon ion-male"> Male</i>
-      </div>
-      <div class="item row">
-        <div class="col">
+    <md-card>
+      <!--<md-card-content>-->
+      <!-- FIXME position: relative needed for md-secondary to work, CSS issues?
+       Couldn't figure out why angular's position: relative isn't taking effect.
+       -->
+      <!-- Need md-list to prevent item clicks from staying shaded -->
+    <md-list style="padding: 0;">
+      <md-list-item style="position: relative;"
+        ng-click="editProfile(true)">
+        <md-subheader class="md-primary">Your public profile</md-subheader>
+        <md-button class="md-icon-button md-secondary" ng-click="editProfile(true)"
+          aria-label="Edit profile">
+          <md-icon class="md-primary">edit</md-icon>
+        </md-button>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item ng-click="editName($event)" class="md-2-line">
+        <img src="img/demo/scuba_avatar.jpg" class="md-avatar">
+        <div class="md-list-item-text">
+          <h3>Arlo White</h3>
+          <i class="icon ion-male"> Male</i>
+        </div>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item layout="row" layout-padding>
+        <div flex>
           Age 30
         </div>
-        <div class="col">
+        <div flex>
           <md-icon>cake</md-icon>
           November 1984
         </div>
-      </div>
-      <!-- TODO scroll buttons into view -->
-      <div id="location-container" class="item animate-switch-container" ng-click="showLocationEditor($event)"
-           ng-switch="editingLocation">
-        <div ng-switch-default>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item id="location-container" class="animate-switch-container" ng-click="showLocationEditor($event)"
+           ng-switch="editingLocation" aria-label="Edit location">
+        <div ng-switch-default flex="100">
           <md-icon>place</md-icon>
           Corvallis, OR
         </div>
-        <div class="animate-switch" id="location-editor" ng-switch-when="true">
+        <div class="animate-switch" id="location-editor" ng-switch-when="true" flex="100">
+          <!-- TODO create form, submit button, make directive -->
           <md-input-container class="md-icon-float">
             <label>New location?</label>
             <md-icon>place</md-icon>
@@ -34,70 +50,72 @@
           </md-input-container>
           <div layout="row" layout-align="end center">
             <md-button ng-click="hideLocationEditor($event)">Cancel</md-button>
-            <md-button class="md-raised md-primary" ng-click="hideLocationEditor($event)">
+            <md-button type="submit" class="md-raised md-primary" ng-click="hideLocationEditor($event)">
               <md-icon>done</md-icon> Save
             </md-button>
           </div>
         </div>
-      </div>
-        <!--
-          <label class="toggle">
-            <input type="checkbox">
-            <div class="track">
-              <div class="handle"></div>
-            </div>
-          </label>
-          -->
-        <!-- ion-toggle has "item" class
-        toggle-class="toggle-calm"
-        -->
-      <md-switch ng-model="wantFriends" class="md-primary md-body-2">
-        Looking for friends
-      </md-switch>
-      <p class="info-text" ng-if="wantFriends">Other sportSocial users in your area <b>may send you friend invitations</b>.</p>
-      <p class="info-text" ng-if="!wantFriends">Other sportSocial users <b>cannot search for your profile</b>.</p>
-
-      <div class="item">
-        <h2>Favorite activities</h2>
-        <span class="activity-tags">scuba-diving, rock-climbing</span></p>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="item item-divider">
-        <h2>Social networks</h2>
-      </div>
-
-      <div class="item item-text-wrap">
-        <p>Connect to your social networks to invite friends to sportSocial.</p>
-        <p>If you have privacy concerns, read <a href="">how sportSocial uses social networks</a>.</p>
-      </div>
-
-      <div class="item" layout="row">
-        <div flex>
-          <h2 class="assertive">Google+</h2>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item class="md-2-line no-inner-padding">
+        <div layout="column" style="min-height: 84px;">
+          <md-switch ng-model="wantFriends" class="md-primary md-body-2">
+            Looking for friends
+          </md-switch>
+          <div ng-switch="wantFriends">
+            <p class="info-text animate-text-switch" ng-switch-when="true">Other sportSocial users in your area <b>may send you friend invitations</b>.</p>
+            <p class="info-text animate-text-switch" ng-switch-when="false">Other sportSocial users <b>cannot search for your profile</b>.</p>
+          </div>
         </div>
-        <div style="padding-right: 1.2em;">
-          <md-button class="md-raised md-primary">
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item class="md-2-line">
+        <div class="md-list-item-text">
+          <h3>Favorite activities</h3>
+          <span class="activity-tags">scuba-diving, rock-climbing</span>
+        </div>
+      </md-list-item>
+    </md-list>
+      <!--</md-card-content>-->
+    </md-card>
+
+    <!-- Add margin so collapsing location editor doesn't scroll from top -->
+    <md-card style="margin-bottom: 80px;">
+      <md-subheader class="md-primary">
+        Social networks
+      </md-subheader>
+
+      <md-list-item layout="column" style="padding-bottom: 8px;">
+        <!--<div class="md-list-item-text">-->
+          <p>Connect to your social networks to invite friends to sportSocial.
+            If you have privacy concerns, read <a href="">how sportSocial uses social networks</a>.</p>
+        <!--</div>-->
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item layout="row" class="md-2-line md-padding" style="position: relative;">
+        <div flex class="md-list-item-text">
+          <h3 class="assertive">Google+</h3>
+          <p>Not connected</p>
+        </div>
+        <!--<div style="padding-right: 1.2em;">-->
+          <md-button class="md-raised md-secondary">
             <md-icon>add_circle</md-icon>
             Connect
           </md-button>
-        </div>
-      </div>
-
-      <div class="item" layout="row">
-        <div flex>
-          <h2 class="positive">Facebook</h2>
+        <!--</div>-->
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item class="md-2-line md-padding" style="position: relative;">
+        <div flex class="md-list-item-text">
+          <h3 class="positive">Facebook</h3>
           <p>145 friends</p>
         </div>
-        <div>
-          <md-button class="md-warn">
-            <md-icon>remove_circle</md-icon>
-            Disconnect
-          </md-button>
-        </div>
-      </div>
-    </div>
+        <md-button class="md-warn md-secondary">
+          <md-icon>remove_circle</md-icon>
+          Disconnect
+        </md-button>
+      </md-list-item>
+    </md-card>
   </ion-content>
   <!-- Alternate save buttons idea.
   Pros: next to keyboard
