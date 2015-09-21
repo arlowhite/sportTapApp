@@ -81,6 +81,73 @@ angular.module('sportSocial.services', [])
       }
     };
 
+    var myPersonId = 3; // Arlo
+
+    var fakeActivities=[
+      {
+        id: 1,
+        title: "Scuba dive",
+        locName: "Target rock",
+        descr: "You must bring scuba gear. Make sure to rent gear from the shop before it closes at 6pm.",
+        rsvps:[
+          {pId:3, r:'going'},
+          {pId:4, r:'maybe'}
+        ],
+        _daysAhead:2,
+        _hoursAhead:9,
+        _duration: 2
+      },
+      {
+        id: 2,
+        title: "Backpacking South Sister",
+        locName: "Deschutes National Wilderness",
+        descr: "1 night backpacking trip. Remember to go over the checklist.",
+        rsvps:[
+          {pId:2, r:'going'},
+          {pId:3, r:'maybe'},
+          {pId:4, r:'maybe'},
+          {pId:5, r:'going'}
+        ],
+        _daysAhead:7,
+        _hoursAhead:7,
+        _duration: 35
+      },
+      {
+        id: 3,
+        title: "2 mile run",
+        locName: "Madonna lemon loop",
+        descr: "Jog about 2 miles on the Madonna lemon trail network.",
+        rsvps:[
+          {pId:2, r:'going'},
+          {pId:3, r:'going'}
+        ],
+        _daysAhead:1,
+        _hoursAhead:19,
+        _duration: 1.5
+      }
+    ];
+
+    function sortActivityStartDate(a, b) {
+      return a.startUnix - b.startUnix;
+    }
+
+    fakeActivities.forEach(function (act) {
+      var date = moment();
+      date.startOf('day'); // 12am
+      date.add(act._daysAhead, 'days');
+      date.add(act._hoursAhead, 'hours');
+      act.startUnix = date.unix();
+      act.startDate = date.toDate();
+      date = date.clone();
+      date.add(act._duration, 'hours');
+      act.endUnix = date.unix();
+      act.endDate = date.toDate();
+      console.log(act);
+    });
+    fakeActivities.sort(sortActivityStartDate);
+
+    var _myFriendsDef, _myActivities;
+
     return {
       user: function (id) {
         var d = $q.defer();
@@ -89,12 +156,14 @@ angular.module('sportSocial.services', [])
       },
 
       myFriends: function(){
-        var d = $q.defer();
-        var list = [];
-        list.push(fakeUsers[2]);
-        list.push(fakeUsers[3]);
-        d.resolve(list);
-        return d.promise;
+        if(!_myFriendsDef) {
+          _myFriendsDef = $q.defer();
+          var list = [];
+          list.push(fakeUsers[2]);
+          list.push(fakeUsers[3]);
+          _myFriendsDef.resolve(list);
+        }
+        return _myFriendsDef.promise;
       },
 
       invitedMe: function(){
@@ -102,6 +171,25 @@ angular.module('sportSocial.services', [])
           fakeUsers[4],
           fakeUsers[5]
         ]);
+      },
+
+      myActivities: function () {
+        if(!_myActivities){
+          _myActivities = $q.defer();
+          var myActs = fakeActivities.filter(function(act){
+            return act.rsvps.some(function (rsvp) {
+              if(rsvp.pId == myPersonId){
+                // My RSVP
+                act.rsvp = rsvp.r;
+                return true;
+              }
+              return false;
+            })
+          });
+          myActs.sort(sortActivityStartDate);
+          _myActivities.resolve(myActs);
+        }
+        return _myActivities.promise;
       }
 
     }

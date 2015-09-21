@@ -469,37 +469,13 @@ angular.module('sportSocial.controllers', ['ngMessages'])
 
   })
 
-  .controller('DashboardCtrl', function ($scope, $timeout, $mdToast, inviters) {
+  .controller('DashboardCtrl', function ($scope, $timeout, $mdToast, inviters, myActivities) {
     $scope.inviters = inviters;
+    $scope.myActivities = myActivities;
 
     $scope.$on('$ionicView.enter', function(){
       $mdToast.show($mdToast.simple().content('Demonstrating material headers, possible performance issues.'));
     });
-
-    $scope.activity = {rsvp: {
-      label: 'Going',
-      icon: 'done',
-      buttonClass: 'md-primary'
-    }};
-
-    $scope.rsvp = function(label, icon, buttonClass) {
-      console.log('rsvp', arguments);
-      $scope.activity.rsvp.label = label;
-      $scope.activity.rsvp.icon = icon;
-      $scope.activity.rsvp.buttonClass = buttonClass;
-    };
-
-    $scope.openActivityDetail = function () {
-      $mdToast.show($mdToast.simple().content('TODO: Activity detail view.'));
-    };
-
-    var originatorEv; // Example uses to pop dialog from menu button
-    // https://material.angularjs.org/latest/#/demo/material.components.menu
-    $scope.openMenu = function($mdOpenMenu, ev) {
-      originatorEv = ev;
-      $mdOpenMenu(ev);
-    };
-
   })
 
   .controller('FriendsCtrl', function ($scope, $timeout, $ionicSideMenuDelegate,

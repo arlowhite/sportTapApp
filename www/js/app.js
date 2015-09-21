@@ -167,6 +167,9 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
         resolve: {
           inviters: function(db) {
             return db.invitedMe();
+          },
+          myActivities: function(db) {
+            return db.myActivities();
           }
         }
       })
@@ -272,7 +275,7 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
   // TODO reorganize code by features
   // TODO Production: template cache  https://thinkster.io/templatecache-tutorial/
   // gulp-angular-templatecache for use with Gulp
-  .directive('ssPersonItem', function($state){
+  .directive('ssPersonItem', function($state, $mdToast){
     return {
       restrict: "E",
       scope: {
@@ -285,12 +288,33 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
         scope.goToPerson = function () {
           $state.go('app.friend_detail', {friendId: scope.person.id});
         };
+        scope.goToActivity = function () {
+          $mdToast.show($mdToast.simple().content('TODO go to activity view'));
+        };
       }
     }
 
   })
 
-  .directive('ssActivityCard', function ($mdToast) {
+  .directive('ssActivityCard', function ($mdToast, $timeout) {
+    var secondsInDay = 24 * 60 * 60;
+    var rsvpDisplay = {
+      'going': {
+        label: 'Going',
+        icon: 'done',
+        buttonClass: 'md-primary'
+      },
+      'maybe': {
+        label: 'Maybe',
+        icon: 'help',
+        buttonClass: ''
+      },
+      'no': {
+        label: 'Not Going',
+        icon: 'thumb_down',
+        buttonClass: 'md-warn'
+      }
+    };
     return {
       restrict: "E",
       scope: {
@@ -300,24 +324,25 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
 
       link: function(scope, element, attrs) {
 
-        scope.activity = {rsvp: {
-          label: 'Going',
-          icon: 'done',
-          buttonClass: 'md-primary'
-        }};
+        var act = scope.activity;
+        // Determining this should be efficient and day property is brittle
+        // Sep 8 to Oct 8
+        scope.multiday = act.endUnix - act.startUnix > secondsInDay;
+        scope.rsvp = rsvpDisplay[act.rsvp];
 
-        scope.rsvp = function(label, icon, buttonClass) {
-          console.log('rsvp', arguments);
-          scope.activity.rsvp.label = label;
-          scope.activity.rsvp.icon = icon;
-          scope.activity.rsvp.buttonClass = buttonClass;
+        scope.changeRsvp = function(r) {
+          scope.activity.rsvp = r;
+          // Update RSVP button
+          scope.rsvp = rsvpDisplay[r];
         };
 
-        var originatorEv; // Example uses to pop dialog from menu button
-        // https://material.angularjs.org/latest/#/demo/material.components.menu
-        scope.openMenu = function($mdOpenMenu, ev) {
-          originatorEv = ev;
-          $mdOpenMenu(ev);
+        scope.openRsvpMenu = function($mdOpenMenu, ev) {
+          // Update menu entries before opening
+          scope.omitMenuRsvp = scope.activity.rsvp;
+          // Need to delay so menu updates before show
+          $timeout(function () {
+            $mdOpenMenu(ev);
+          });
         };
 
         scope.openActivityDetail = function () {
@@ -325,6 +350,15 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
         };
 
       }
+    }
+  })
+
+  .filter('momentDate', function () {
+    return function (date, format) {
+      if(!date){
+        return '';
+      }
+      return moment(date).format(format);
     }
   });
 
