@@ -502,7 +502,8 @@ angular.module('sportSocial.controllers', ['ngMessages'])
 
   })
 
-  .controller('FriendsCtrl', function ($scope, $timeout, friends) {
+  .controller('FriendsCtrl', function ($scope, $timeout, $ionicSideMenuDelegate,
+                                       friends) {
     $scope.friends = friends;
 
     $scope.hideFab = function(hide){
@@ -513,8 +514,23 @@ angular.module('sportSocial.controllers', ['ngMessages'])
       //}
     };
 
+    // Close FAB and tooltips before leaving view
+    $scope.$on('$ionicView.beforeLeave', function(){
+      $scope.isFabOpen = false;
+    });
+
+    // Hide tooltips if side menu is opened
+    $scope.$watch(function () {
+      return $ionicSideMenuDelegate.isOpen();
+    }, function(isOpen) {
+      console.log('menu', isOpen);
+      if(isOpen){
+        $scope.showActionTooltips = false;
+      }
+    });
+
     var delayedShowTooltips = function () {
-      if($scope.isFabOpen){
+      if($scope.isFabOpen && !$ionicSideMenuDelegate.isOpen()){
         $scope.showActionTooltips = $scope.isFabOpen;
       }
     };
