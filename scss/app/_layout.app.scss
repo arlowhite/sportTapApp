@@ -1,8 +1,8 @@
 // TODO use item padding SASS property
 .age-gender-corner {
-  position: absolute;
-  right: 16px;
-  top: 16px;
+  //position: absolute;
+  //right: 16px;
+  //top: 16px;
   font-size: 14px;
   color: #666666;
 }
@@ -26,4 +26,17 @@ md-list-item md-icon.editable {
   top: 4px;
   // 18, 24, 36
   font-size: 18px;
+}
+
+// Space around arrow used for separation
+.icon.ion-arrow-right-b {
+  margin: 0 6px;
+}
+
+ss-person-item {
+  md-list-item:first-child .md-list-item-inner {
+    .md-list-item-text {
+      padding-bottom: 0;
+    }
+  }
 }

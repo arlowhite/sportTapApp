@@ -2,24 +2,31 @@
 Always an a element?
 -->
 <!--<a href="#/app/friend/{{person.id}}" >-->
-<md-list-item ng-class="person.nextActivity?'md-3-line':'md-2-line'"
-  ng-click="goToPerson()">
+<md-list-item class="md-2-line"
+              ng-click="goToPerson()">
   <img src="{{person.avatarUrl}}" class="md-avatar"/>
-  <div class="age-gender-corner">
-    <strong ng-if="person.age">{{person.age}}</strong>
-    <i class="icon ion-{{person.gender}}"></i>
-  </div>
+  <!--<div class="age-gender-corner">-->
+  <!--<strong ng-if="person.age">{{person.age}}</strong>-->
+  <!--<i class="icon ion-{{person.gender}}"></i>-->
+  <!--</div>-->
   <div class="md-list-item-text">
-    <h3>{{person.name}}</h3>
+    <div layout="row" layout-align="center center">
+      <h3 flex>{{person.name}}</h3>
+      <span class="age-gender-corner">
+        <strong ng-if="person.age">{{person.age}}</strong>
+        <i class="icon ion-{{person.gender}}"></i>
+      </span>
+    </div>
     <p>
       <i class="icon ion-android-walk"></i>
       <span class="activity-tags">{{person.mainActivityTags}}</span>
     </p>
-    <div ng-if="person.nextActivity" class="left-under-avatar">
-      <b>{{person.nextActivityDate}}</b>
-      <i class="icon ion-arrow-right-b"></i>
-      {{person.nextActivity}}
-    </div>
   </div>
+</md-list-item>
+<md-list-item ng-if="person.nextActivity" ng-click="goToActivity()">
+  <!-- TODO no-wrap time -->
+  <b>{{person.nextActivityDate}}</b>
+  <i class="icon ion-arrow-right-b"></i>
+  {{person.nextActivity}}
 </md-list-item>
 <md-divider></md-divider>
