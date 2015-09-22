@@ -1,76 +1,112 @@
-<ion-view view-title="{{activity.title}}">
+<ion-view view-title="{{::activity.title}}">
   <!-- TODO solution for if Activity Title within header is too long
   can md-header wrap? -->
   <ion-nav-buttons side="secondary">
-    <md-button class="md-icon-button">
-      <md-icon>done</md-icon>
-      <!-- FIXME RSVP menu -->
-      {{rsvpButton.label}}
-    </md-button>
+
+    <!--{{::activity.myRsvp}}-->
+    <!--<md-button class="md-icon-button">-->
+      <!--<md-icon>done</md-icon>-->
+      <!--&lt;!&ndash; FIXME RSVP menu-->
+      <!--Use same RSVP code...-->
+      <!--&ndash;&gt;-->
+      <!--{{rsvpButton.label}}-->
+    <!--</md-button>-->
+
+    <md-menu ng-if="::activity.myRsvp">
+      <md-button aria-label="Open RSVP menu" class="md-icon-button"
+                 ng-class="rsvpButton.buttonClass"
+                 ng-click="openRsvpMenu($mdOpenMenu,$event)">
+        <md-icon md-menu-origin>{{rsvpButton.icon}}</md-icon>
+      </md-button>
+      <md-menu-content>
+        <!-- TODO populate menu with choices in repeat?
+         There were some GitHub problems with this I noticed, don't bother for now.
+         -->
+        <md-menu-item ng-show="omitMenuRsvp != 'going'">
+          <md-button ng-click="changeRsvp('going')" class="md-primary">
+            <md-icon md-menu-align-target>done</md-icon>
+            Going
+          </md-button>
+        </md-menu-item>
+        <md-menu-divider ng-show="omitMenuRsvp != 'going'"></md-menu-divider>
+        <md-menu-item ng-show="omitMenuRsvp != 'maybe'">
+          <md-button ng-click="changeRsvp('maybe')" class="slow-pulse">
+            <md-icon md-menu-align-target>help</md-icon>
+            Maybe
+          </md-button>
+        </md-menu-item>
+        <md-menu-divider ng-show="omitMenuRsvp == 'going'"></md-menu-divider>
+        <md-menu-item ng-show="omitMenuRsvp != 'no'">
+          <md-button ng-click="changeRsvp('no')" class="md-warn">
+            <md-icon>thumb_down</md-icon>
+            Not going
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
     <md-button class="md-icon-button"><md-icon>edit</md-icon></md-button>
   </ion-nav-buttons>
   <ion-content class="has-header">
 
     <md-card class="ss-activity">
-      <!-- Need position: relative for ink ripple to be contained correctly -->
-      <md-card-content ng-click="openActivityDetail()" md-ink-ripple style="position: relative;">
+      <md-card-content>
         <h3 layout="row" layout-wrap flex>
           <div>
             <md-icon class="material-icons md-18">today</md-icon>
-            <span class="padding-right">{{activity.startDate|momentDate:'dddd, MMMM Do'}}</span>
+            <span class="padding-right">{{::activity.startDate|momentDate:'dddd, MMMM Do'}}</span>
           </div>
           <div>
             <md-icon class="material-icons md-18">access_time</md-icon>
-            <span class="time">{{activity.startDate|momentDate:'h:mmA'}}
-              <span ng-if="!multiday">&ndash; {{activity.endDate|momentDate:'h:mmA'}}</span>
+            <span class="time">{{::activity.startDate|momentDate:'h:mmA'}}
+              <span ng-if="!multiday">&ndash; {{::activity.endDate|momentDate:'h:mmA'}}</span>
             </span>
           </div>
         </h3>
         <h3>
-          <md-icon class="md-18">place</md-icon> {{activity.locName}}
+          <md-icon class="md-18">place</md-icon> {{::activity.locName}}
         </h3>
         <h3 layout="row" layout-wrap ng-if="multiday">
           <div>
             <md-icon class="material-icons md-18">arrow_forward</md-icon>
-            <span class="padding-right">{{activity.endDate|momentDate:'dddd, MMMM Do'}}</span>
+            <span class="padding-right">{{::activity.endDate|momentDate:'dddd, MMMM Do'}}</span>
           </div>
           <div>
             <md-icon class="material-icons md-18">timelapse</md-icon>
-            <span class="time">{{activity.endDate|momentDate:'h:mmA'}}</span>
+            <span class="time">{{::activity.endDate|momentDate:'h:mmA'}}</span>
           </div>
         </h3>
-        <p>{{activity.descr}}</p>
+        <p>{{::activity.descr}}</p>
       </md-card-content>
     </md-card>
 
     <md-tabs md-dynamic-height>
       <md-tab>
-        <!-- TODO exclude not going -->
-        <md-tab-label><md-icon>people</md-icon> {{activity.numRsvpGoing}}~{{activity.numRsvpPossible}} people</md-tab-label>
+        <md-tab-label><md-icon>people</md-icon> {{::activity.numRsvpGoing}}~{{::activity.numRsvpPossible}} people</md-tab-label>
         <md-tab-body>
-          <md-list>
-            <md-subheader ng-if="activity.numRsvpGoing">
+          <md-progress-circular ng-hide="::viewEntered" md-mode="indeterminate"></md-progress-circular>
+          <md-list ng-if="::viewEntered">
+            <md-subheader ng-if="::activity.numRsvpGoing">
               <md-icon class="md-18">thumb_up</md-icon>
-              Going {{activity.numRsvpGoing}}</md-subheader>
-            <ss-person-rsvp rsvp="rsvp" ng-repeat="rsvp in activity.rsvps | filter:{r:'going'} track by rsvp.pId"></ss-person-rsvp>
+              Going <span class="badge badge-stable">{{::activity.numRsvpGoing}}</span></md-subheader>
+            <ss-person-rsvp rsvp="rsvp" ng-repeat="rsvp in ::activity.rsvps | filter:{r:'going'} track by rsvp.pId"></ss-person-rsvp>
 
-            <md-divider ng-if="activity.numRsvpMaybe"></md-divider>
-            <md-subheader ng-if="activity.numRsvpMaybe">
+            <md-divider ng-if="::activity.numRsvpMaybe"></md-divider>
+            <md-subheader ng-if="::activity.numRsvpMaybe">
               <md-icon class="md-18">help</md-icon>
-              Maybe {{activity.numRsvpMaybe}}</md-subheader>
-            <ss-person-rsvp rsvp="rsvp" ng-repeat="rsvp in activity.rsvps | filter:{r:'maybe'} track by rsvp.pId"></ss-person-rsvp>
+              Maybe <span class="badge badge-stable">{{::activity.numRsvpMaybe}}</span></md-subheader>
+            <ss-person-rsvp rsvp="rsvp" ng-repeat="rsvp in ::activity.rsvps | filter:{r:'maybe'} track by rsvp.pId"></ss-person-rsvp>
 
-            <md-divider ng-if="activity.numRsvpUnknown"></md-divider>
-            <md-subheader ng-if="activity.numRsvpUnknown">
+            <md-divider ng-if="::activity.numRsvpUnknown"></md-divider>
+            <md-subheader ng-if="::activity.numRsvpUnknown">
               <md-icon class="md-18">error</md-icon>
-              No response {{activity.numRsvpUnknown}}</md-subheader>
-            <ss-person-rsvp rsvp="rsvp" ng-repeat="rsvp in activity.rsvps | filter:{r:null} track by rsvp.pId"></ss-person-rsvp>
+              No response <span class="badge badge-stable">{{::activity.numRsvpUnknown}}</span></md-subheader>
+            <ss-person-rsvp rsvp="rsvp" ng-repeat="rsvp in ::activity.rsvps | filter:{r:'?'} track by rsvp.pId"></ss-person-rsvp>
 
-            <md-divider ng-if="activity.numRsvpNo"></md-divider>
-            <md-subheader ng-if="activity.numRsvpNo" class="md-warn">
+            <md-divider ng-if="::activity.numRsvpNo"></md-divider>
+            <md-subheader ng-if="::activity.numRsvpNo" class="md-warn">
               <md-icon class="md-18 md-warn md-hue-3">thumb_down</md-icon>
-              Not Going {{activity.numRsvpNo}}</md-subheader>
-            <ss-person-rsvp rsvp="rsvp" ng-repeat="rsvp in activity.rsvps | filter:{r:'no'} track by rsvp.pId"></ss-person-rsvp>
+              Not Going <span class="badge badge-stable">{{::activity.numRsvpNo}}</span></md-subheader>
+            <ss-person-rsvp rsvp="rsvp" ng-repeat="rsvp in ::activity.rsvps | filter:{r:'no'} track by rsvp.pId"></ss-person-rsvp>
           </md-list>
         </md-tab-body>
       </md-tab>

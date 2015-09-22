@@ -34,6 +34,7 @@
       <md-icon>people</md-icon>
       {{activity.numRsvpPossible}} People
     </md-button>
+    <!-- TODO Performance: Should be able to just have one RSVP menu instance and share it -->
     <md-menu ng-if="activity.myRsvp">
       <md-button aria-label="Open RSVP menu" class="md-raised"
                  ng-class="rsvpButton.buttonClass"

@@ -105,6 +105,10 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
 
   .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $mdGestureProvider,
                    $mdDateLocaleProvider) {
+
+    // Disable caching, RSVP changes were not updating between views
+    $ionicConfigProvider.views.maxCache(0);
+
     // Native scrolling recommended by:
     // http://julienrenaux.fr/2015/08/24/ultimate-angularjs-and-ionic-performance-cheat-sheet/
     // http://blog.ionic.io/native-scrolling-in-ionic-a-tale-in-rhyme/
@@ -409,7 +413,7 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
 
               var found = false;
               for(var i=0; i<rsvps.length;i++){
-                if(rsvps[i].pId == scope.myId){
+                if(rsvps[i].pId == myId){
                   rsvps[i].r = r;
                   found = true;
                   break;
