@@ -260,6 +260,10 @@ angular.module('sportSocial.controllers', ['ngMessages'])
 
   })
 
+  .controller('ActivityCtrl', function ($scope, activity) {
+    $scope.activity = activity;
+  })
+
   .controller('CreateActivityCtrl', function ($scope, db, $q, $mdToast, $location) {
     $scope.act = {invited: []};
 

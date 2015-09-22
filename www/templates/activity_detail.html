@@ -1,0 +1,87 @@
+<ion-view view-title="{{activity.title}}">
+  <!-- TODO solution for if Activity Title within header is too long
+  can md-header wrap? -->
+  <ion-nav-buttons side="secondary">
+    <md-button class="md-icon-button">
+      <md-icon>done</md-icon>
+      <!-- FIXME RSVP menu -->
+      {{rsvpButton.label}}
+    </md-button>
+    <md-button class="md-icon-button"><md-icon>edit</md-icon></md-button>
+  </ion-nav-buttons>
+  <ion-content class="has-header">
+
+    <md-card class="ss-activity">
+      <!-- Need position: relative for ink ripple to be contained correctly -->
+      <md-card-content ng-click="openActivityDetail()" md-ink-ripple style="position: relative;">
+        <h3 layout="row" layout-wrap flex>
+          <div>
+            <md-icon class="material-icons md-18">today</md-icon>
+            <span class="padding-right">{{activity.startDate|momentDate:'dddd, MMMM Do'}}</span>
+          </div>
+          <div>
+            <md-icon class="material-icons md-18">access_time</md-icon>
+            <span class="time">{{activity.startDate|momentDate:'h:mmA'}}
+              <span ng-if="!multiday">&ndash; {{activity.endDate|momentDate:'h:mmA'}}</span>
+            </span>
+          </div>
+        </h3>
+        <h3>
+          <md-icon class="md-18">place</md-icon> {{activity.locName}}
+        </h3>
+        <h3 layout="row" layout-wrap ng-if="multiday">
+          <div>
+            <md-icon class="material-icons md-18">arrow_forward</md-icon>
+            <span class="padding-right">{{activity.endDate|momentDate:'dddd, MMMM Do'}}</span>
+          </div>
+          <div>
+            <md-icon class="material-icons md-18">timelapse</md-icon>
+            <span class="time">{{activity.endDate|momentDate:'h:mmA'}}</span>
+          </div>
+        </h3>
+        <p>{{activity.descr}}</p>
+      </md-card-content>
+    </md-card>
+
+    <md-tabs md-dynamic-height>
+      <md-tab>
+        <!-- TODO exclude not going -->
+        <md-tab-label><md-icon>people</md-icon> {{activity.numRsvpGoing}}~{{activity.numRsvpPossible}} people</md-tab-label>
+        <md-tab-body>
+          <md-list>
+            <md-subheader ng-if="activity.numRsvpGoing">
+              <md-icon class="md-18">thumb_up</md-icon>
+              Going {{activity.numRsvpGoing}}</md-subheader>
+            <ss-person-rsvp rsvp="rsvp" ng-repeat="rsvp in activity.rsvps | filter:{r:'going'} track by rsvp.pId"></ss-person-rsvp>
+
+            <md-divider ng-if="activity.numRsvpMaybe"></md-divider>
+            <md-subheader ng-if="activity.numRsvpMaybe">
+              <md-icon class="md-18">help</md-icon>
+              Maybe {{activity.numRsvpMaybe}}</md-subheader>
+            <ss-person-rsvp rsvp="rsvp" ng-repeat="rsvp in activity.rsvps | filter:{r:'maybe'} track by rsvp.pId"></ss-person-rsvp>
+
+            <md-divider ng-if="activity.numRsvpUnknown"></md-divider>
+            <md-subheader ng-if="activity.numRsvpUnknown">
+              <md-icon class="md-18">error</md-icon>
+              No response {{activity.numRsvpUnknown}}</md-subheader>
+            <ss-person-rsvp rsvp="rsvp" ng-repeat="rsvp in activity.rsvps | filter:{r:null} track by rsvp.pId"></ss-person-rsvp>
+
+            <md-divider ng-if="activity.numRsvpNo"></md-divider>
+            <md-subheader ng-if="activity.numRsvpNo" class="md-warn">
+              <md-icon class="md-18 md-warn md-hue-3">thumb_down</md-icon>
+              Not Going {{activity.numRsvpNo}}</md-subheader>
+            <ss-person-rsvp rsvp="rsvp" ng-repeat="rsvp in activity.rsvps | filter:{r:'no'} track by rsvp.pId"></ss-person-rsvp>
+          </md-list>
+        </md-tab-body>
+      </md-tab>
+      <md-tab>
+        <md-tab-label><md-icon>chat</md-icon> Discussion <span class="badge badge-positive">3</span></md-tab-label>
+        <md-tab-body>
+          TODO
+        </md-tab-body>
+      </md-tab>
+
+    </md-tabs>
+
+  </ion-content>
+</ion-view>

@@ -19,14 +19,15 @@ Always an a element?
     </div>
     <p>
       <i class="icon ion-android-walk"></i>
-      <span class="activity-tags">{{person.mainActivityTags}}</span>
+      <span class="ss-activity-tags">{{person.mainActivityTags}}</span>
     </p>
   </div>
 </md-list-item>
-<md-list-item ng-if="person.nextActivity" ng-click="goToActivity()">
+<md-list-item ng-if="nextActivity" ng-click="goToActivity()" style="position: relative;" md-ink-ripple>
   <!-- TODO no-wrap time -->
-  <b>{{person.nextActivityDate}}</b>
-  <i class="icon ion-arrow-right-b"></i>
-  {{person.nextActivity}}
+  <div layout="row" layout-wrap class="md-body-1">
+    <div class="ss-dateTime">{{nextActivity.startDate | momentDate:'ddd, MMM Do h:mma'}} <i class="icon ion-arrow-right-b"></i></div>
+    <div>{{nextActivity.title}} @ {{nextActivity.locName}}</div>
+  </div>
 </md-list-item>
 <md-divider></md-divider>

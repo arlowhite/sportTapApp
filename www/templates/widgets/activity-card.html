@@ -26,20 +26,20 @@
         <span class="time">{{activity.endDate|momentDate:'h:mmA'}}</span>
       </div>
     </h3>
-    <!-- TODO ... if limited -->
+    <!-- TODO if limited, ellipses ... -->
     <p>{{activity.descr|limitTo:200}}</p>
   </md-card-content>
   <div class="md-actions" layout="row" layout-align="center center" layout-wrap>
     <md-button>
       <md-icon>people</md-icon>
-      {{activity.rsvps.length}} People
+      {{activity.numRsvpPossible}} People
     </md-button>
-    <md-menu>
+    <md-menu ng-if="activity.myRsvp">
       <md-button aria-label="Open RSVP menu" class="md-raised"
-                 ng-class="rsvp.buttonClass"
+                 ng-class="rsvpButton.buttonClass"
                  ng-click="openRsvpMenu($mdOpenMenu,$event)">
-        <md-icon md-menu-origin>{{rsvp.icon}}</md-icon>
-        {{rsvp.label}}
+        <md-icon md-menu-origin>{{rsvpButton.icon}}</md-icon>
+        {{rsvpButton.label}}
       </md-button>
       <md-menu-content>
         <!-- TODO populate menu with choices in repeat?

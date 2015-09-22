@@ -35,20 +35,10 @@
       </section>
     </div>
 
-    <div class="list card" ng-if="!friend.invitedYou">
-      <div class="item item-divider">
-        Upcoming activities
-      </div>
-      <div ng-if="friend.nextActivity" class="item">
-        <b><i class="icon ion-android-time"></i> {{friend.nextActivityDate}}</b>
-        <p>{{friend.nextActivity}}</p>
-      </div>
-      <!-- FIXME hardcoded data -->
-      <div class="item">
-        <b><i class="icon ion-android-time"></i> Monday 8:00pm</b>
-        <p>2 mile run in town</p>
-      </div>
-    </div>
+    <section ng-if="friend.nextActivities">
+      <md-subheader class="md-primary">Upcoming activities</md-subheader>
+      <ss-activity-card activity-id="{{actId}}" ng-repeat="actId in friend.nextActivities"></ss-activity-card>
+    </section>
 
   </ion-content>
 </ion-view>

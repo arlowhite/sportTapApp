@@ -78,8 +78,87 @@ angular.module('sportSocial.services', [])
           {id:'running', name:'Running', num: 3}
         ],
         invitedYou: true
+      },
+      6: {
+        id: 6,
+        name: 'Arya',
+        age: 15,
+        gender: 'female',
+        avatarUrl: 'img/demo/arya.jpg',
+        city: 'Braavos',
+        // Server gives list of friend's top tags?
+        // TODO activity tag chips conversion?
+        mainActivityTags: 'Hiking, Running',
+        activityTags: [
+          {id:'hiking', name:'Hiking', num: 3},
+          {id:'running', name:'Running', num: 3}
+        ],
+        nextActivityId: 1
+      },
+      7: {
+        id: 7,
+        name: 'Daenerys',
+        age: 20,
+        gender: 'female',
+        avatarUrl: 'img/demo/daenerys.jpg',
+        city: 'Meereen',
+        // Server gives list of friend's top tags?
+        // TODO activity tag chips conversion?
+        mainActivityTags: 'Hiking, Running',
+        activityTags: [
+          {id:'hiking', name:'Hiking', num: 3},
+          {id:'running', name:'Running', num: 3}
+        ]
+      },
+      8: {
+        id: 8,
+        name: 'Jon Snow',
+        age: 20,
+        gender: 'male',
+        avatarUrl: 'img/demo/jon-snow.jpg',
+        city: 'The Wall',
+        // Server gives list of friend's top tags?
+        // TODO activity tag chips conversion?
+        mainActivityTags: 'Hiking, Running',
+        activityTags: [
+          {id:'hiking', name:'Hiking', num: 3},
+          {id:'running', name:'Running', num: 3}
+        ]
+      },
+      9: {
+        id: 9,
+        name: 'Sansa',
+        age: 17,
+        gender: 'female',
+        avatarUrl: 'img/demo/sansa.jpg',
+        city: 'Winterfell',
+        // Server gives list of friend's top tags?
+        // TODO activity tag chips conversion?
+        mainActivityTags: 'Hiking, Running',
+        activityTags: [
+          {id:'hiking', name:'Hiking', num: 3},
+          {id:'running', name:'Running', num: 3}
+        ]
+      },
+      10: {
+        id: 10,
+        name: 'Tyrion',
+        age: 37,
+        gender: 'male',
+        avatarUrl: 'img/demo/tyrion.jpg',
+        city: 'King\'s Landing',
+        // Server gives list of friend's top tags?
+        // TODO activity tag chips conversion?
+        mainActivityTags: 'Hiking, Running',
+        activityTags: [
+          {id:'hiking', name:'Hiking', num: 3},
+          {id:'running', name:'Running', num: 3}
+        ]
       }
+
     };
+    var firstPersonId = 2;
+    var lastPersonId = 10;
 
     var myPersonId = 3; // Arlo
 
@@ -91,7 +170,12 @@ angular.module('sportSocial.services', [])
         descr: "You must bring scuba gear. Make sure to rent gear from the shop before it closes at 6pm.",
         rsvps:[
           {pId:3, r:'going'},
-          {pId:4, r:'maybe'}
+          {pId:6, r:'going'},
+          {pId:7, r:'going'},
+          {pId:8, r:'going'},
+          {pId:4, r:'maybe'},
+          {pId:9, r:'maybe'},
+          {pId:10, r:'no'}
         ],
         _daysAhead:2,
         _hoursAhead:9,
@@ -105,8 +189,9 @@ angular.module('sportSocial.services', [])
         rsvps:[
           {pId:2, r:'going'},
           {pId:3, r:'maybe'},
-          {pId:4, r:'maybe'},
-          {pId:5, r:'going'}
+          {pId:6, r:'maybe'},
+          {pId:4, r:'no'},
+          {pId:5, r:'?'}
         ],
         _daysAhead:7,
         _hoursAhead:7,
@@ -119,7 +204,22 @@ angular.module('sportSocial.services', [])
         descr: "Jog about 2 miles on the Madonna lemon trail network.",
         rsvps:[
           {pId:2, r:'going'},
-          {pId:3, r:'going'}
+          {pId:3, r:'going'},
+          {pId:8, r:'maybe'},
+          {pId:9, r:'maybe'}
+        ],
+        _daysAhead:1,
+        _hoursAhead:19,
+        _duration: 1.5
+      },
+      {
+        id: 4,
+        title: "Dragon riding lessons",
+        locName: "Meereen dragon tower",
+        descr: "Don't smell like meat.",
+        rsvps:[
+          {pId:7, r:'going'},
+          {pId:10, r:'maybe'}
         ],
         _daysAhead:1,
         _hoursAhead:19,
@@ -142,49 +242,117 @@ angular.module('sportSocial.services', [])
       date.add(act._duration, 'hours');
       act.endUnix = date.unix();
       act.endDate = date.toDate();
-      console.log(act);
+
+
+      var numGoing= 0, numMaybe= 0, numNo= 0, numUnknown=0;
+      var rsvps = act.rsvps;
+      for(var i=0; i<rsvps.length; i++){
+        var r = rsvps[i].r;
+
+        if(r=='going'){
+          numGoing++;
+        }
+        else if(r=='maybe'){
+          numMaybe++;
+        }
+        else if(r=='no'){
+          numNo++;
+        }
+        else if(r=='?'){
+          numUnknown++;
+        }
+        else{
+          console.error('Bad RSVP response value', r, act);
+        }
+      }
+
+      // TODO maybe notate calculated fields
+      // could use convention to strip them before network?
+      act.numRsvpGoing = numGoing;
+      act.numRsvpMaybe = numMaybe;
+      act.numRsvpNo = numNo;
+      act.numRsvpUnknown = numUnknown;
+      act.numRsvpPossible = numGoing + numMaybe + numUnknown;
     });
     fakeActivities.sort(sortActivityStartDate);
 
-    var _myFriendsDef, _myActivities;
+    // After sort, nextActivities will be in order by date
+    fakeActivities.forEach(function (act) {
+      var rsvps = act.rsvps;
+      for(var i=0; i<rsvps.length; i++){
+        // set person.nextActivities
+        var rsvpPersonId = rsvps[i].pId;
+        var person = fakeUsers[rsvpPersonId];
+        if(!person.nextActivities){
+          person.nextActivities = [];
+        }
+        person.nextActivities.push(act.id);
+
+        if(rsvpPersonId == myPersonId){
+          act.myRsvp = rsvps[i].r;
+          console.log('myRsvp on', act);
+        }
+      }
+    });
+
+    var _myFriendsDef, _myActivities, _invitedMe;
 
     return {
+
+      myId: function(){
+        return myPersonId;
+      },
+
       user: function (id) {
         var d = $q.defer();
         d.resolve(fakeUsers[id]);
         return d.promise;
       },
 
+      activity: function(id) {
+        for(var i=0; i<fakeActivities.length; i++){
+          if(fakeActivities[i].id == id){
+            return $q.when(fakeActivities[i]);
+          }
+        }
+        // TODO correct response for not found?
+        throw new Error('No Activity with ID '+id);
+      },
+
       myFriends: function(){
         if(!_myFriendsDef) {
           _myFriendsDef = $q.defer();
           var list = [];
-          list.push(fakeUsers[2]);
-          list.push(fakeUsers[3]);
+          for(var i=firstPersonId; i<=lastPersonId; i++){
+            if(!fakeUsers[i].invitedYou) {
+              list.push(fakeUsers[i]);
+            }
+          }
           _myFriendsDef.resolve(list);
         }
         return _myFriendsDef.promise;
       },
 
       invitedMe: function(){
-        return $q.when([
-          fakeUsers[4],
-          fakeUsers[5]
-        ]);
+        if(!_invitedMe){
+          _invitedMe = $q.defer();
+          var list = [];
+          for(var i=firstPersonId; i<=lastPersonId; i++){
+            if(fakeUsers[i].invitedYou) {
+              list.push(fakeUsers[i]);
+            }
+          }
+          _invitedMe.resolve(list);
+        }
+        return _invitedMe.promise;
       },
 
+      // TODO myActivities filters. Going vs Maybe vs No vs ?
       myActivities: function () {
         if(!_myActivities){
           _myActivities = $q.defer();
           var myActs = fakeActivities.filter(function(act){
-            return act.rsvps.some(function (rsvp) {
-              if(rsvp.pId == myPersonId){
-                // My RSVP
-                act.rsvp = rsvp.r;
-                return true;
-              }
-              return false;
-            })
+            return act.myRsvp;
           });
           myActs.sort(sortActivityStartDate);
           _myActivities.resolve(myActs);
