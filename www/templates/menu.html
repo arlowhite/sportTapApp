@@ -47,19 +47,6 @@
           <i class="icon ion-ios-body"></i>
           Account
         </ion-item>
-        <!-- Not ready yet, navigation gets stuck-->
-        <!--<ion-item menu-close href="#/app/login" class="item-icon-left">-->
-          <!--<i class="icon ion-log-in"></i>-->
-          <!--Login-->
-        <!--</ion-item>-->
-        <ion-item menu-close class="item-icon-left" ng-click="checkForUpdates()"
-                  ng-class="{'item-balanced':hasUpdate,'item-calm':checkingUpdates}">
-          <i class="icon ion-android-download"></i>
-          Update app
-        </ion-item>
-        <ion-item ng-if="appVersion">
-          <span class="item-note">Version: {{appVersion}}</span>
-        </ion-item>
       </ion-list>
     </ion-content>
   </ion-side-menu>

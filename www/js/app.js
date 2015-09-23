@@ -55,11 +55,10 @@ angular.module('material.components.datepicker')
   });
 
 
-angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deploy', 'ngCordova', 'ngMaterial',
-  'ngProgress',
+angular.module('sportSocial', ['ionic', 'ngMaterial',
   'sportSocial.controllers', 'sportSocial.services'])
 
-  .run(function($ionicPlatform, $rootScope, $ionicUser, $window, $localStorage, $ionicConfig, db) {
+  .run(function($ionicPlatform, $rootScope, $window, $localStorage, $ionicConfig, db) {
     $ionicPlatform.ready(function() {
       console.info('ionic ready');
 
@@ -84,22 +83,11 @@ angular.module('sportSocial', ['ionic','ionic.service.core','ionic.service.deplo
           console.error('stateChangeError', arguments);
         });
 
-      // TODO iOS cloud backup can backup localStorage, (config.xml preference disables)
+      // Note: iOS cloud backup can backup localStorage, (config.xml preference disables)
       // http://learn.ionicframework.com/formulas/localstorage/
       // Don't use device UUID
       // https://www.nowsecure.com/resources/secure-mobile-development/handling-sensitive-data/limit-use-of-uuid/
-      var user_id = $localStorage.get('user_id');
-      if (user_id===undefined){
-        user_id = $ionicUser.generateGUID();
-        console.info('Generated user_id='+user_id);
-        $localStorage.set('user_id', user_id);
-      }
-      else {
-        console.log('user_id', user_id);
-      }
-      $ionicUser.identify({
-        user_id: user_id
-      });
+
     });
   })
 
