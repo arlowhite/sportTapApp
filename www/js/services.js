@@ -88,10 +88,10 @@ angular.module('sportSocial.services', [])
         city: 'Braavos',
         // Server gives list of friend's top tags?
         // TODO activity tag chips conversion?
-        mainActivityTags: 'Hiking, Running',
+        mainActivityTags: 'Fencing, Spying',
         activityTags: [
-          {id:'hiking', name:'Hiking', num: 3},
-          {id:'running', name:'Running', num: 3}
+          {id:'fencing', name:'Fencing', num: 3},
+          {id:'spying', name:'Spying', num: 3}
         ],
         nextActivityId: 1
       },
@@ -104,8 +104,9 @@ angular.module('sportSocial.services', [])
         city: 'Meereen',
         // Server gives list of friend's top tags?
         // TODO activity tag chips conversion?
-        mainActivityTags: 'Hiking, Running',
+        mainActivityTags: 'Dragon Riding, Hiking, Running',
         activityTags: [
+          {id:'dragon', name:'Dragon Riding', num: 12},
           {id:'hiking', name:'Hiking', num: 3},
           {id:'running', name:'Running', num: 3}
         ]
@@ -119,10 +120,10 @@ angular.module('sportSocial.services', [])
         city: 'The Wall',
         // Server gives list of friend's top tags?
         // TODO activity tag chips conversion?
-        mainActivityTags: 'Hiking, Running',
+        mainActivityTags: 'Archery, Cross-country Skiing',
         activityTags: [
-          {id:'hiking', name:'Hiking', num: 3},
-          {id:'running', name:'Running', num: 3}
+          {id:'archery', name:'Archery', num: 3},
+          {id:'cc-ski', name:'Cross-country Skiing', num: 3}
         ]
       },
       9: {
@@ -134,8 +135,9 @@ angular.module('sportSocial.services', [])
         city: 'Winterfell',
         // Server gives list of friend's top tags?
         // TODO activity tag chips conversion?
-        mainActivityTags: 'Hiking, Running',
+        mainActivityTags: 'Sailing, Hiking, Running',
         activityTags: [
+          {id:'sailing', name:'Sailing', num: 7},
           {id:'hiking', name:'Hiking', num: 3},
           {id:'running', name:'Running', num: 3}
         ]
@@ -149,10 +151,10 @@ angular.module('sportSocial.services', [])
         city: 'King\'s Landing',
         // Server gives list of friend's top tags?
         // TODO activity tag chips conversion?
-        mainActivityTags: 'Hiking, Running',
+        mainActivityTags: 'Boxing, Sailing',
         activityTags: [
-          {id:'hiking', name:'Hiking', num: 3},
-          {id:'running', name:'Running', num: 3}
+          {id:'boxing', name:'Boxing', num: 3},
+          {id:'sailing', name:'Sailing', num: 7}
         ]
       }
 
