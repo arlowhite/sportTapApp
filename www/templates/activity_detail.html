@@ -3,15 +3,6 @@
   can md-header wrap? -->
   <ion-nav-buttons side="secondary">
 
-    <!--{{::activity.myRsvp}}-->
-    <!--<md-button class="md-icon-button">-->
-      <!--<md-icon>done</md-icon>-->
-      <!--&lt;!&ndash; FIXME RSVP menu-->
-      <!--Use same RSVP code...-->
-      <!--&ndash;&gt;-->
-      <!--{{rsvpButton.label}}-->
-    <!--</md-button>-->
-
     <md-menu ng-if="::activity.myRsvp">
       <md-button aria-label="Open RSVP menu" class="md-icon-button"
                  ng-class="rsvpButton.buttonClass"
@@ -113,7 +104,17 @@
       <md-tab>
         <md-tab-label><md-icon>chat</md-icon> Discussion <span class="badge badge-positive">3</span></md-tab-label>
         <md-tab-body>
-          TODO
+          <div class="md-padding">
+          <h4>TODO Comments feature</h4>
+            <p>The number 3 would indicate new comments since you've viewed this Activity; these
+            would be highlighted.</p>
+            <p>
+              The UI could just be an avatar list similar to the people tab. However, other solutions such as the
+              <a href="http://flatfull.com/themes/materil/angular/#/ui/component/timeline">timeline component</a>
+              might look better.
+            </p>
+
+          </div>
         </md-tab-body>
       </md-tab>
 
