@@ -9,14 +9,14 @@ ss-person-item {
       line-height: normal;
     }
   }
+}
 
-  md-list-item.md-2-line .md-list-item-text h3,
-  md-list-item.md-2-line > .md-no-style .md-list-item-text h3,
-  md-list-item.md-3-line .md-list-item-text h3,
-  md-list-item.md-3-line > .md-no-style .md-list-item-text h3 {
-    line-height: normal;
-    margin-bottom: 0;
-  }
+md-list-item.md-2-line .md-list-item-text h3,
+md-list-item.md-2-line > .md-no-style .md-list-item-text h3,
+md-list-item.md-3-line .md-list-item-text h3,
+md-list-item.md-3-line > .md-no-style .md-list-item-text h3 {
+  line-height: normal;
+  margin-bottom: 0;
 }
 
 .ss-activity-tags{
