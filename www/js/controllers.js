@@ -1,6 +1,6 @@
 angular.module('sportSocial.controllers', ['ngMessages'])
 
-  .controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicActionSheet, $cordovaDatePicker, $ionicDeploy,
+  .controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicActionSheet, $ionicDeploy,
                                   $ionicPopup, $ionicLoading, ngProgressFactory, $ionicPlatform) {
 
     // With the new view caching in Ionic, Controllers are only called
@@ -186,23 +186,6 @@ angular.module('sportSocial.controllers', ['ngMessages'])
       $scope.modal.remove();
     });
 
-    $scope.showDatePicker = function () {
-      var options = {
-        date: new Date(),
-        mode: 'date', // or 'time'
-        minDate: new Date() - 10000,
-        allowOldDates: true,
-        allowFutureDates: false,
-        doneButtonLabel: 'DONE',
-        doneButtonColor: '#F2F3F4',
-        cancelButtonLabel: 'CANCEL',
-        cancelButtonColor: '#000000'
-      };
-      // Need to check ready?
-      $cordovaDatePicker.show(options).then(function (date) {
-        alert(date);
-      });
-    };
   })
 
 
