@@ -59,7 +59,7 @@ angular.module('sportSocial.controllers', ['ngMessages'])
   })
 
 
-  .controller('ActivitiesTabsCtrl', function($scope, $state, $timeout, $ionicPlatform) {
+  .controller('ActivitiesTabsCtrl', function($scope, $state, $timeout, $ionicPlatform, db) {
     //$scope.$watch('selectedIndex', function (current, old, childScope) {
     //  console.log('watch.selectedIndex', current, childScope);
     //  // FIXME use ion-nav-view or not?
@@ -70,7 +70,18 @@ angular.module('sportSocial.controllers', ['ngMessages'])
 
     $scope.mineSelected = function () {
       console.log('mineSelected', arguments);
-    }
+    };
+
+    $scope.$on('$ionicView.afterEnter', function() {
+      // Not sure why needed timeout, but never so indicator without it
+      $timeout(function () {
+        db.myActivities().then(function (acts) {
+          // FIXME activities load slower here than the Dashboard!?
+          console.log('set myActivities');
+          $scope.myActivities = acts;
+        });
+      }, 10);
+    });
   })
 
   // Displays a list of activities

@@ -6,6 +6,15 @@ ion-nav-view seems to fix it
   <!-- Undo .has-header effect -->
   <ion-content style="top: 0px;">
     <ion-refresher on-refresh="refresh()"></ion-refresher>
+    <div class="md-padding">
+      <p>Need to design the Activity sections here and think about how users will
+        search for activities.</p>
+      <!-- lists bullets were removed by ionic. -->
+      <ul style="list-style: disc; list-style-position: inside;">
+        <li>Activities friends invited you to</li>
+        <li>Open activities friends have created</li>
+      </ul>
+    </div>
     <ion-list>
       <ion-item ng-repeat="act in activities track by act.id">
         {{act.title}}

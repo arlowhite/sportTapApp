@@ -23,11 +23,19 @@
   <!-- Layout stuff needed to make md-tabs takeup vertical space-->
   <div layout="column" layout-fill>
     <md-tabs class="has-header" md-swipe-content="true" md-dynamic-height="false" flex>
-      <md-tab label="Upcoming" ui-sref="app.activities.mine" md-on-select="mineSelected()">
+      <md-tab label="Joined" md-on-select="mineSelected()">
         <!--<ion-nav-view name="mine-tab"></ion-nav-view>-->
-        <div ui-view="mine-tab"></div>
+        <!--<div ui-view="mine-tab"></div>-->
         <!--<div ng-bind="content" class="padding"></div>-->
         <!-- md-tabs Example uses div ng-bind-->
+        <md-progress-circular md-mode="indeterminate" ng-hide="::myActivities"></md-progress-circular>
+        <div ng-if="myActivities">
+          <ss-activity-card activity="act"
+                            ng-repeat="act in myActivities track by act.id"></ss-activity-card>
+
+          <!-- FIXME scroll-view cuts off last activity without added space -->
+          <div style="height: 100px;"></div>
+        </div>
       </md-tab>
       <md-tab label="Friend's" ui-sref="app.activities.friends">
         <!--href="#/app/activities/friends"-->
@@ -39,10 +47,10 @@
         <!--</ion-nav-buttons>-->
       </md-tab>
       <md-tab label="Community">
-        <ion-content>
+        <div class="md-padding">
           <p>Public events in this area?</p>
           <p>Alternative names: Discover, Public</p>
-        </ion-content>
+        </div>
       </md-tab>
     </md-tabs>
   </div>
