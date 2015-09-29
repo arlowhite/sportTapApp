@@ -6,20 +6,20 @@
   },
   "version": "0.0.2",
   "dependencies": {
-    "angular": "1.4.5",
-    "angular-animate": "1.4.5",
-    "angular-aria": "1.4.5",
-    "angular-material": "master",
-    "angular-messages": "1.4.5",
-    "angular-sanitize": "1.4.5",
+    "angular": "1.4.6",
+    "angular-animate": "1.4.6",
+    "angular-aria": "1.4.6",
+    "angular-material": "0.11.1",
+    "angular-messages": "1.4.6",
+    "angular-sanitize": "1.4.6",
     "moment": "~2.10.6",
     "robotodraft": "1.1.0"
   },
   "resolutions": {
-    "angular": "1.4.5",
-    "angular-animate": "1.4.5",
-    "angular-sanitize": "1.4.5",
-    "angular-aria": "1.4.5",
+    "angular": "1.4.6",
+    "angular-animate": "1.4.6",
+    "angular-sanitize": "1.4.6",
+    "angular-aria": "1.4.6",
     "angular-material": "master"
   }
 }
