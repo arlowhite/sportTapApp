@@ -176,7 +176,6 @@ angular.module('sportSocial.services', [])
           {pId:7, r:'going'},
           {pId:8, r:'going'},
           {pId:4, r:'maybe'},
-          {pId:9, r:'maybe'},
           {pId:10, r:'no'}
         ],
         _daysAhead:2,
@@ -207,8 +206,7 @@ angular.module('sportSocial.services', [])
         rsvps:[
           {pId:2, r:'going'},
           {pId:3, r:'going'},
-          {pId:8, r:'maybe'},
-          {pId:9, r:'maybe'}
+          {pId:8, r:'maybe'}
         ],
         _daysAhead:1,
         _hoursAhead:19,
