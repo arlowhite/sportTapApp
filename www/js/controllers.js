@@ -408,26 +408,12 @@ angular.module('sportSocial.controllers', ['ngMessages'])
                                        friends) {
     $scope.friends = friends;
 
-    $scope.hideFab = function(hide){
-      console.log('hideFab', hide);
-      // Maybe works fine on mobile?
-      //if(hide){
-      //  $scope.isFabOpen = false;
-      //}
-    };
-
-    // Close FAB and tooltips before leaving view
-    $scope.$on('$ionicView.beforeLeave', function(){
-      $scope.isFabOpen = false;
-    });
-
     // Hide tooltips if side menu is opened
     $scope.$watch(function () {
       return $ionicSideMenuDelegate.isOpen();
     }, function(isOpen) {
-      console.log('menu', isOpen);
       if(isOpen){
-        $scope.showActionTooltips = false;
+        $scope.isFabOpen = false;
       }
     });
 
@@ -438,7 +424,6 @@ angular.module('sportSocial.controllers', ['ngMessages'])
     };
 
     $scope.$watch('isFabOpen', function(open){
-      console.log('isfab', arguments);
       if(open){
         $timeout(delayedShowTooltips, 1000);
       }
