@@ -78,18 +78,18 @@
         https://github.com/derekbrameyer/android-betterpickers/
         Though HTML-based might be better. TODO Search Angular/Ionic Calendar pickers
         -->
-        <div layout="row">
+        <div layout layout-align="start end" layout-wrap>
             <md-input-container class="md-icon-float">
               <!--<i class="icon ion-android-time placeholder-icon"></i>-->
               <label>Time</label>
               <md-icon>access_time</md-icon>
-              <input name="startTime" ng-model="act.startTime" type="time" size="6">
+              <input name="startTime" ng-model="act.startTime" type="time">
             </md-input-container>
             <md-input-container class="md-icon-float">
               <!--<i class="icon ion-android-time placeholder-icon"></i>-->
               <label>until...</label>
               <md-icon>timelapse</md-icon>
-              <input name="endTime" ng-model="act.endTime" type="time" size="6">
+              <input name="endTime" ng-model="act.endTime" type="time">
             </md-input-container>
         </div>
 
@@ -102,12 +102,57 @@
                  type="text">
         </md-input-container>
 
+
         <md-input-container>
           <!--<i class="icon ion-chatbox-working placeholder-icon"></i>-->
           <!-- textarea md-icon has issues, but putting it in label looks ok. -->
           <label><md-icon>description</md-icon> Description</label>
           <textarea name="descr" ng-model="act.descr"></textarea>
         </md-input-container>
+        <!-- md-select doesn't work with icons so just use menu for now -->
+        <!--<md-input-container>-->
+          <!--<md-select placeholder="Visibility" ng-model="visibility">-->
+            <!--<md-option><md-icon>public</md-icon> Public</md-option>-->
+            <!--<md-option><md-icon>people</md-icon> Friends</md-option>-->
+            <!--<md-option><md-icon>lock</md-icon> Invite-only</md-option>-->
+        <!--</md-select>-->
+        <!--</md-input-container>-->
+        <div layout layout-align="center center">
+          <md-menu>
+            <md-button aria-label="Open visibility menu"
+                       class="md-primary ss-timid"
+                       ng-click="openVisibilityMenu($mdOpenMenu,$event)">
+              <md-icon md-menu-origin>{{visibilityButton.icon}}</md-icon>
+              {{visibilityButton.label}}
+            </md-button>
+            <md-menu-content>
+              <!-- TODO populate menu with choices in repeat?
+               There were some GitHub problems with this I noticed, don't bother for now.
+               -->
+              <md-menu-item ng-hide="omitMenuVisibility == 'public'">
+                <md-button ng-click="changeVisibility('public')">
+                  <md-icon md-menu-align-target>public</md-icon>
+                  Public
+                </md-button>
+              </md-menu-item>
+              <md-menu-divider ng-show="omitMenuVisibility != 'public'"></md-menu-divider>
+              <md-menu-item ng-hide="omitMenuVisibility == 'friends'">
+                <md-button ng-click="changeVisibility('friends')">
+                  <md-icon md-menu-align-target>people</md-icon>
+                  Friends
+                </md-button>
+              </md-menu-item>
+              <md-menu-divider ng-show="omitMenuVisibility == 'public'"></md-menu-divider>
+              <md-menu-item ng-hide="omitMenuVisibility == 'invite'">
+                <md-button ng-click="changeVisibility('invite')">
+                  <md-icon>lock</md-icon>
+                  Invite-only
+                </md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+          <span class="ss-timid" ng-hide="visibility=='invite'">can find and join.</span>
+        </div>
 
         <!--
         Notes:
@@ -118,7 +163,6 @@
         filter-selected="true"
         Surrounding with md-input-container makes label float over input.
         -->
-
         <md-contact-chips
           ng-model="act.invited"
           md-contacts="queryFriends($query)"

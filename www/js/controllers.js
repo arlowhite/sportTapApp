@@ -170,10 +170,12 @@ angular.module('sportSocial.controllers', ['ngMessages'])
     }
   })
 
-  .controller('CreateActivityCtrl', function ($scope, db, $q, $mdToast, $location) {
+  .controller('CreateActivityCtrl', function ($scope, db, $q, $mdToast, $location, $timeout) {
     $scope.act = {invited: []};
 
     $scope.today = new Date();
+    // Default activity visibility
+    $scope.visibility = 'friends';
 
     $scope.$on('$ionicView.enter', function(){
       if($scope.hasKeyboardPlugin) {
@@ -237,6 +239,37 @@ angular.module('sportSocial.controllers', ['ngMessages'])
 
     $scope.browseSports = function () {
       $mdToast.show($mdToast.simple().content('TODO Browse sports dialog.'));
+    };
+
+    var visibilityOptions = {
+      'public': {
+        label: 'Public',
+        icon: 'public'
+      },
+      'friends': {
+        label: 'Friends',
+        icon: 'people'
+      },
+      'invite': {
+        label: 'Invite-only',
+        icon: 'lock'
+      }
+    };
+
+    $scope.visibilityButton = visibilityOptions[$scope.visibility];
+
+    $scope.changeVisibility = function (r) {
+      $scope.visibilityButton = visibilityOptions[r];
+      $scope.visibility = r;
+    };
+
+    $scope.openVisibilityMenu = function ($mdOpenMenu, ev) {
+      // Update menu entries before opening
+      $scope.omitMenuVisibility = $scope.visibility;
+      // Need to delay so menu updates before show
+      $timeout(function () {
+        $mdOpenMenu(ev);
+      });
     };
 
   })
