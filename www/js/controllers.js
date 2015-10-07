@@ -88,27 +88,6 @@ angular.module('sportSocial.controllers', ['ngMessages'])
   .controller('ActivitiesCtrl', function($scope, $state, $timeout) {
     console.info($state.current);
 
-    var tabUrl = $state.current.url;
-    if (tabUrl=='/mine') {
-      $scope.activities = [
-        {title: 'Scuba Diving', id: 1},
-        {title: 'Ultimate frisbee', id: 2}
-      ];
-      // Duplicate 2 * 10
-      var nextId = 3;
-      for(var i=0; i<20; i++){
-        $scope.activities.push({title:'Another one', id:nextId});
-        nextId++;
-      }
-
-    }
-    else{
-      $scope.activities = [
-        {title: 'Soccer', id: 1},
-        {title: 'Basketball', id: 2}
-      ];
-    }
-
     $scope.refresh = function() {
     //$http.get('/new-items')
     // .success(function(newItems) {
@@ -126,6 +105,11 @@ angular.module('sportSocial.controllers', ['ngMessages'])
 
   .controller('ActivityCtrl', function ($scope, activity, $timeout, db) {
     $scope.activity = activity;
+
+    db.person(activity.creatorId).then(function (p) {
+      $scope.creator = p;
+    });
+    $scope.sportIcon = db.sportIcon(activity.sport);
 
     $scope.$on('$ionicView.afterEnter', function(){
       // People take a long time to load
@@ -218,7 +202,7 @@ angular.module('sportSocial.controllers', ['ngMessages'])
     function createFilterFor(query) {
       var lowercaseQuery = angular.lowercase(query);
       return function filterFn(contact) {
-        return (contact._lowername.indexOf(lowercaseQuery) != -1);;
+        return (contact._lowername.indexOf(lowercaseQuery) != -1);
       };
     }
 
@@ -247,6 +231,12 @@ angular.module('sportSocial.controllers', ['ngMessages'])
     $scope.createActivity = function(){
       $location.path('/app/activities');
       $mdToast.show($mdToast.simple().content($scope.act.title+' activity created'));
+    };
+
+    $scope.getSportMatches = db.querySports;
+
+    $scope.browseSports = function () {
+      $mdToast.show($mdToast.simple().content('TODO Browse sports dialog.'));
     };
 
   })

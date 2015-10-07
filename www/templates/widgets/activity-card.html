@@ -1,7 +1,12 @@
 <md-card class="ss-activity">
   <!-- Need position: relative for ink ripple to be contained correctly -->
   <md-card-content ng-click="openActivityDetail()" md-ink-ripple style="position: relative;">
+    <div class="ss-creator">
+      <div>{{creator.name}}</div>
+      <img src="{{creator.avatarUrl}}"/>
+    </div>
     <h2>
+      <i class="ss-sport-icon" ng-class="sportIcon"></i>
       {{activity.title}} @ {{activity.locName}}
     </h2>
     <h3 layout="row" layout-wrap>

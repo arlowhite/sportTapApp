@@ -6,12 +6,36 @@
       <!--https://docs.angularjs.org/guide/forms#custom-triggers-->
       <!-- TODO form tab index, next button in mobile -->
       <div>
+        <div layout="row" class="ss-autocomplete-container">
+          <md-icon ng-class="selectedSport.icon">
+          </md-icon>
+          <md-autocomplete
+            flex
+            md-floating-label="Sport"
+            md-autoselect="true"
+            md-min-length="0"
+            md-search-text="sportSearchText"
+            md-items="sport in getSportMatches(sportSearchText)"
+            md-item-text="sport.name"
+            md-selected-item="selectedSport"
+            md-menu-class="ss-sports-autocomplete">
+            <md-item-template>
+              <i ng-class="sport.icon"></i>
+              <span md-highlight-text="sportSearchText">{{sport.name}}</span>
+            </md-item-template>
+            <md-not-found>Sport not found.</md-not-found>
+          </md-autocomplete>
+          <md-button class="md-icon-button" ng-click="browseSports()">
+            <md-icon>menu</md-icon>
+          </md-button>
+        </div>
+        <!--</md-input-container>-->
 
         <md-input-container class="md-icon-float">
           <!-- Standing person, football/soccer also -->
           <!--<i class="icon ion-android-walk placeholder-icon"></i>-->
           <label>Title</label>
-          <md-icon>directions_run</md-icon>
+          <md-icon>subject</md-icon>
           <!-- TODO work on debounce behavior ng-model-options="{ debounce: 500 }"-->
           <!-- TODO ng-trim doesn't do anything -->
           <input name="title" ng-model="act.title"

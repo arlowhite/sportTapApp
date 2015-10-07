@@ -1,8 +1,7 @@
-<ion-view view-title="{{::activity.title}}">
+<ion-view view-title="Activity">
   <!-- TODO solution for if Activity Title within header is too long
   can md-header wrap? -->
   <ion-nav-buttons side="secondary">
-
     <md-menu ng-if="::activity.myRsvp">
       <md-button aria-label="Open RSVP menu" class="md-icon-button"
                  ng-class="rsvpButton.buttonClass"
@@ -41,6 +40,12 @@
 
     <md-card class="ss-activity">
       <md-card-content>
+        <div class="ss-creator">
+          <div>{{creator.name}}</div>
+          <img src="{{creator.avatarUrl}}"/>
+        </div>
+        <h2><i class="ss-sport-icon {{sportIcon}}"></i>
+          {{::activity.title}}</h2>
         <h3 layout="row" layout-wrap flex>
           <div>
             <md-icon class="material-icons md-18">today</md-icon>

@@ -2,6 +2,17 @@ angular.module('sportSocial.services', [])
 
 .factory('db', function ($q) {
 
+    var ionIconForSport = {
+      soccer: 'ion-ios-football',
+      football: 'ion-ios-americanfootball',
+      baseball: 'ion-ios-baseball-outline',
+      biking: 'ion-android-bicycle',
+      hiking: 'ion-android-walk',
+      flying: 'ion-jet',
+      yoga: 'ion-ios-body',
+      scuba: 'ion-ios-body'
+    };
+
     var fakeUsers = {
       2: {
         id: 2,
@@ -167,7 +178,9 @@ angular.module('sportSocial.services', [])
     var fakeActivities=[
       {
         id: 1,
+        creatorId: 3,
         title: "Scuba dive",
+        sport: "scuba",
         locName: "Target rock",
         descr: "You must bring scuba gear. Make sure to rent gear from the shop before it closes at 6pm.",
         rsvps:[
@@ -184,7 +197,9 @@ angular.module('sportSocial.services', [])
       },
       {
         id: 2,
+        creatorId: 2,
         title: "Backpacking South Sister",
+        sport: 'hiking',
         locName: "Deschutes National Wilderness",
         descr: "1 night backpacking trip. Remember to go over the checklist.",
         rsvps:[
@@ -200,7 +215,9 @@ angular.module('sportSocial.services', [])
       },
       {
         id: 3,
+        creatorId: 2,
         title: "2 mile run",
+        sport: "hiking",
         locName: "Madonna lemon loop",
         descr: "Jog about 2 miles on the Madonna lemon trail network.",
         rsvps:[
@@ -214,7 +231,9 @@ angular.module('sportSocial.services', [])
       },
       {
         id: 4,
+        creatorId: 7,
         title: "Dragon riding lessons",
+        sport: "flying",
         locName: "Meereen dragon tower",
         descr: "Don't smell like meat.",
         rsvps:[
@@ -303,7 +322,7 @@ angular.module('sportSocial.services', [])
         return myPersonId;
       },
 
-      user: function (id) {
+      person: function (id) {
         var d = $q.defer();
         d.resolve(fakeUsers[id]);
         return d.promise;
@@ -358,6 +377,26 @@ angular.module('sportSocial.services', [])
           _myActivities.resolve(myActs);
         }
         return _myActivities.promise;
+      },
+
+      sportIcon: function(sportId) {
+        // For now, just use ion icons since it has a few sports
+        return ionIconForSport[sportId];
+      },
+
+      querySports: function(text) {
+        var lowerQuery = text.toLowerCase();
+        var results = [];
+        for(key in ionIconForSport) {
+          if (key.indexOf(lowerQuery) != -1) {
+            results.push({
+              icon: ionIconForSport[key],
+              id: key,
+              name: key.charAt(0).toUpperCase() + key.slice(1)
+            });
+          }
+        }
+        return results;
       }
 
     }

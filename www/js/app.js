@@ -191,7 +191,7 @@ angular.module('sportSocial', ['ionic', 'ngMaterial',
         },
         resolve: {
           friend: function ($stateParams, db) {
-            return db.user($stateParams.friendId);
+            return db.person($stateParams.friendId);
           }
         }
       })
@@ -323,7 +323,7 @@ angular.module('sportSocial', ['ionic', 'ngMaterial',
       },
       templateUrl:"templates/widgets/person-rsvp.html",
       link: function(scope, element, attrs) {
-        db.user(scope.rsvp.pId).then(function (p) {
+        db.person(scope.rsvp.pId).then(function (p) {
           scope.person = p;
         });
 
@@ -381,6 +381,12 @@ angular.module('sportSocial', ['ionic', 'ngMaterial',
           if(!scope.activity){
             scope.activity = act;
           }
+
+          db.person(act.creatorId).then(function (p) {
+            scope.creator = p;
+          });
+
+          scope.sportIcon = db.sportIcon(act.sport);
 
           // Determining this should be efficient and day property is brittle
           // Sep 8 to Oct 8

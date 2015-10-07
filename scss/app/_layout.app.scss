@@ -44,3 +44,44 @@ ss-person-item {
 ion-header-bar .md-menu {
   padding: 0;
 }
+
+.ss-creator {
+  padding-left: 8px;
+  float: right;
+  text-align: right;
+
+  div {
+    font-size: 90%;
+    color: dodgerblue;
+  }
+  img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    box-sizing: content-box;
+  }
+}
+.ss-activity {
+  .ss-sport-icon {
+    font-size: 20px;
+  }
+}
+
+.ss-sports-autocomplete {
+  i {
+    font-size: 20px;
+    margin-right: 4px;
+  }
+}
+
+// mdAutocomplete with icon and possible button on right
+.ss-autocomplete-container {
+  padding-left: 2px;
+  md-autocomplete {
+    margin-left: 8px;
+  }
+
+  .md-button.md-icon-button {
+    margin-top: 8px;
+  }
+}
