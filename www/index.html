@@ -52,6 +52,11 @@
   </head>
 
   <body ng-app="sportSocial">
-    <ion-nav-view></ion-nav-view>
+  <!-- tabs start creates nav-bar here while side-menu did not. -->
+  <ion-nav-bar class="bar-positive">
+    <ion-nav-back-button></ion-nav-back-button>
+  </ion-nav-bar>
+
+  <ion-nav-view></ion-nav-view>
   </body>
 </html>

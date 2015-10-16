@@ -1,6 +1,6 @@
 angular.module('sportSocial.controllers', ['ngMessages'])
 
-  .controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicActionSheet) {
+  .controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicActionSheet, $state, $location) {
 
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
@@ -9,6 +9,34 @@ angular.module('sportSocial.controllers', ['ngMessages'])
     //$scope.$on('$ionicView.enter', function(e) {
     //});
     //console.log(window.device.uuid);
+
+    // TODO old tabNav code
+    $scope.tabNav = function (name) {
+      console.log('TABVNAV');
+      /*
+       TODO if start at detail view and change state, this creates a back state to that view
+       Not sure if want to just clearHistory at that point
+
+       This clears out view state (resets from tab detail view)
+
+        */
+
+      // if current location under tab
+      if($location.path().indexOf(name) != -1){
+        $state.go('app.'+name);
+      }
+      else {
+        $location.path('/app/' + name);
+        // default tab click
+      }
+    };
+
+    $scope.onTabSelected = function () {
+      console.log('tabselect', this);
+      //$ionicHistory
+      var state = $location.state();
+      console.log('state', state);
+    };
 
     // TODO lazy-load modals?
     $ionicModal.fromTemplateUrl('templates/invite_friends.html', {
@@ -423,7 +451,7 @@ angular.module('sportSocial.controllers', ['ngMessages'])
     $scope.myActivities = myActivities;
 
     $scope.$on('$ionicView.enter', function(){
-      $mdToast.show($mdToast.simple().content('Demonstrating material headers, possible performance issues.'));
+      //$mdToast.show($mdToast.simple().content('Demonstrating material headers, possible performance issues.'));
     });
   })
 
@@ -431,17 +459,8 @@ angular.module('sportSocial.controllers', ['ngMessages'])
                                        friends) {
     $scope.friends = friends;
 
-    // Hide tooltips if side menu is opened
-    $scope.$watch(function () {
-      return $ionicSideMenuDelegate.isOpen();
-    }, function(isOpen) {
-      if(isOpen){
-        $scope.isFabOpen = false;
-      }
-    });
-
     var delayedShowTooltips = function () {
-      if($scope.isFabOpen && !$ionicSideMenuDelegate.isOpen()){
+      if($scope.isFabOpen){
         $scope.showActionTooltips = $scope.isFabOpen;
       }
     };

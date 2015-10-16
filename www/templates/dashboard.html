@@ -2,7 +2,7 @@
   <!--<nav-page hide-nav-bar="true"></nav-page>-->
   <!-- Not sure if ion-content does anything md-content does not -->
   <!--<ion-content style="height: 100%;">-->
-  <div layout="column" style="height: 100%;">
+  <ion-content>
 
     <!-- Issue: Android scrolling
     header stickyness is jerky on chrome device emulator and Android.
@@ -13,71 +13,59 @@
         sticky.js: contentEl.on('$scroll', onScroll);
     -->
     <!-- Should be sibling of md-content according to docs-->
-    <md-toolbar md-scroll-shrink>
-      <div class="md-toolbar-tools">
-        <md-button menu-toggle="left">
-          <md-icon>menu</md-icon>
-        </md-button>
-        <span>Home</span>
-      </div>
-    </md-toolbar>
 
     <!-- md-content necessary for sticky headers -->
     <!--<ion-content overflow-scroll="true" flex>-->
-    <md-content flex>
+    <!--<md-content flex>-->
 
 
-      <!--<ion-refresher></ion-refresher>-->
-      <!--<md-content style="height: 600px;">-->
-      <section>
-        <md-subheader class="md-primary">Friend invitations</md-subheader>
-        <!--<md-card>-->
-        <!--<md-card-content>-->
-        <md-list>
-          <md-divider></md-divider>
-          <!-- TODO share common code with friend_invites.html directives? -->
-          <ss-person-item person="friend" ng-repeat="friend in inviters track by friend.id"></ss-person-item>
-        </md-list>
-        <!--<button class="button button-positive button-full item">Accept all friends</button>-->
-        <section layout="center" layout-align="center">
-          <md-button class="md-primary md-raised">Accept all friends</md-button>
-        </section>
-
-
-        <!--</md-card-content>-->
-        <!--</md-card>-->
+    <!--<ion-refresher></ion-refresher>-->
+    <!--<md-content style="height: 600px;">-->
+    <section>
+      <md-subheader class="md-primary">Friend invitations</md-subheader>
+      <!--<md-card>-->
+      <!--<md-card-content>-->
+      <md-list>
+        <md-divider></md-divider>
+        <!-- TODO share common code with friend_invites.html directives? -->
+        <ss-person-item person="friend" ng-repeat="friend in inviters track by friend.id"></ss-person-item>
+      </md-list>
+      <!--<button class="button button-positive button-full item">Accept all friends</button>-->
+      <section layout="center" layout-align="center">
+        <md-button class="md-primary md-raised">Accept all friends</md-button>
       </section>
 
-      <section>
-        <md-subheader class="md-primary">Activity invitations</md-subheader>
-        <!-- TODO activity invite example
-         when decide jumps down?
-        -->
 
-      </section>
+      <!--</md-card-content>-->
+      <!--</md-card>-->
+    </section>
 
-      <section>
-        <md-subheader class="md-primary">What's new?</md-subheader>
-        <md-button style="text-transform: none;">
-          <span class="badge badge-positive">5</span>
-          Friends looking to do something
-        </md-button>
-        <md-button style="text-transform: none;">
-          <span class="badge badge-positive">2</span>
-          Friends created new activities
-        </md-button>
-      </section>
+    <section>
+      <md-subheader class="md-primary">Activity invitations</md-subheader>
+      <!-- TODO activity invite example
+       when decide jumps down?
+      -->
 
-      <section>
-        <md-subheader class="md-primary">Upcoming events</md-subheader>
-        <ss-activity-card activity="act"
-                          ng-repeat="act in myActivities track by act.id"></ss-activity-card>
-      </section>
+    </section>
 
-    </md-content>
-    <!--</ion-content>-->
+    <section>
+      <md-subheader class="md-primary">What's new?</md-subheader>
+      <md-button style="text-transform: none;">
+        <span class="badge badge-positive">5</span>
+        Friends looking to do something
+      </md-button>
+      <md-button style="text-transform: none;">
+        <span class="badge badge-positive">2</span>
+        Friends created new activities
+      </md-button>
+    </section>
 
-  </div>
-  <!--</ion-content>-->
+    <section>
+      <md-subheader class="md-primary">Upcoming events</md-subheader>
+      <ss-activity-card activity="act"
+                        ng-repeat="act in myActivities track by act.id"></ss-activity-card>
+    </section>
+
+  </ion-content>
 
 </ion-view>

@@ -130,12 +130,16 @@ angular.module('sportSocial', ['ionic', 'ngMaterial',
       return moment(date).format('dddd, MMMM Do');
     };
 
+    // Put Android tabs on bottom instead of top, no striped
+    $ionicConfigProvider.tabs.style('standard');
+    $ionicConfigProvider.tabs.position('bottom');
+
     $stateProvider
 
       .state('app', {
         url: '/app',
         abstract: true,
-        templateUrl: 'templates/menu.html',
+        templateUrl: 'templates/app-ion-tabs.html',
         controller: 'AppCtrl'
       })
 // FIXME Login is getting put into state history
@@ -150,7 +154,7 @@ angular.module('sportSocial', ['ionic', 'ngMaterial',
       .state('app.dashboard', {
         url: '/dashboard',
         views: {
-          'menuContent': {
+          'tab-home': {
             templateUrl: 'templates/dashboard.html',
             // Just reusing simple controller for now
             controller: 'DashboardCtrl'
@@ -169,11 +173,12 @@ angular.module('sportSocial', ['ionic', 'ngMaterial',
       .state('app.friends', {
         url: '/friends',
         views: {
-          'menuContent': {
+          'tab-friends': {
             templateUrl: 'templates/friends.html',
             controller: 'FriendsCtrl'
           }
         },
+        // TODO this gets inherited by child states?
         resolve: {
           friends: function(db){
             return db.myFriends();
@@ -184,7 +189,7 @@ angular.module('sportSocial', ['ionic', 'ngMaterial',
       .state('app.friend_detail', {
         url: '/friend/{friendId}',
         views: {
-          'menuContent': {
+          'tab-friends': {
             templateUrl: 'templates/friend_detail.html',
             controller: 'FriendCtrl'
           }
@@ -199,7 +204,7 @@ angular.module('sportSocial', ['ionic', 'ngMaterial',
       .state('app.activity_detail', {
         url: '/activity/{activityId}',
         views: {
-          'menuContent': {
+          'tab-activities': {
             templateUrl: 'templates/activity_detail.html',
             controller: 'ActivityCtrl'
           }
@@ -214,7 +219,7 @@ angular.module('sportSocial', ['ionic', 'ngMaterial',
       .state('app.friend_invites', {
         url: '/friend_invites',
         views: {
-          'menuContent': {
+          'tab-friends': {
             templateUrl: 'templates/friend_invites.html',
             controller: 'FriendsCtrl'
           }
@@ -229,7 +234,7 @@ angular.module('sportSocial', ['ionic', 'ngMaterial',
       .state('app.activities', {
         url: '/activities',
         views: {
-          'menuContent': {
+          'tab-activities': {
             templateUrl: 'templates/activities.html',
             controller: 'ActivitiesTabsCtrl'
           }
@@ -239,7 +244,7 @@ angular.module('sportSocial', ['ionic', 'ngMaterial',
       .state('app.create_activity', {
         url: '/create_activity',
         views: {
-          'menuContent': {
+          'tab-activities': {
             templateUrl: 'templates/create_activity.html',
             controller: 'CreateActivityCtrl'
           }
@@ -268,7 +273,7 @@ angular.module('sportSocial', ['ionic', 'ngMaterial',
       .state('app.account', {
         url: '/account',
         views: {
-          'menuContent':{
+          'tab-account':{
             templateUrl: 'templates/account.html',
             controller: 'AccountCtrl'
           }
