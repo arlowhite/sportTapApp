@@ -1,4 +1,4 @@
-<ion-view view-title="Activities">
+<ion-view view-title="Activities" hide-nav-bar="true">
   <!-- These overrides so we can color bar,
   but loses default side-menu button, so need to add it again -->
   <!--<ion-nav-bar class="has-tabs-top bar-positive">-->
@@ -22,7 +22,7 @@
   -->
   <!-- Layout stuff needed to make md-tabs takeup vertical space-->
   <div layout="column" layout-fill>
-    <md-tabs class="has-header" md-swipe-content="true" md-dynamic-height="false" flex>
+    <md-tabs md-swipe-content="true" md-dynamic-height="false" md-stretch-tabs="auto" flex>
       <md-tab label="Joined" md-on-select="mineSelected()">
         <!--<ion-nav-view name="mine-tab"></ion-nav-view>-->
         <!--<div ui-view="mine-tab"></div>-->

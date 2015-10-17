@@ -92,7 +92,7 @@ angular.module('sportSocial', ['ionic', 'ngMaterial',
   })
 
   .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $mdGestureProvider,
-                   $mdDateLocaleProvider) {
+                   $mdDateLocaleProvider, $mdThemingProvider) {
 
     // Disable caching, RSVP changes were not updating between views
     $ionicConfigProvider.views.maxCache(0);
@@ -133,6 +133,11 @@ angular.module('sportSocial', ['ionic', 'ngMaterial',
     // Put Android tabs on bottom instead of top, no striped
     $ionicConfigProvider.tabs.style('standard');
     $ionicConfigProvider.tabs.position('bottom');
+
+    $mdThemingProvider.theme('default')
+      .accentPalette('blue');
+
+    //.primaryPalette('cyan') ugly :(
 
     $stateProvider
 
