@@ -6,9 +6,8 @@ all our CSS is done by importing libraries SCSS files here.
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "/bower_components/ionic/release/fonts" !default;
-
-// Include all of Ionic
-@import "../../bower_components/ionic/scss/ionic";
+// Ionic scss imports we want will be injected here
+// IONIC_IMPORTS
 
 @import "scss/mixins.app";
 @import "scss/layout.app";
