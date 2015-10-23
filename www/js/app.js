@@ -162,7 +162,7 @@ angular.module('sportSocial', ['ionic', 'ngMaterial',
           'tab-home': {
             templateUrl: 'templates/dashboard.html',
             // Just reusing simple controller for now
-            controller: 'DashboardCtrl'
+            controller: 'DashboardCtrl as ctrl'
           }
         },
         resolve: {
@@ -170,7 +170,8 @@ angular.module('sportSocial', ['ionic', 'ngMaterial',
             return db.invitedMe();
           },
           myActivities: function(db) {
-            return db.myActivities();
+            // TODO separate not going?
+            return db.myActivities('>=', 1);
           }
         }
       })
@@ -349,24 +350,6 @@ angular.module('sportSocial', ['ionic', 'ngMaterial',
 
     var myId = db.myId();
 
-    // TODO maybe make RSVP button its own directive
-    var rsvpDisplay = {
-      'going': {
-        label: 'Going',
-        icon: 'done',
-        buttonClass: 'md-primary'
-      },
-      'maybe': {
-        label: 'Maybe',
-        icon: 'help',
-        buttonClass: ''
-      },
-      'no': {
-        label: 'Not Going',
-        icon: 'thumb_down',
-        buttonClass: 'md-warn'
-      }
-    };
     return {
       restrict: "E",
       scope: {
@@ -407,36 +390,12 @@ angular.module('sportSocial', ['ionic', 'ngMaterial',
           // rsvpButton - Current button styling/label
           // omitMenuRsvp - hides entry from menu (avoid user seeing menu change)
           if(act.myRsvp) {
-            scope.rsvpButton = rsvpDisplay[act.myRsvp];
 
-            scope.changeRsvp = function (r) {
-              scope.rsvpButton = rsvpDisplay[r];
-              scope.activity.myRsvp = r;
-              // Update within rsvps as well
-              var rsvps = scope.activity.rsvps;
-
-              var found = false;
-              for(var i=0; i<rsvps.length;i++){
-                if(rsvps[i].pId == myId){
-                  rsvps[i].r = r;
-                  found = true;
-                  break;
-                }
+            scope.$watch('activity.myRsvp', function (newVal, oldVal) {
+              if(newVal !== oldVal){
+                db.updateRsvp(act.id, newVal);
               }
-              if(!found){
-                console.error('Failed to find matching RSVP for person/activity', myId, scope.activity.id);
-                console.log(rsvps);
-              }
-            };
-
-            scope.openRsvpMenu = function ($mdOpenMenu, ev) {
-              // Update menu entries before opening
-              scope.omitMenuRsvp = scope.activity.myRsvp;
-              // Need to delay so menu updates before show
-              $timeout(function () {
-                $mdOpenMenu(ev);
-              });
-            };
+            });
           }
 
           scope.openActivityDetail = function () {

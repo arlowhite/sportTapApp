@@ -1,0 +1,33 @@
+<md-menu>
+  <md-button aria-label="Open RSVP menu" class="{{::buttonClass}}"
+             ng-class="rsvpButton.buttonClass"
+             ng-click="openRsvpMenu($mdOpenMenu,$event)">
+    <md-icon md-menu-origin>{{rsvpButton.icon}}</md-icon>
+    {{rsvpButton.label}}
+  </md-button>
+  <md-menu-content>
+    <!-- Could populate menu with choices in repeat, but probably not worth it.
+     There were some GitHub problems with this I noticed, don't bother for now.
+     -->
+    <md-menu-item ng-show="omitMenuRsvp != 3">
+      <md-button ng-click="changeRsvp(3)" class="md-primary">
+        <md-icon md-menu-align-target>done</md-icon>
+        Going
+      </md-button>
+    </md-menu-item>
+    <md-menu-divider ng-show="omitMenuRsvp != 3"></md-menu-divider>
+    <md-menu-item ng-show="omitMenuRsvp != 2">
+      <md-button ng-click="changeRsvp(2)" class="slow-pulse">
+        <md-icon md-menu-align-target>help</md-icon>
+        Maybe
+      </md-button>
+    </md-menu-item>
+    <md-menu-divider ng-show="omitMenuRsvp == 3"></md-menu-divider>
+    <md-menu-item ng-show="omitMenuRsvp != 1">
+      <md-button ng-click="changeRsvp(1)" class="md-warn">
+        <md-icon>thumb_down</md-icon>
+        Not going
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>

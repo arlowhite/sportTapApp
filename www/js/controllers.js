@@ -103,7 +103,7 @@ angular.module('sportSocial.controllers', ['ngMessages'])
     $scope.$on('$ionicView.afterEnter', function() {
       // Not sure why needed timeout, but never so indicator without it
       $timeout(function () {
-        db.myActivities().then(function (acts) {
+        db.myActivities('>=', 1).then(function (acts) {
           // FIXME activities load slower here than the Dashboard!?
           console.log('set myActivities');
           $scope.myActivities = acts;
@@ -144,57 +144,13 @@ angular.module('sportSocial.controllers', ['ngMessages'])
       $scope.viewEntered = true;
     });
 
-    // TODO share RSVP button/menu code with ssActivityCard
-    var rsvpDisplay = {
-      'going': {
-        label: 'Going',
-        icon: 'done',
-        buttonClass: 'md-primary'
-      },
-      'maybe': {
-        label: 'Maybe',
-        icon: 'help',
-        buttonClass: ''
-      },
-      'no': {
-        label: 'Not Going',
-        icon: 'thumb_down',
-        buttonClass: 'md-warn'
-      }
-    };
     var myId = db.myId();
-    var act = activity;
-    if(act.myRsvp) {
-      $scope.rsvpButton = rsvpDisplay[act.myRsvp];
-
-      $scope.changeRsvp = function (r) {
-        $scope.rsvpButton = rsvpDisplay[r];
-        $scope.activity.myRsvp = r;
-        // Update within rsvps as well
-        var rsvps = $scope.activity.rsvps;
-
-        var found = false;
-        for(var i=0; i<rsvps.length;i++){
-          if(rsvps[i].pId == myId){
-            rsvps[i].r = r;
-            found = true;
-            break;
-          }
+    if(activity.myRsvp) {
+      $scope.$watch('activity.myRsvp', function (newVal, oldVal) {
+        if(newVal !== oldVal){
+          db.updateRsvp(activity.id, newVal);
         }
-        if(!found){
-          console.error('Failed to find matching RSVP for person/activity', myId, $scope.activity.id);
-          console.log(rsvps);
-        }
-      };
-
-      $scope.openRsvpMenu = function ($mdOpenMenu, ev) {
-        // Update menu entries before opening
-        $scope.omitMenuRsvp = $scope.activity.myRsvp;
-        // Need to delay so menu updates before show
-        $timeout(function () {
-          $mdOpenMenu(ev);
-        });
-      };
+      });
     }
   })
 
@@ -446,9 +402,14 @@ angular.module('sportSocial.controllers', ['ngMessages'])
 
   })
 
-  .controller('DashboardCtrl', function ($scope, $timeout, $mdToast, inviters, myActivities) {
-    $scope.inviters = inviters;
-    $scope.myActivities = myActivities;
+  .controller('DashboardCtrl', function ($scope, $timeout, $mdToast, inviters, myActivities, db) {
+    // TODO which way to load data? resolve or db calls here?
+    this.inviters = inviters;
+    this.myActivities = myActivities;
+    db.myActivities('==', 0).then(function (acts) {
+        this.activityInvites = acts;
+      }
+    );
 
     $scope.$on('$ionicView.enter', function(){
       //$mdToast.show($mdToast.simple().content('Demonstrating material headers, possible performance issues.'));

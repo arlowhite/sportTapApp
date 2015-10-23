@@ -72,3 +72,12 @@ span.ss-timid {
 .tab-item .tab-title {
   font-weight: 500;
 }
+// Make icon and text visible against dark header background
+ion-header-bar {
+  button.md-button {
+    span, md-icon {
+      // Overrides red not going, but ok for now
+      color: white !important;
+    }
+  }
+}

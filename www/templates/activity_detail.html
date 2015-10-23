@@ -2,38 +2,7 @@
   <!-- TODO solution for if Activity Title within header is too long
   can md-header wrap? -->
   <ion-nav-buttons side="secondary">
-    <md-menu ng-if="::activity.myRsvp">
-      <md-button aria-label="Open RSVP menu" class="md-icon-button"
-                 ng-class="rsvpButton.buttonClass"
-                 ng-click="openRsvpMenu($mdOpenMenu,$event)">
-        <md-icon md-menu-origin>{{rsvpButton.icon}}</md-icon>
-      </md-button>
-      <md-menu-content>
-        <!-- TODO populate menu with choices in repeat?
-         There were some GitHub problems with this I noticed, don't bother for now.
-         -->
-        <md-menu-item ng-show="omitMenuRsvp != 'going'">
-          <md-button ng-click="changeRsvp('going')" class="md-primary">
-            <md-icon md-menu-align-target>done</md-icon>
-            Going
-          </md-button>
-        </md-menu-item>
-        <md-menu-divider ng-show="omitMenuRsvp != 'going'"></md-menu-divider>
-        <md-menu-item ng-show="omitMenuRsvp != 'maybe'">
-          <md-button ng-click="changeRsvp('maybe')" class="slow-pulse">
-            <md-icon md-menu-align-target>help</md-icon>
-            Maybe
-          </md-button>
-        </md-menu-item>
-        <md-menu-divider ng-show="omitMenuRsvp == 'going'"></md-menu-divider>
-        <md-menu-item ng-show="omitMenuRsvp != 'no'">
-          <md-button ng-click="changeRsvp('no')" class="md-warn">
-            <md-icon>thumb_down</md-icon>
-            Not going
-          </md-button>
-        </md-menu-item>
-      </md-menu-content>
-    </md-menu>
+    <ss-rsvp-menu ng-if="::activity.myRsvp" rsvp-value="activity.myRsvp"></ss-rsvp-menu>
     <md-button class="md-icon-button"><md-icon>edit</md-icon></md-button>
   </ion-nav-buttons>
   <ion-content class="has-header">
@@ -84,25 +53,25 @@
             <md-subheader ng-if="::activity.numRsvpGoing">
               <md-icon class="md-18">thumb_up</md-icon>
               Going <span class="badge badge-stable">{{::activity.numRsvpGoing}}</span></md-subheader>
-            <ss-person-rsvp rsvp="rsvp" ng-repeat="rsvp in ::activity.rsvps | filter:{r:'going'} track by rsvp.pId"></ss-person-rsvp>
+            <ss-person-rsvp rsvp="rsvp" ng-repeat="rsvp in ::activity.rsvps | filter:{r:3} track by rsvp.pId"></ss-person-rsvp>
 
             <md-divider ng-if="::activity.numRsvpMaybe"></md-divider>
             <md-subheader ng-if="::activity.numRsvpMaybe">
               <md-icon class="md-18">help</md-icon>
               Maybe <span class="badge badge-stable">{{::activity.numRsvpMaybe}}</span></md-subheader>
-            <ss-person-rsvp rsvp="rsvp" ng-repeat="rsvp in ::activity.rsvps | filter:{r:'maybe'} track by rsvp.pId"></ss-person-rsvp>
+            <ss-person-rsvp rsvp="rsvp" ng-repeat="rsvp in ::activity.rsvps | filter:{r:2} track by rsvp.pId"></ss-person-rsvp>
 
             <md-divider ng-if="::activity.numRsvpUnknown"></md-divider>
             <md-subheader ng-if="::activity.numRsvpUnknown">
               <md-icon class="md-18">error</md-icon>
               No response <span class="badge badge-stable">{{::activity.numRsvpUnknown}}</span></md-subheader>
-            <ss-person-rsvp rsvp="rsvp" ng-repeat="rsvp in ::activity.rsvps | filter:{r:'?'} track by rsvp.pId"></ss-person-rsvp>
+            <ss-person-rsvp rsvp="rsvp" ng-repeat="rsvp in ::activity.rsvps | filter:{r:0} track by rsvp.pId"></ss-person-rsvp>
 
             <md-divider ng-if="::activity.numRsvpNo"></md-divider>
             <md-subheader ng-if="::activity.numRsvpNo" class="md-warn">
               <md-icon class="md-18 md-warn md-hue-3">thumb_down</md-icon>
               Not Going <span class="badge badge-stable">{{::activity.numRsvpNo}}</span></md-subheader>
-            <ss-person-rsvp rsvp="rsvp" ng-repeat="rsvp in ::activity.rsvps | filter:{r:'no'} track by rsvp.pId"></ss-person-rsvp>
+            <ss-person-rsvp rsvp="rsvp" ng-repeat="rsvp in ::activity.rsvps | filter:{r:1} track by rsvp.pId"></ss-person-rsvp>
           </md-list>
         </md-tab-body>
       </md-tab>

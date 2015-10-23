@@ -184,12 +184,12 @@ angular.module('sportSocial.services', [])
         locName: "Target rock",
         descr: "You must bring scuba gear. Make sure to rent gear from the shop before it closes at 6pm.",
         rsvps:[
-          {pId:3, r:'going'},
-          {pId:6, r:'going'},
-          {pId:7, r:'going'},
-          {pId:8, r:'going'},
-          {pId:4, r:'maybe'},
-          {pId:10, r:'no'}
+          {pId:3, r:3},
+          {pId:6, r:3},
+          {pId:7, r:3},
+          {pId:8, r:3},
+          {pId:4, r:2},
+          {pId:10, r:1}
         ],
         _daysAhead:2,
         _hoursAhead:9,
@@ -203,11 +203,11 @@ angular.module('sportSocial.services', [])
         locName: "Deschutes National Wilderness",
         descr: "1 night backpacking trip. Remember to go over the checklist.",
         rsvps:[
-          {pId:2, r:'going'},
-          {pId:3, r:'maybe'},
-          {pId:6, r:'maybe'},
-          {pId:4, r:'no'},
-          {pId:5, r:'?'}
+          {pId:2, r:3},
+          {pId:3, r:2},
+          {pId:6, r:2},
+          {pId:4, r:1},
+          {pId:5, r:0}
         ],
         _daysAhead:7,
         _hoursAhead:7,
@@ -221,9 +221,9 @@ angular.module('sportSocial.services', [])
         locName: "Madonna lemon loop",
         descr: "Jog about 2 miles on the Madonna lemon trail network.",
         rsvps:[
-          {pId:2, r:'going'},
-          {pId:3, r:'going'},
-          {pId:8, r:'maybe'}
+          {pId:2, r:3},
+          {pId:3, r:0},
+          {pId:8, r:2}
         ],
         _daysAhead:1,
         _hoursAhead:19,
@@ -237,8 +237,8 @@ angular.module('sportSocial.services', [])
         locName: "Meereen dragon tower",
         descr: "Don't smell like meat.",
         rsvps:[
-          {pId:7, r:'going'},
-          {pId:10, r:'maybe'}
+          {pId:7, r:3},
+          {pId:10, r:2}
         ],
         _daysAhead:1,
         _hoursAhead:19,
@@ -268,16 +268,16 @@ angular.module('sportSocial.services', [])
       for(var i=0; i<rsvps.length; i++){
         var r = rsvps[i].r;
 
-        if(r=='going'){
+        if(r==3){
           numGoing++;
         }
-        else if(r=='maybe'){
+        else if(r==2){
           numMaybe++;
         }
-        else if(r=='no'){
+        else if(r==1){
           numNo++;
         }
-        else if(r=='?'){
+        else if(r==0){
           numUnknown++;
         }
         else{
@@ -367,16 +367,58 @@ angular.module('sportSocial.services', [])
       },
 
       // TODO myActivities filters. Going vs Maybe vs No vs ?
-      myActivities: function () {
-        if(!_myActivities){
-          _myActivities = $q.defer();
-          var myActs = fakeActivities.filter(function(act){
-            return act.myRsvp;
-          });
-          myActs.sort(sortActivityStartDate);
-          _myActivities.resolve(myActs);
-        }
-        return _myActivities.promise;
+
+      /**
+       * Activities user has an association with.
+       * Created, Joined, Invited
+       * @param op Comparison operation, ==, >=, <=
+       * @param rsvp RSVP filter, undefined matches any.
+       * @returns {*}
+       */
+      myActivities: function (op, rsvp) {
+        var myActs = fakeActivities.filter(function(act){
+          if (!act.hasOwnProperty('myRsvp')) {
+            return false;
+          }
+          if (op === '=='){
+            return act.myRsvp === rsvp;
+          }
+          else if (op === '>=') {
+            return act.myRsvp >= rsvp;
+          }
+          else if (op === '>=') {
+            return act.myRsvp >= rsvp;
+          }
+          else {
+            throw new Error('op not supported: '+op);
+          }
+        });
+        myActs.sort(sortActivityStartDate);
+        return $q.when(myActs);
+      },
+
+      /**
+       * Update user's RSVP for an Activity
+       * @param activityId
+       * @param rsvp
+       */
+      updateRsvp: function(activityId, rsvp) {
+        console.log('db.updateRsvp', activityId, rsvp);
+        this.activity(activityId).then(function (act) {
+          var found = false;
+          var rsvps = act.rsvps;
+          for(var i=0; i<rsvps.length;i++){
+            if(rsvps[i].pId == myPersonId){
+              rsvps[i].r = rsvp;
+              found = true;
+              break;
+            }
+          }
+          if(!found){
+            console.error('Failed to find matching RSVP for person/activity', myPersonId, act.id);
+            console.log(rsvps);
+          }
+        });
       },
 
       sportIcon: function(sportId) {
@@ -387,7 +429,7 @@ angular.module('sportSocial.services', [])
       querySports: function(text) {
         var lowerQuery = text.toLowerCase();
         var results = [];
-        for(key in ionIconForSport) {
+        for(var key in ionIconForSport) {
           if (key.indexOf(lowerQuery) != -1) {
             results.push({
               icon: ionIconForSport[key],

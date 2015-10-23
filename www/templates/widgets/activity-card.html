@@ -40,38 +40,6 @@
       {{activity.numRsvpPossible}} People
     </md-button>
     <!-- TODO Performance: Should be able to just have one RSVP menu instance and share it -->
-    <md-menu ng-if="activity.myRsvp">
-      <md-button aria-label="Open RSVP menu" class="md-raised"
-                 ng-class="rsvpButton.buttonClass"
-                 ng-click="openRsvpMenu($mdOpenMenu,$event)">
-        <md-icon md-menu-origin>{{rsvpButton.icon}}</md-icon>
-        {{rsvpButton.label}}
-      </md-button>
-      <md-menu-content>
-        <!-- TODO populate menu with choices in repeat?
-         There were some GitHub problems with this I noticed, don't bother for now.
-         -->
-        <md-menu-item ng-show="omitMenuRsvp != 'going'">
-          <md-button ng-click="changeRsvp('going')" class="md-primary">
-            <md-icon md-menu-align-target>done</md-icon>
-            Going
-          </md-button>
-        </md-menu-item>
-        <md-menu-divider ng-show="omitMenuRsvp != 'going'"></md-menu-divider>
-        <md-menu-item ng-show="omitMenuRsvp != 'maybe'">
-          <md-button ng-click="changeRsvp('maybe')" class="slow-pulse">
-            <md-icon md-menu-align-target>help</md-icon>
-            Maybe
-          </md-button>
-        </md-menu-item>
-        <md-menu-divider ng-show="omitMenuRsvp == 'going'"></md-menu-divider>
-        <md-menu-item ng-show="omitMenuRsvp != 'no'">
-          <md-button ng-click="changeRsvp('no')" class="md-warn">
-            <md-icon>thumb_down</md-icon>
-            Not going
-          </md-button>
-        </md-menu-item>
-      </md-menu-content>
-    </md-menu>
+    <ss-rsvp-menu rsvp-value="activity.myRsvp" ng-if="activity.myRsvp" button-class="md-raised"></ss-rsvp-menu>
   </div>
 </md-card>

@@ -8,6 +8,7 @@ var rename = require('gulp-rename');
 var sh = require('shelljs');
 var zip = require('gulp-zip');
 
+// TODO ngAnnotate for DI https://github.com/johnpapa/angular-styleguide#manual-annotating-for-dependency-injection
 var paths = {
   sass: ['./scss/app/**/*.scss'],
   material_sass: ['./scss/angular-material/**/*.scss']
