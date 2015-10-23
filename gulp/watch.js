@@ -25,6 +25,7 @@ gulp.task('watch', ['scripts:watch', 'inject'], function () {
     }
   });
 
+  gulp.watch(path.join(conf.paths.src, '/angular-material/**/*.scss'), ['material-css']);
 
   gulp.watch(path.join(conf.paths.src, '/app/**/*.html'), function(event) {
     browserSync.reload(event.path);

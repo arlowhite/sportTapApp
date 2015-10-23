@@ -4,6 +4,9 @@
  *  because putting all here was really too long
  */
 
+// This gulp boilerplate adapted from:
+// https://github.com/MaximAbramchuck/angular-gulp-ionic-boilerplate
+
 'use strict';
 
 var gulp = require('gulp');
