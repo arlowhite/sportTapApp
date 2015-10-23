@@ -1,0 +1,28 @@
+/* Original boilerplate pulled in dependencies css with bower colon scss, but
+all our CSS is done by importing libraries SCSS files here.
+*/
+
+@import "scss/ionic-overrides";
+
+// The path for our ionicons font files, relative to the built CSS in www/css
+$ionicons-font-path: "/bower_components/ionic/release/fonts" !default;
+
+// Include all of Ionic
+@import "../../bower_components/ionic/scss/ionic";
+
+@import "scss/mixins.app";
+@import "scss/layout.app";
+@import "scss/text.app";
+@import "scss/colors_icons.app";
+@import "scss/material-font-icons";
+@import "scss/animations.app";
+
+$RobotoDraftFontPath: "/bower_components/robotodraft/fonts"; // REMINDER: edit as appropriate!
+$RobotoDraftFontName: "RobotoDraft";
+$RobotoDraftFontVersion: "1.1.0";
+@import "../../bower_components/robotodraft/robotodraft";
+
+/* Do not remove this comments bellow. It's the markers used by gulp-inject to inject
+   all your sass files automatically */
+// injector
+// endinjector

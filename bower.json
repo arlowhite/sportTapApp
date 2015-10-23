@@ -2,7 +2,7 @@
   "name": "sportSocial",
   "private": "true",
   "devDependencies": {
-    "ionic": "driftyco/ionic-bower#1.1.0"
+    "angular-mocks": "~1.4.0"
   },
   "version": "0.0.2",
   "dependencies": {
@@ -12,14 +12,15 @@
     "angular-material": "1.0.0-rc1",
     "angular-messages": "1.4.7",
     "angular-sanitize": "1.4.7",
+    "angular-ui-router": "~0.2.15",
     "moment": "~2.10.6",
-    "robotodraft": "1.1.0"
+    "robotodraft": "1.1.0",
+    "ionic": "~1.1.0"
   },
   "resolutions": {
     "angular": "1.4.7",
     "angular-animate": "1.4.7",
     "angular-sanitize": "1.4.7",
-    "angular-aria": "1.4.7",
-    "angular-material": "master"
+    "angular-aria": "1.4.7"
   }
 }

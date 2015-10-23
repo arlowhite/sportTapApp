@@ -4,7 +4,10 @@
 node_modules/
 platforms/
 plugins/
+dist/
 www/lib/
+bower_components/
 www/css/*.css
 .idea/
+.tmp/
 .io-config.json

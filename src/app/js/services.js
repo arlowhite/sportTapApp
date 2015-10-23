@@ -19,7 +19,7 @@ angular.module('sportSocial.services', [])
         name: 'Raquel',
         //age: 30, null?
         gender: 'female',
-        avatarUrl: 'img/demo/raquel_avatar.png',
+        avatarUrl: '/assets/images/demo/raquel_avatar.png',
         city: 'San Luis Obispo, CA',
         // Server gives list of friend's top tags?
         mainActivityTags: 'Road Biking, Mountain Biking, Running',
@@ -36,7 +36,7 @@ angular.module('sportSocial.services', [])
         name: 'Arlo White',
         age: 30,
         gender: 'male',
-        avatarUrl: 'img/demo/scuba_avatar.jpg',
+        avatarUrl: '/assets/images/demo/scuba_avatar.jpg',
         city: 'Corvallis, OR',
         // Server gives list of friend's top tags?
         // TODO activity tag chips conversion?
@@ -62,7 +62,7 @@ angular.module('sportSocial.services', [])
         name: 'Tully',
         age: 24,
         gender: 'male',
-        avatarUrl: 'img/demo/tully.jpg',
+        avatarUrl: '/assets/images/demo/tully.jpg',
         city: 'Corvallis, OR',
         // Server gives list of friend's top tags?
         // TODO activity tag chips conversion?
@@ -79,7 +79,7 @@ angular.module('sportSocial.services', [])
         name: 'Dana',
         age: 25,
         gender: 'female',
-        avatarUrl: 'img/demo/barrett.jpg',
+        avatarUrl: '/assets/images/demo/barrett.jpg',
         city: 'Corvallis, OR',
         // Server gives list of friend's top tags?
         // TODO activity tag chips conversion?
@@ -95,7 +95,7 @@ angular.module('sportSocial.services', [])
         name: 'Arya',
         age: 15,
         gender: 'female',
-        avatarUrl: 'img/demo/arya.jpg',
+        avatarUrl: '/assets/images/demo/arya.jpg',
         city: 'Braavos',
         // Server gives list of friend's top tags?
         // TODO activity tag chips conversion?
@@ -111,7 +111,7 @@ angular.module('sportSocial.services', [])
         name: 'Daenerys',
         age: 20,
         gender: 'female',
-        avatarUrl: 'img/demo/daenerys.jpg',
+        avatarUrl: '/assets/images/demo/daenerys.jpg',
         city: 'Meereen',
         // Server gives list of friend's top tags?
         // TODO activity tag chips conversion?
@@ -127,7 +127,7 @@ angular.module('sportSocial.services', [])
         name: 'Jon Snow',
         age: 20,
         gender: 'male',
-        avatarUrl: 'img/demo/jon-snow.jpg',
+        avatarUrl: '/assets/images/demo/jon-snow.jpg',
         city: 'The Wall',
         // Server gives list of friend's top tags?
         // TODO activity tag chips conversion?
@@ -142,7 +142,7 @@ angular.module('sportSocial.services', [])
         name: 'Sansa',
         age: 17,
         gender: 'female',
-        avatarUrl: 'img/demo/sansa.jpg',
+        avatarUrl: '/assets/images/demo/sansa.jpg',
         city: 'Winterfell',
         // Server gives list of friend's top tags?
         // TODO activity tag chips conversion?
@@ -158,7 +158,7 @@ angular.module('sportSocial.services', [])
         name: 'Tyrion',
         age: 37,
         gender: 'male',
-        avatarUrl: 'img/demo/tyrion.jpg',
+        avatarUrl: '/assets/images/demo/tyrion.jpg',
         city: 'King\'s Landing',
         // Server gives list of friend's top tags?
         // TODO activity tag chips conversion?
