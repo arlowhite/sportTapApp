@@ -1,4 +1,4 @@
-<ion-view view-title="Account">
+<ion-view view-title="Account" hide-nav-bar="true">
   <ion-content class="md-padding">
 
     <md-card>
@@ -11,18 +11,19 @@
       <!-- Seems to automatically toggle switch without ng-click being added -->
       <md-list-item style="position: relative;" class="md-primary" md-ink-ripple>
         <md-subheader class="md-primary">Your public profile</md-subheader>
-        <md-icon ng-class="{'md-primary':editingProfile}">edit</md-icon>
+        <md-icon ng-class="{'md-primary':accountCtrl.editingProfile}">edit</md-icon>
         <md-switch class="md-secondary md-primary md-icon-button" aria-label="Toggle looking for friends"
-                   ng-model="editingProfile" ng-change="editingProfileChanged(editingProfile)"></md-switch>
+                   ng-model="accountCtrl.editingProfile"
+                   ng-change="accountCtrl.editingProfileChanged(accountCtrl.editingProfile)"></md-switch>
       </md-list-item>
       <md-divider></md-divider>
-      <md-list-item ng-click="editName($event)" class="md-2-line" ng-disabled="!editingProfile">
+      <md-list-item ng-click="accountCtrl.editName($event)" class="md-2-line" ng-disabled="!accountCtrl.editingProfile">
         <img src="/assets/images/demo/scuba_avatar.jpg" class="md-avatar">
         <div class="md-list-item-text">
           <h3>Arlo White</h3>
           <i class="icon ion-male"> Male</i>
         </div>
-        <md-icon class="editable md-primary" ng-if="editingProfile">edit</md-icon>
+        <md-icon class="editable md-primary" ng-if="accountCtrl.editingProfile">edit</md-icon>
       </md-list-item>
       <md-divider></md-divider>
       <md-list-item layout="row">
@@ -35,8 +36,9 @@
         </div>
       </md-list-item>
       <md-divider></md-divider>
-      <md-list-item id="location-container" class="animate-switch-container" ng-click="showLocationEditor($event)"
-           ng-switch="editingLocation" aria-label="Edit location" ng-disabled="!editingProfile">
+      <md-list-item id="location-container" class="animate-switch-container"
+                    ng-click="accountCtrl.showLocationEditor($event)"
+           ng-switch="accountCtrl.editingLocation" aria-label="Edit location" ng-disabled="!accountCtrl.editingProfile">
         <div ng-switch-default flex="100">
           <md-icon>place</md-icon>
           Corvallis, OR
@@ -49,26 +51,26 @@
             <input id="profile-location" type="text">
           </md-input-container>
           <div layout="row" layout-align="end center">
-            <md-button ng-click="hideLocationEditor($event)">Cancel</md-button>
-            <md-button type="submit" class="md-raised md-primary" ng-click="hideLocationEditor($event)">
+            <md-button ng-click="accountCtrl.hideLocationEditor($event)">Cancel</md-button>
+            <md-button type="submit" class="md-raised md-primary" ng-click="accountCtrl.hideLocationEditor($event)">
               <md-icon>done</md-icon> Save
             </md-button>
           </div>
         </div>
-        <md-icon class="editable md-primary" ng-if="editingProfile">edit</md-icon>
+        <md-icon class="editable md-primary" ng-if="accountCtrl.editingProfile">edit</md-icon>
       </md-list-item>
       <md-divider></md-divider>
-      <md-list-item class="md-2-line no-inner-padding" ng-disabled="!editingProfile">
-        <div layout="column" style="min-height: 84px;">
-          <md-switch ng-model="wantFriends" class="md-primary md-body-2" ng-disabled="!editingProfile">
+      <md-list-item class="md-2-line no-inner-padding" ng-disabled="!accountCtrl.editingProfile">
+        <div layout="column" layout-align="start start" style="min-height: 84px;" flex>
+          <md-switch ng-model="profile.wantFriends" class="md-primary md-body-2" ng-disabled="!accountCtrl.editingProfile">
             Looking for friends
           </md-switch>
-          <div ng-switch="wantFriends">
+          <div ng-switch="profile.wantFriends">
             <p class="info-text animate-text-switch" ng-switch-when="true">Other sportSocial users in your area <b>may send you friend invitations</b>.</p>
             <p class="info-text animate-text-switch" ng-switch-when="false">Other sportSocial users <b>cannot search for your profile</b>.</p>
           </div>
         </div>
-        <md-icon class="editable md-primary" ng-if="editingProfile">edit</md-icon>
+        <md-icon class="editable md-primary" ng-if="accountCtrl.editingProfile">edit</md-icon>
       </md-list-item>
       <md-divider></md-divider>
       <md-list-item class="md-2-line">

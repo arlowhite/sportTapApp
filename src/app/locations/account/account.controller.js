@@ -1,12 +1,15 @@
 class AccountController {
-  constructor($scope, $mdDialog, $timeout, $document, $animate, $mdToast,
-              $ionicScrollDelegate, $ionicPosition) {
+  constructor($mdDialog, $timeout, $animate, $scope,
+              $ionicScrollDelegate, $ionicPosition, $window) {
     'ngInject';
 
+    this.$mdDialog = $mdDialog;
+    this.$timeout = $timeout;
+
     console.log('AccountController constructor!');
-    // FIXME move to this
-    $scope.wantFriends = true;
-    $scope.editingProfile = false;
+    // TODO use $scope or put profile under accountCtrl?
+    $scope.profile = {wantFriends: true};
+    this.editingProfile = false;
 
     $animate.on('enter', document.getElementById('location-container'),
       function callback(element, phase) {
@@ -44,108 +47,113 @@ class AccountController {
       }
     );
 
-    $scope.showLocationEditor = function (ev) {
-      if ($scope.editingLocation || !$scope.editingProfile) {
-        return;
-      }
-      console.log('showLocationEditor');
-      // Tried this to prevent auto-focus being undone. Fixed with $timeout focus()
-      //ev.preventDefault();
-      //ev.stopPropagation();
-      $scope.editingLocation = true;
-      // animate.enter will be called now.
-    };
-
-    $scope.editingProfileChanged = function (value) {
-      // For some reason, md-switch is not updating the Controller's $scope
-      // So for now, just do this workaround
-      if ($scope.editingProfile != value) {
-        console.log('switch changed, but did not update editingProfile, forcing to', value);
-        $scope.editingProfile = value;
-      }
-      else {
-        // Bug fixed upstream?
-        console.warn('Remove this switch onchange code');
-      }
-
-      // Close all open editors
-      if (!value) {
-        if ($scope.editingLocation) {
-          $scope.hideLocationEditor();
-        }
-      }
-    };
-
-    $scope.hideLocationEditor = function (ev) {
-      $scope.editingLocation = false;
-      // Prevent click on buttons from triggering item click and showLocationEditor()
-      if (ev) {
-        ev.preventDefault();
-        ev.stopPropagation();
-      }
-    };
-
-    window.addEventListener('native.keyboardshow', function (e) {
+    $window.addEventListener('native.keyboardshow', function (e) {
       //e.keyboardHeight
-      if ($scope.pendingDialog) {
+      if (this.pendingDialog) {
         console.log('KeyboardShow, showing pendingDialog');
-        $scope.pendingDialog();
+        this.pendingDialog();
       }
     });
 
-    $scope.editName = function (ev) {
-      console.log('editName, editingProfile', $scope.editingProfile);
-      if (!$scope.editingProfile) {
-        // Shouldn't happen
-        console.warn('Not editingProfile, return!');
-        return;
-      }
-      var confirm = $mdDialog.confirm()
-        .title('Change your name')
-        .content('<md-input-container><input id="profile-name" type="text" aria-label="New name" value="Arlo White" md-autofocus></md-input-container>')
-        .ariaLabel('Change your name')
-        .targetEvent(ev)
-        .ok('Save')
-        .cancel('Cancel');
+  }
 
-      // Hackish, but works
-      confirm._options.clickOutsideToClose = true;
-
-      // Looks best to force show keyboard, then open dialog
-      $scope.pendingDialog = function () {
-        $mdDialog.show(confirm).then(function () {
-          $scope.status = 'You decided to get rid of your debt.';
-        }, function () {
-          $scope.status = 'You decided to keep your debt.';
-        });
-        delete $scope.pendingDialog;
-      };
-
-      function checkPendingDialog() {
-        if ($scope.pendingDialog) {
-          console.log('No KeyboardShow in time, showing pendingDialog');
-          $scope.pendingDialog();
-        }
-      }
-
-      if ($scope.hasKeyboardPlugin) {
-        console.log('showing keyboard before dialog');
-        cordova.plugins.Keyboard.show();
-        // Keyboard can fail to show if already open due to editing another field
-        // It will hide instead during blur and never show
-        $timeout(checkPendingDialog, 1000);
-      }
-      else {
-        $scope.pendingDialog();
-      }
-
-      // Needed without md-autofocus
-      //$timeout(function () {
-      //document.getElementById('profile-name').focus();
-      //});
+  editingProfileChanged(value) {
+    // For some reason, md-switch is not updating the Controller's this
+    // So for now, just do this workaround
+    if (this.editingProfile != value) {
+      console.log('switch changed, but did not update editingProfile, forcing to', value);
+      this.editingProfile = value;
+    }
+    else {
+      // Bug fixed upstream?
+      console.warn('Remove this switch onchange code');
     }
 
+    // Close all open editors
+    if (!value) {
+      if (this.editingLocation) {
+        this.hideLocationEditor();
+      }
+    }
   }
+
+  showLocationEditor(ev) {
+    if (this.editingLocation || !this.editingProfile) {
+      return;
+    }
+    console.log('showLocationEditor');
+    // Tried this to prevent auto-focus being undone. Fixed with $timeout focus()
+    //ev.preventDefault();
+    //ev.stopPropagation();
+    this.editingLocation = true;
+    // animate.enter will be called now.
+  }
+
+  hideLocationEditor (ev) {
+    this.editingLocation = false;
+    // Prevent click on buttons from triggering item click and showLocationEditor()
+    if (ev) {
+      ev.preventDefault();
+      ev.stopPropagation();
+    }
+  }
+
+  editName (ev) {
+    var self = this;
+    var $mdDialog = self.$mdDialog;
+    var $timeout = self.$timeout;
+
+    console.log('editName, editingProfile', this.editingProfile);
+    if (!this.editingProfile) {
+      // Shouldn't happen
+      console.warn('Not editingProfile, return!');
+      return;
+    }
+    var confirm = $mdDialog.confirm()
+      .title('Change your name')
+      .content('<md-input-container><input id="profile-name" type="text" aria-label="New name" value="Arlo White" md-autofocus></md-input-container>')
+      .ariaLabel('Change your name')
+      .targetEvent(ev)
+      .ok('Save')
+      .cancel('Cancel');
+
+    // Hackish, but works
+    confirm._options.clickOutsideToClose = true;
+
+    // Looks best to force show keyboard, then open dialog
+    this.pendingDialog = function () {
+      $mdDialog.show(confirm).then(function () {
+        // clicked ok
+      }, function () {
+        // canceled
+      });
+      delete self.pendingDialog;
+    };
+
+    function checkPendingDialog() {
+      if (self.pendingDialog) {
+        console.log('No KeyboardShow in time, showing pendingDialog');
+        self.pendingDialog();
+      }
+    }
+
+    if (this.hasKeyboardPlugin) {
+      console.log('showing keyboard before dialog');
+      cordova.plugins.Keyboard.show();
+      // Keyboard can fail to show if already open due to editing another field
+      // It will hide instead during blur and never show
+      $timeout(checkPendingDialog, 1000);
+    }
+    else {
+      this.pendingDialog();
+    }
+
+    // Needed without md-autofocus
+    //$timeout(function () {
+    //document.getElementById('profile-name').focus();
+    //});
+  }
+
 }
 
 export default AccountController;
