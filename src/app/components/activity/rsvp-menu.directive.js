@@ -1,7 +1,3 @@
-// TODO sportSocial.widgets module?
-angular
-    .module('sportSocial')
-    .directive('ssRsvpMenu', rsvpMenu);
 
 var rsvpDisplay = {
   3: {
@@ -33,7 +29,7 @@ function rsvpMenu($timeout) {
       rsvpValue: "=",
       buttonClass: "@"
     },
-    templateUrl: "components/activity/rsvp-menu.html",
+    templateUrl: "app/components/activity/rsvp-menu.html",
 
     link: function (scope, element, attrs) {
       scope.rsvpButton = rsvpDisplay[scope.rsvpValue];
@@ -54,3 +50,5 @@ function rsvpMenu($timeout) {
     }
   }
 }
+
+export default rsvpMenu;

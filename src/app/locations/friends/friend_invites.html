@@ -2,14 +2,9 @@
   <ion-content>
     <ion-refresher></ion-refresher>
 
-    <div class="list card">
-
-      <div class="item item-divider positive">
-        Friend invitations
-      </div>
-
+    <md-list>
       <ss-person-item person="friend" ng-repeat="friend in friends track by friend.id"></ss-person-item>
-    </div>
+    </md-list>
 
     <section layout="center" layout-align="center">
       <md-button class="md-primary md-raised">Accept all friends</md-button>

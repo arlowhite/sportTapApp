@@ -28,7 +28,7 @@
       <md-list>
         <md-divider></md-divider>
         <!-- TODO share common code with friend_invites.html directives? -->
-        <ss-person-item person="friend" ng-repeat="friend in ctrl.inviters track by friend.id"></ss-person-item>
+        <ss-person-item person="friend" ng-repeat="friend in homeCtrl.inviters track by friend.id"></ss-person-item>
       </md-list>
       <!--<button class="button button-positive button-full item">Accept all friends</button>-->
       <section layout="center" layout-align="center">
@@ -40,13 +40,13 @@
       <!--</md-card>-->
     </section>
 
-    <section ng-if="ctrl.activityInvites">
+    <section ng-if="homeCtrl.activityInvites">
       <md-subheader class="md-primary">Activity invitations</md-subheader>
       <!-- TODO activity invite example
        when decide jumps down?
       -->
       <ss-activity-card activity="act"
-                        ng-repeat="act in ctrl.activityInvites track by act.id"></ss-activity-card>
+                        ng-repeat="act in homeCtrl.activityInvites track by act.id"></ss-activity-card>
     </section>
 
     <section>
@@ -64,7 +64,7 @@
     <section>
       <md-subheader class="md-primary">Upcoming events</md-subheader>
       <ss-activity-card activity="act"
-                        ng-repeat="act in ctrl.myActivities track by act.id"></ss-activity-card>
+                        ng-repeat="act in homeCtrl.myActivities track by act.id"></ss-activity-card>
     </section>
 
   </ion-content>

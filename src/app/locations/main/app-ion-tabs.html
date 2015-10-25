@@ -21,19 +21,17 @@ Or just override the back button
 <ion-tabs class="tabs-color-active-energized tabs-icon-top"
   delegate-handle="main-tabs">
 
-  <!-- Dashboard Tab -->
-  <ion-tab title="Home" icon="ion-home" href="#/app/dashboard"
+  <ion-tab title="Home" icon="ion-home" href="#/app/home"
            badge="3" badge-style="badge-energized">
     <ion-nav-view name="tab-home"></ion-nav-view>
   </ion-tab>
 
-  <!-- Chats Tab -->
   <!-- ion-ios-people -->
   <ion-tab title="Friends" icon="ion-android-contacts" href="#/app/friends">
     <ion-nav-view name="tab-friends"></ion-nav-view>
   </ion-tab>
 
-  <!--ng-click="tabNav('activities')"-->
+  <!--ng-click="mainCtrl.tabNav('activities')"-->
   <!-- with href, tab remembers its history
   Android back button seems to be same as browser-back
   ion-nav-back-button seems to use each tab's history
@@ -42,7 +40,6 @@ Or just override the back button
     <ion-nav-view name="tab-activities"></ion-nav-view>
   </ion-tab>
 
-  <!-- Account Tab -->
   <ion-tab title="Account" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/app/account">
     <ion-nav-view name="tab-account"></ion-nav-view>
   </ion-tab>

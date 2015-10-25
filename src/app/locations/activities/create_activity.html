@@ -15,7 +15,7 @@
             md-autoselect="true"
             md-min-length="0"
             md-search-text="sportSearchText"
-            md-items="sport in getSportMatches(sportSearchText)"
+            md-items="sport in createActCtrl.getSportMatches(sportSearchText)"
             md-item-text="sport.name"
             md-selected-item="selectedSport"
             md-menu-class="ss-sports-autocomplete">
@@ -25,7 +25,7 @@
             </md-item-template>
             <md-not-found>Sport not found.</md-not-found>
           </md-autocomplete>
-          <md-button class="md-icon-button" ng-click="browseSports()">
+          <md-button class="md-icon-button" ng-click="createActCtrl.browseSports()">
             <md-icon>menu</md-icon>
           </md-button>
         </div>
@@ -121,7 +121,7 @@
           <md-menu>
             <md-button aria-label="Open visibility menu"
                        class="md-primary ss-timid"
-                       ng-click="openVisibilityMenu($mdOpenMenu,$event)">
+                       ng-click="createActCtrl.openVisibilityMenu($mdOpenMenu,$event)">
               <md-icon md-menu-origin>{{visibilityButton.icon}}</md-icon>
               {{visibilityButton.label}}
             </md-button>
@@ -130,21 +130,21 @@
                There were some GitHub problems with this I noticed, don't bother for now.
                -->
               <md-menu-item ng-hide="omitMenuVisibility == 'public'">
-                <md-button ng-click="changeVisibility('public')">
+                <md-button ng-click="createActCtrl.changeVisibility('public')">
                   <md-icon md-menu-align-target>public</md-icon>
                   Public
                 </md-button>
               </md-menu-item>
               <md-menu-divider ng-show="omitMenuVisibility != 'public'"></md-menu-divider>
               <md-menu-item ng-hide="omitMenuVisibility == 'friends'">
-                <md-button ng-click="changeVisibility('friends')">
+                <md-button ng-click="createActCtrl.changeVisibility('friends')">
                   <md-icon md-menu-align-target>people</md-icon>
                   Friends
                 </md-button>
               </md-menu-item>
               <md-menu-divider ng-show="omitMenuVisibility == 'public'"></md-menu-divider>
               <md-menu-item ng-hide="omitMenuVisibility == 'invite'">
-                <md-button ng-click="changeVisibility('invite')">
+                <md-button ng-click="createActCtrl.changeVisibility('invite')">
                   <md-icon>lock</md-icon>
                   Invite-only
                 </md-button>
@@ -165,7 +165,7 @@
         -->
         <md-contact-chips
           ng-model="act.invited"
-          md-contacts="queryFriends($query)"
+          md-contacts="createActCtrl.queryFriends($query)"
           md-contact-name="name"
           md-contact-image="avatarUrl"
           md-contact-email="email"
@@ -187,7 +187,7 @@
 
         <!-- TODO type="submit"? -->
         <section layout="row" layout-align="end">
-        <md-button ng-click="createActivity()" class="md-primary md-raised" ng-disabled="activityForm.$invalid">
+        <md-button ng-click="createActCtrl.createActivity()" class="md-primary md-raised" ng-disabled="activityForm.$invalid">
           <md-icon>done</md-icon>
           Create Activity
         </md-button>
