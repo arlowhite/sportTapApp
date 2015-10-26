@@ -4,7 +4,7 @@ Always an a element?
 <!--<a href="#/app/friend/{{person.id}}" >-->
 <md-list-item class="md-2-line"
               ng-click="goToPerson()">
-  <img src="{{person.avatarUrl}}" class="md-avatar"/>
+  <img ng-src="{{::person.avatarUrl}}" class="md-avatar"/>
   <!--<div class="age-gender-corner">-->
   <!--<strong ng-if="person.age">{{person.age}}</strong>-->
   <!--<i class="icon ion-{{person.gender}}"></i>-->
