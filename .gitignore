@@ -5,7 +5,7 @@ node_modules/
 platforms/
 plugins/
 dist/
-www/lib/
+www/
 bower_components/
 www/css/*.css
 .idea/
