@@ -317,6 +317,7 @@ var _myFriendsDef, _myActivities, _invitedMe;
 class FakeDbService {
 
   constructor ($q) {
+    'ngInject';
     "use strict";
     this.$q = $q;
   }

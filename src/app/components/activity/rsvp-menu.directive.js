@@ -23,6 +23,8 @@ var rsvpDisplay = {
 };
 
 function rsvpMenu($timeout) {
+  'ngInject';
+
   return {
     restrict: "E",
     scope: {

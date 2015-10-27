@@ -1,4 +1,6 @@
 function ssPersonRsvp (db, $state) {
+  'ngInject';
+
   return {
     restrict: "E",
     scope: {

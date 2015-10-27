@@ -1,5 +1,7 @@
 
 function activityCardDirective($state, db, $q) {
+  'ngInject';
+
   var secondsInDay = 24 * 60 * 60;
 
   return {

@@ -1,5 +1,7 @@
 
 function ssPersonItem($state, $mdToast, db, $timeout){
+  'ngInject';
+
   return {
     restrict: "E",
     scope: {
