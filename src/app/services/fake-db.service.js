@@ -16,7 +16,7 @@ var fakeUsers = {
     name: 'Raquel',
     //age: 30, null?
     gender: 'female',
-    avatarUrl: '/assets/images/demo/raquel_avatar.png',
+    avatarUrl: 'assets/images/demo/raquel_avatar.png',
     city: 'San Luis Obispo, CA',
     // Server gives list of friend's top tags?
     mainActivityTags: 'Road Biking, Mountain Biking, Running',
@@ -33,7 +33,7 @@ var fakeUsers = {
     name: 'Arlo White',
     age: 30,
     gender: 'male',
-    avatarUrl: '/assets/images/demo/scuba_avatar.jpg',
+    avatarUrl: 'assets/images/demo/scuba_avatar.jpg',
     city: 'Corvallis, OR',
     // Server gives list of friend's top tags?
     // TODO activity tag chips conversion?
@@ -59,7 +59,7 @@ var fakeUsers = {
     name: 'Tully',
     age: 24,
     gender: 'male',
-    avatarUrl: '/assets/images/demo/tully.jpg',
+    avatarUrl: 'assets/images/demo/tully.jpg',
     city: 'Corvallis, OR',
     // Server gives list of friend's top tags?
     // TODO activity tag chips conversion?
@@ -76,7 +76,7 @@ var fakeUsers = {
     name: 'Dana',
     age: 25,
     gender: 'female',
-    avatarUrl: '/assets/images/demo/barrett.jpg',
+    avatarUrl: 'assets/images/demo/barrett.jpg',
     city: 'Corvallis, OR',
     // Server gives list of friend's top tags?
     // TODO activity tag chips conversion?
@@ -92,7 +92,7 @@ var fakeUsers = {
     name: 'Arya',
     age: 15,
     gender: 'female',
-    avatarUrl: '/assets/images/demo/arya.jpg',
+    avatarUrl: 'assets/images/demo/arya.jpg',
     city: 'Braavos',
     // Server gives list of friend's top tags?
     // TODO activity tag chips conversion?
@@ -108,7 +108,7 @@ var fakeUsers = {
     name: 'Daenerys',
     age: 20,
     gender: 'female',
-    avatarUrl: '/assets/images/demo/daenerys.jpg',
+    avatarUrl: 'assets/images/demo/daenerys.jpg',
     city: 'Meereen',
     // Server gives list of friend's top tags?
     // TODO activity tag chips conversion?
@@ -124,7 +124,7 @@ var fakeUsers = {
     name: 'Jon Snow',
     age: 20,
     gender: 'male',
-    avatarUrl: '/assets/images/demo/jon-snow.jpg',
+    avatarUrl: 'assets/images/demo/jon-snow.jpg',
     city: 'The Wall',
     // Server gives list of friend's top tags?
     // TODO activity tag chips conversion?
@@ -139,7 +139,7 @@ var fakeUsers = {
     name: 'Sansa',
     age: 17,
     gender: 'female',
-    avatarUrl: '/assets/images/demo/sansa.jpg',
+    avatarUrl: 'assets/images/demo/sansa.jpg',
     city: 'Winterfell',
     // Server gives list of friend's top tags?
     // TODO activity tag chips conversion?
@@ -155,7 +155,7 @@ var fakeUsers = {
     name: 'Tyrion',
     age: 37,
     gender: 'male',
-    avatarUrl: '/assets/images/demo/tyrion.jpg',
+    avatarUrl: 'assets/images/demo/tyrion.jpg',
     city: 'King\'s Landing',
     // Server gives list of friend's top tags?
     // TODO activity tag chips conversion?

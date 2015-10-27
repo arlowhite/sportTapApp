@@ -4,8 +4,9 @@ all our CSS is done by importing libraries SCSS files here.
 
 @import "scss/ionic-overrides";
 
-// The path for our ionicons font files, relative to the built CSS in www/css
-$ionicons-font-path: "/fonts/ionicons";
+// The path for our ionicons font files, relative from CSS under styles
+// absolute / paths break on Android
+$ionicons-font-path: "../fonts/ionicons";
 // Ionic scss imports we want will be injected here
 // IONIC_IMPORTS
 
@@ -16,8 +17,8 @@ $ionicons-font-path: "/fonts/ionicons";
 @import "scss/material-font-icons";
 @import "scss/animations.app";
 
-// Path to robotodraft fonts when served
-$RobotoDraftFontPath: "/fonts/robotodraft";
+// Path to robotodraft fonts relative to CSS file.
+$RobotoDraftFontPath: "../fonts/robotodraft";
 $RobotoDraftFontName: "RobotoDraft";
 $RobotoDraftFontVersion: "1.1.0";
 @import "../../bower_components/robotodraft/robotodraft";
