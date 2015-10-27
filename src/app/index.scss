@@ -5,7 +5,7 @@ all our CSS is done by importing libraries SCSS files here.
 @import "scss/ionic-overrides";
 
 // The path for our ionicons font files, relative to the built CSS in www/css
-$ionicons-font-path: "/bower_components/ionic/release/fonts" !default;
+$ionicons-font-path: "/fonts/ionicons";
 // Ionic scss imports we want will be injected here
 // IONIC_IMPORTS
 
@@ -16,7 +16,8 @@ $ionicons-font-path: "/bower_components/ionic/release/fonts" !default;
 @import "scss/material-font-icons";
 @import "scss/animations.app";
 
-$RobotoDraftFontPath: "/bower_components/robotodraft/fonts"; // REMINDER: edit as appropriate!
+// Path to robotodraft fonts when served
+$RobotoDraftFontPath: "/fonts/robotodraft";
 $RobotoDraftFontName: "RobotoDraft";
 $RobotoDraftFontVersion: "1.1.0";
 @import "../../bower_components/robotodraft/robotodraft";

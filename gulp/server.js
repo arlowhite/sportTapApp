@@ -17,7 +17,10 @@ function browserSyncInit(baseDir, browser) {
   var routes = null;
   if(baseDir === conf.paths.src || (util.isArray(baseDir) && baseDir.indexOf(conf.paths.src) !== -1)) {
     routes = {
-      '/bower_components': 'bower_components'
+      '/bower_components': 'bower_components',
+      // build copies fonts to www/fonts, but in serve mode, they aren't under .tmp
+      '/fonts/ionicons': 'bower_components/ionic/release/fonts',
+      '/fonts/robotodraft': 'bower_components/robotodraft/fonts'
     };
   }
 
