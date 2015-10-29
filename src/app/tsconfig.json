@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "system",
+    "sourceMap": true,
+    "target": "es5"
+  },
+  "files": [
+    "index.module.ts"
+  ]
+}

@@ -1,12 +1,14 @@
 // TODO import moment?
-
-function momentDate() {
-  return function (date, format) {
-    if(!date){
-      return '';
+define(["require", "exports"], function (require, exports) {
+    function momentDate() {
+        return function (date, format) {
+            if (!date) {
+                return '';
+            }
+            return moment(date).format(format);
+        };
     }
-    return moment(date).format(format);
-  }
-}
-
-export default momentDate;
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.default = momentDate;
+});
+//# sourceMappingURL=filters.js.map

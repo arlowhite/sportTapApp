@@ -11,3 +11,6 @@ www/css/*.css
 .idea/
 .tmp/
 .io-config.json
+src/app/**/*.js.map
+src/app/**/*.js
+src/app/typings
