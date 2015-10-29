@@ -20,6 +20,21 @@
     <!-- css files will be automatically insert here -->
     <!-- endinject -->
     <!-- endbuild -->
+    <script src="/bower_components/system.js/dist/system.js"></script>
+    <script>
+      // set our baseURL reference path
+      System.config({
+        baseURL: '/app',
+        map: {
+          moment: "/bower_components/moment/moment.js",
+          angular: "/bower_components/angular/angular.js"
+        }
+      });
+
+      System.defaultJSExtensions = true;
+      // loads /app/index.module.js
+      System.import('index.module');
+    </script>
   </head>
 
   <body ng-app="sportSocial">
@@ -39,7 +54,6 @@
   <!-- build:js({.tmp/serve,.tmp/partials}) scripts/app.js -->
   <!-- inject:js -->
   <!-- js files will be automatically insert here -->
-  <script type="text/javascript" src="app/index.module.js"></script>
   <!-- endinject -->
 
   <!-- FIXME verify template cache is working-->

@@ -14,7 +14,8 @@ function webpack(watch, callback) {
     module: {
       // WebStorm provides JS Hints
       //preLoaders: [{ test: /\.js$/, exclude: /node_modules/, loader: 'jshint-loader'}],
-      loaders: [{ test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'}]
+      //loaders: [{ test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'}]
+      loaders: [{ test: /\.ts$/, loader: 'ts-loader' }]
     },
     output: { filename: 'index.module.js' }
   };

@@ -1,6 +1,8 @@
 
 function monkeyPatch () {
-  var momentDateParseFormats = ['MMM-DD-YYYY', 'dddd, MMMM Do'];
+  'use strict';
+  var momentDateParseFormats: string[] = ['MMM-DD-YYYY', 'dddd, MMMM Do'];
+
   angular.module('material.components.datepicker')
   /**
    * Override mdDatepicker to use moment's isValid so that
@@ -9,11 +11,11 @@ function monkeyPatch () {
    */
     .run(function (mdDatepickerDirective) {
       var ctrlProto = mdDatepickerDirective[0].controller.prototype;
-      var INVALID_CLASS = 'md-datepicker-invalid';
+      let INVALID_CLASS = 'md-datepicker-invalid';
       ctrlProto.handleInputEvent = function () {
-        var inputString = this.inputElement.value;
+        var inputString: string = this.inputElement.value;
         var momentDate = moment(inputString, momentDateParseFormats);
-        var parsedDate = momentDate.toDate();
+        var parsedDate: Date = momentDate.toDate();
         this.dateUtil.setDateTimeToMidnight(parsedDate);
 
         if (inputString === '') {
@@ -38,7 +40,7 @@ function monkeyPatch () {
           this._needsRenderOnBlur = false;
         }
       };
-      ctrlProto.setFocused = function (isFocused) {
+      ctrlProto.setFocused = function (isFocused: boolean) {
         this.isFocused = isFocused;
         if (!isFocused && this._needsRenderOnBlur) {
           // Blur

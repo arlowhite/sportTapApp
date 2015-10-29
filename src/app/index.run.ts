@@ -1,3 +1,5 @@
+
+// TODO ngInject with annotations instead?
 function runBlock ($log, $ionicPlatform, $rootScope, $ionicConfig, $window) {
   'ngInject';
 

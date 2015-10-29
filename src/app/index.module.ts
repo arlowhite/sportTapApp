@@ -29,6 +29,14 @@ import momentDate from './components/filters';
 import personItem from './components/person/person-item.directive';
 import personRsvp from './components/person/person-rsvp.directive';
 
+// Giveup on ES6 SystemJS modules and just load the old fashioned way.
+// http://stackoverflow.com/questions/32987273/typescript-module-systems-on-momentjs-behaving-strangely
+// import momentModule = require('moment');
+// var moment = (momentModule as any).default;
+// Compiler no default export error, but fixed by changing .d.ts "export =" to "export default"
+// import moment from 'moment';
+// import angular = require('angular');
+
 monkeyPatch();
 
 // TODO Verify performance release features

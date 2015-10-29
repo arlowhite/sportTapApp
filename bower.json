@@ -15,7 +15,8 @@
     "angular-ui-router": "~0.2.15",
     "moment": "~2.10.6",
     "robotodraft": "1.1.0",
-    "ionic": "~1.1.0"
+    "ionic": "~1.1.0",
+    "system.js": "~0.19.5"
   },
   "resolutions": {
     "angular": "1.4.7",

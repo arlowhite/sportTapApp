@@ -23,9 +23,9 @@ var fakeUsers: {[personId: number]: SportTapPerson} = {
     // Server gives list of friend's top tags?
     mainActivityTags: 'Road Biking, Mountain Biking, Running',
     activityTags: [
-      {id:'road-biking', name:'Road Biking', num: 24},
-      {id:'mountain-biking', name:'Mountain Biking', num: 13},
-      {id:'running', name:'Running', num: 7}
+      {id: 'road-biking', name: 'Road Biking', num: 24},
+      {id: 'mountain-biking', name: 'Mountain Biking', num: 13},
+      {id: 'running', name: 'Running', num: 7}
     ],
     nextActivityDate: 'Weekend',
     nextActivity: 'Road ride to Pismo'
@@ -258,7 +258,6 @@ function sortActivityStartDate(a, b) {
   return a.startUnix - b.startUnix;
 }
 
-// FIXME =>
 fakeActivities.forEach( (act: FakeSportTapActivity) => {
   var date = moment();
   date.startOf('day'); // 12am
