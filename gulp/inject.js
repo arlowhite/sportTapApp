@@ -6,6 +6,7 @@ var gulp = require('gulp');
 var conf = require('./conf');
 var argv = require('yargs').argv;
 var del = require('del');
+var fs = require('graceful-fs');
 
 var $ = require('gulp-load-plugins')();
 
@@ -59,7 +60,7 @@ gulp.task('inject', injectDeps, function () {
   };
 
   // injects into index.html and writes to .tmp/serve
-  var work = gulp.src(path.join(conf.paths.src, '/*.html'))
+  var work = gulp.src(path.join(conf.paths.src, '/index.html'))
     .pipe($.inject(injectStyles, injectOptions));
 
   // js will only be generated under .tmp without --dev
@@ -73,9 +74,13 @@ gulp.task('inject', injectDeps, function () {
     work = work.pipe($.inject(injectScripts, injectOptions));
   }
 
-  work = work
-    .pipe(wiredep(_.extend({}, conf.wiredep)))
-    .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve')));
+  work = work.pipe(wiredep(_.extend({}, conf.wiredep)));
 
-  return work;
+  if (conf.useSystemJS) {
+    console.log('Using System JS');
+    var systemJSHtml = fs.readFileSync(path.join(conf.paths.src, 'systemjs-bootstrap.html'), 'utf8');
+    work = work.pipe($.replace('<!-- SYSTEMJS_BOOTSTRAP -->', systemJSHtml))
+  }
+
+  return work.pipe(gulp.dest(path.join(conf.paths.tmp, '/serve')));;
 });

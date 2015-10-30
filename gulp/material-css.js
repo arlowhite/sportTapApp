@@ -11,6 +11,7 @@ var $ = require('gulp-load-plugins')();
 var wiredep = require('wiredep').stream;
 var _ = require('lodash');
 
+// Note: Angular Material SASS needs to be compiled separately because Ionic variables conflict
 gulp.task('material-css', function () {
   // https://github.com/sass/node-sass#options
   var sassOptions = {

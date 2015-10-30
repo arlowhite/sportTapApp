@@ -7,6 +7,10 @@
  */
 
 var gutil = require('gulp-util');
+var argv = require('yargs').argv;
+
+// SystemJS used with --dev
+exports.useSystemJS = argv.dev;
 
 /**
  *  The main paths of your project handle these with care
@@ -23,8 +27,14 @@ exports.paths = {
  *  Mainly used to inject script tags in the index.html but also used
  *  to inject css preprocessor deps and js files in karma
  */
+
+var excluded = [/jquery/];
+if(!exports.useSystemJS) {
+  // Only use system.js with --dev
+  excluded.push('system.js');
+}
 exports.wiredep = {
-  exclude: [/jquery/],
+  exclude: excluded,
   directory: 'bower_components'
 };
 
