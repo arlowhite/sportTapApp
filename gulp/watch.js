@@ -33,22 +33,18 @@ gulp.task('watch', watchDeps, function () {
     }
   });
 
-  if (argv.materialCss) {
-    gulp.watch(path.join(conf.paths.src, '/angular-material/**/*.scss'), ['material-css']);
-  }
+  gulp.watch(path.join(conf.paths.src, '/angular-material/**/*.scss'), ['material-css']);
 
   gulp.watch(path.join(conf.paths.src, '/app/**/*.html'), function(event) {
     browserSync.reload(event.path);
   });
 
   if (devMode) {
+    // scripts:watch (webpack watcher) not active
     // Currently tsc recompiles all JS files every time, so just watch the main one
     gulp.watch(path.join(conf.paths.src, '/app/index.module.js'), function (event) {
       browserSync.reload(event.path);
     });
   }
 
-  //gulp.watch(path.join(conf.paths.tmp, '/serve/**/*'), function (event) {
-  //  browserSync.reload(event.path);
-  //});
 });
