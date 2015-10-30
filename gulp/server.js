@@ -45,16 +45,14 @@ function browserSyncInit(baseDir, browser) {
   });
 }
 
+//selector: '[ng-app]'// Only needed for angular apps
+// Just set to body since doing manual bootstrap
 browserSync.use(browserSyncSpa({
-  selector: '[ng-app]'// Only needed for angular apps
+  selector: 'body'
 }));
 
 gulp.task('serve', ['watch'], function () {
   browserSyncInit([path.join(conf.paths.tmp, '/serve'), conf.paths.src]);
-});
-
-gulp.task('serve:dev', [], function () {
-  browserSyncInit(conf.paths.src);
 });
 
 gulp.task('serve:dist', ['build'], function () {

@@ -10,6 +10,7 @@ function monkeyPatch () {
    *
    */
     .run(function (mdDatepickerDirective) {
+      console.log('Patching material.components.datepicker');
       var ctrlProto = mdDatepickerDirective[0].controller.prototype;
       let INVALID_CLASS = 'md-datepicker-invalid';
       ctrlProto.handleInputEvent = function () {

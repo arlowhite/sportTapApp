@@ -1,11 +1,13 @@
 
 var momentDateParseFormats = ['MMM-DD-YYYY', 'dddd, MMMM Do'];
 
-function config ($logProvider, $ionicConfigProvider, $mdGestureProvider, $ionicPlatform,
+function config ($logProvider, $ionicConfigProvider, $mdGestureProvider,
                  $mdDateLocaleProvider, $mdThemingProvider) {
   'ngInject';
 
   $logProvider.debugEnabled(true);
+  // No idea why $ionicPlatform DI isn't working
+  let $ionicPlatform = ionic.Platform;
 
   // Disable caching, RSVP changes were not updating between views
   $ionicConfigProvider.views.maxCache(0);

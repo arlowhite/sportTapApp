@@ -3,6 +3,7 @@
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
+var argv = require('yargs').argv;
 
 var browserSync = require('browser-sync');
 
@@ -10,7 +11,14 @@ function isOnlyChange(event) {
   return event.type === 'changed';
 }
 
-gulp.task('watch', ['scripts:watch', 'inject'], function () {
+var devMode = argv.dev;
+var watchDeps = ['inject'];
+if (!devMode) {
+  // webpack watcher
+  watchDeps.push('scripts:watch');
+}
+
+gulp.task('watch', watchDeps, function () {
 
   gulp.watch([path.join(conf.paths.src, '/*.html'), 'bower.json'], ['inject']);
 
@@ -25,9 +33,22 @@ gulp.task('watch', ['scripts:watch', 'inject'], function () {
     }
   });
 
-  gulp.watch(path.join(conf.paths.src, '/angular-material/**/*.scss'), ['material-css']);
+  if (argv.materialCss) {
+    gulp.watch(path.join(conf.paths.src, '/angular-material/**/*.scss'), ['material-css']);
+  }
 
   gulp.watch(path.join(conf.paths.src, '/app/**/*.html'), function(event) {
     browserSync.reload(event.path);
   });
+
+  if (devMode) {
+    // Currently tsc recompiles all JS files every time, so just watch the main one
+    gulp.watch(path.join(conf.paths.src, '/app/index.module.js'), function (event) {
+      browserSync.reload(event.path);
+    });
+  }
+
+  //gulp.watch(path.join(conf.paths.tmp, '/serve/**/*'), function (event) {
+  //  browserSync.reload(event.path);
+  //});
 });

@@ -1,6 +1,6 @@
 /// <reference path="typings/tsd.d.ts" />
 
-// Adjust copmilation in tsconfig.json
+// Adjust compilation in tsconfig.json
 // https://github.com/Microsoft/TypeScript/wiki/Compiler-Options
 // Specify module code generation: 'commonjs', 'amd', 'system', or 'umd'.
 
@@ -36,13 +36,15 @@ import personRsvp from './components/person/person-rsvp.directive';
 // Compiler no default export error, but fixed by changing .d.ts "export =" to "export default"
 // import moment from 'moment';
 // import angular = require('angular');
+// Suggestions from http://www.jbrantly.com/es6-modules-with-typescript-and-webpack/
+//import * as someLib from 'someLib'; // this will work
+//import { someProp } from 'someLib'; // this will also work
 
 monkeyPatch();
 
 // TODO Verify performance release features
 // template cache  https://thinkster.io/templatecache-tutorial/ (obsolete due to new build system?)
 // gulp-angular-templatecache for use with Gulp
-
 angular.module('sportSocial', ['ionic', 'ngMaterial', 'ngMessages'])
   .config(config)
   .config(routerConfig)
@@ -68,3 +70,20 @@ angular.module('sportSocial', ['ionic', 'ngMaterial', 'ngMessages'])
   .directive('ssPersonRsvp', personRsvp)
 
   .filter('momentDate', momentDate);
+
+ionic.Platform.ready(function () {
+// Need to manually bootstrap for SystemJS to work
+  console.log('document/ionic ready, bootstraping angular');
+  angular.bootstrap(document, ['sportSocial'], {
+    strictDi: false
+  });
+});
+
+
+// TODO enable strictDi for builds where ngAnnotate was run
+//angular.element(document).ready(function() {
+//  console.log('document ready, bootstraping angular');
+//  angular.bootstrap(document, ['sportSocial'], {
+//    strictDi: false
+//  });
+//});
