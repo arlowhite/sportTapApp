@@ -20,7 +20,7 @@ class ActivityDetailController {
     });
 
     var myId = db.myId();
-    if (activity.myRsvp) {
+    if (activity.myRsvp >= 0) {
       $scope.$watch('activity.myRsvp', function (newVal, oldVal) {
         if (newVal !== oldVal) {
           db.updateRsvp(activity.id, newVal);

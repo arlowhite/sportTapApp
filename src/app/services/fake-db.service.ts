@@ -306,16 +306,16 @@ fakeActivities.sort(sortActivityStartDate);
 // After sort, nextActivities will be in order by date
 fakeActivities.forEach( (act: FakeSportTapActivity) => {
   var rsvps = act.rsvps;
-  for(var i=0; i<rsvps.length; i++){
+  for (let i = 0; i < rsvps.length; i++) {
     // set person.nextActivities
     var rsvpPersonId = rsvps[i].pId;
     var person = fakeUsers[rsvpPersonId];
-    if(!person.nextActivities){
+    if (!person.nextActivities) {
       person.nextActivities = [];
     }
     person.nextActivities.push(act.id);
 
-    if(rsvpPersonId == myPersonId){
+    if (rsvpPersonId === myPersonId) {
       act.myRsvp = rsvps[i].r;
       console.log('myRsvp on', act);
     }

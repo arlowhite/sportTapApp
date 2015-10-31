@@ -40,6 +40,6 @@
       {{activity.numRsvpPossible}} People
     </md-button>
     <!-- TODO Performance: Should be able to just have one RSVP menu instance and share it -->
-    <ss-rsvp-menu rsvp-value="activity.myRsvp" ng-if="activity.myRsvp" button-class="md-raised"></ss-rsvp-menu>
+    <ss-rsvp-menu rsvp-value="activity.myRsvp" ng-if="activity.myRsvp >= 0" button-class="md-raised"></ss-rsvp-menu>
   </div>
 </md-card>

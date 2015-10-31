@@ -1,8 +1,9 @@
+<!-- Considered not having a title at all, but Ionic shows < Back instead for some reason -->
 <ion-view view-title="Activity">
   <!-- TODO solution for if Activity Title within header is too long
   can md-header wrap? -->
   <ion-nav-buttons side="secondary">
-    <ss-rsvp-menu ng-if="::activity.myRsvp" rsvp-value="activity.myRsvp"></ss-rsvp-menu>
+    <ss-rsvp-menu ng-if="::activity.myRsvp >= 0" rsvp-value="activity.myRsvp"></ss-rsvp-menu>
     <md-button class="md-icon-button"><md-icon>edit</md-icon></md-button>
   </ion-nav-buttons>
   <ion-content class="has-header">

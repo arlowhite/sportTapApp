@@ -43,7 +43,7 @@ function activityCardDirective($state, db, $q) {
         // activity.myRsvp set if user RSVP'd to this Activity
         // rsvpButton - Current button styling/label
         // omitMenuRsvp - hides entry from menu (avoid user seeing menu change)
-        if(act.myRsvp) {
+        if(act.myRsvp >= 0) {
 
           scope.$watch('activity.myRsvp', function (newVal, oldVal) {
             if(newVal !== oldVal){
