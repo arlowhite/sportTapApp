@@ -27,6 +27,17 @@ form {
       margin-right: 0;
     }
   }
+  // Way too much space between autocomplete and next input-container
+  md-autocomplete md-input-container {
+    margin-bottom: 10px;
+  }
+  md-autocomplete[md-floating-label] md-input-container {
+    padding-bottom: 2px;
+  }
+  // Icon colors inconsistent
+  md-input-container.md-default-theme > md-icon, md-input-container > md-icon {
+    color: rgba(0, 0, 0, 0.54);
+  }
 }
 
 .no-inner-padding .md-list-item-inner {

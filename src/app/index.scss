@@ -10,12 +10,13 @@ $ionicons-font-path: "../fonts/ionicons";
 // Ionic scss imports we want will be injected here
 // IONIC_IMPORTS
 
-@import "scss/mixins.app";
-@import "scss/layout.app";
-@import "scss/text.app";
-@import "scss/colors_icons.app";
+@import "scss/mixins";
+@import "scss/layout";
+@import "scss/text";
+@import "scss/colors_icons";
 @import "scss/material-font-icons";
-@import "scss/animations.app";
+@import "scss/animations";
+@import "scss/forms";
 
 // Path to robotodraft fonts relative to CSS file.
 $RobotoDraftFontPath: "../fonts/robotodraft";

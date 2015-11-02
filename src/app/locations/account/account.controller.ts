@@ -65,17 +65,6 @@ class AccountController {
   }
 
   editingProfileChanged(value) {
-    // For some reason, md-switch is not updating the Controller's this
-    // So for now, just do this workaround
-    if (this.editingProfile != value) {
-      console.log('switch changed, but did not update editingProfile, forcing to', value);
-      this.editingProfile = value;
-    }
-    else {
-      // Bug fixed upstream?
-      console.warn('Remove this switch onchange code');
-    }
-
     // Close all open editors
     if (!value) {
       if (this.editingLocation) {

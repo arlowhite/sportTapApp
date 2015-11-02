@@ -1,16 +1,4 @@
 
-// FIXME This CSS is messy. Maybe changing AngMaterial SASS variables would be better
-// Person name is too tall due to line-height 36px
-ss-person-item {
-  .md-list-item-text {
-    padding-top: 2px !important;
-
-    div {
-      line-height: normal;
-    }
-  }
-}
-
 md-list-item.md-2-line .md-list-item-text h3,
 md-list-item.md-2-line > .md-no-style .md-list-item-text h3,
 md-list-item.md-3-line .md-list-item-text h3,

@@ -1,0 +1,21 @@
+.ss-creator {
+  padding-left: 8px;
+  float: right;
+  text-align: right;
+
+  div {
+    font-size: 90%;
+    color: dodgerblue;
+  }
+  img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    box-sizing: content-box;
+  }
+}
+.ss-activity {
+  .ss-sport-icon {
+    font-size: 20px;
+  }
+}

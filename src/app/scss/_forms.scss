@@ -1,0 +1,29 @@
+
+//.ss-sports-autocomplete {
+//  i {
+//    font-size: 20px;
+//    margin-right: 4px;
+//  }
+//}
+
+// mdAutocomplete with icon and possible button on right
+//.ss-autocomplete-container {
+//  padding-left: 2px;
+//  md-autocomplete {
+//    margin-left: 8px;
+//  }
+//
+//  .md-button.md-icon-button {
+//    margin-top: 8px;
+//  }
+//}
+
+form {
+  input[type=time] {
+    width: 8em;
+  }
+  // Make Inputs fill width
+  > md-input-container {
+    width: 100%;
+  }
+}

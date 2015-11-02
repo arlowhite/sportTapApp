@@ -5,194 +5,194 @@
     <form name="activityForm" ng-submit="submitActivity(activityForm)" novalidate>
       <!--https://docs.angularjs.org/guide/forms#custom-triggers-->
       <!-- TODO form tab index, next button in mobile -->
-      <div>
-        <div layout="row" class="ss-autocomplete-container">
-          <md-icon ng-class="selectedSport.icon">
-          </md-icon>
-          <md-autocomplete
-            flex
-            md-floating-label="Sport"
-            md-autoselect="true"
-            md-min-length="0"
-            md-search-text="sportSearchText"
-            md-items="sport in createActCtrl.getSportMatches(sportSearchText)"
-            md-item-text="sport.name"
-            md-selected-item="selectedSport"
-            md-menu-class="ss-sports-autocomplete">
-            <md-item-template>
-              <i ng-class="sport.icon"></i>
-              <span md-highlight-text="sportSearchText">{{sport.name}}</span>
-            </md-item-template>
-            <md-not-found>Sport not found.</md-not-found>
-          </md-autocomplete>
-          <md-button class="md-icon-button" ng-click="createActCtrl.browseSports()">
-            <md-icon>menu</md-icon>
-          </md-button>
-        </div>
-        <!--</md-input-container>-->
 
-        <md-input-container class="md-icon-float">
-          <!-- Standing person, football/soccer also -->
-          <!--<i class="icon ion-android-walk placeholder-icon"></i>-->
-          <label>Title</label>
-          <md-icon>subject</md-icon>
-          <!-- TODO work on debounce behavior ng-model-options="{ debounce: 500 }"-->
-          <!-- TODO ng-trim doesn't do anything -->
-          <input name="title" ng-model="act.title"
-                 type="text" required minlength="5" md-maxlength="20" ng-trim="true">
-          <!--ng-show="activityForm.title.$touched"-->
-          <div ng-messages="activityForm.title.$error" ng-show="activityForm.title.$touched">
-            <div ng-message="required">This is required.</div>
-            <div ng-message="minlength">too short!</div>
-            <div ng-message="md-maxlength">too long!</div>
-          </div>
-        </md-input-container>
-
-        <md-datepicker ng-model="act.startDate" md-placeholder="Date" md-min-date="today"></md-datepicker>
-
-        <!-- TODO multi-day event UI -->
-
-        <!-- Date & Time Picker Notes
-
-        * Android *
-        datetime does nothing
-        date UI is ok, but not great
-        On Tablet, a Calendar view is shown, making it much better
-
-        Time (Similar dial UI) really sucks, too many clicks.
-
-        Number doesn't have spinner in Android (desktop does), but #'s keyboard
-
-        Solutions:
-        For Time, just type="number" reformatted I think is the way to go
-        AM/PM swap
-
-        Look at others
-
-        cordovaDatePicker
-        Seems like the same thing as type="date" or "time"
-        The only advantage seems to be the various options (minDate, etc)
-        TODO Test DatePicker in iOS
-
-        Other solutions
-        https://github.com/derekbrameyer/android-betterpickers/
-        Though HTML-based might be better. TODO Search Angular/Ionic Calendar pickers
+      <!-- Nesting in md-input-container doesn't help md-icon-button layout-->
+      <!--<md-input-container>-->
+      <md-autocomplete
+        md-floating-label="Sport"
+        md-autoselect="true"
+        md-min-length="0"
+        md-search-text="sportSearchText"
+        md-items="sport in createActCtrl.getSportMatches(sportSearchText)"
+        md-item-text="sport.name"
+        md-selected-item="selectedSport"
+        md-menu-class="ss-sports-autocomplete">
+        <!-- Ink ripple doesn't look as good as when it's in a button
+        But md-button layout isn't working well.
+        <md-button class="md-icon-button">
         -->
-        <div layout layout-align="start end" layout-wrap>
-            <md-input-container class="md-icon-float">
-              <!--<i class="icon ion-android-time placeholder-icon"></i>-->
-              <label>Time</label>
-              <md-icon>access_time</md-icon>
-              <input name="startTime" ng-model="act.startTime" type="time">
-            </md-input-container>
-            <md-input-container class="md-icon-float">
-              <!--<i class="icon ion-android-time placeholder-icon"></i>-->
-              <label>until...</label>
-              <md-icon>timelapse</md-icon>
-              <input name="endTime" ng-model="act.endTime" type="time">
-            </md-input-container>
-        </div>
+        <md-icon class="md-primary" ng-class="selectedSport.icon ? selectedSport.icon : 'ion-help'"
+                 md-ink-ripple
+                 ng-click="createActCtrl.browseSports()"></md-icon>
+        <md-item-template>
+          <i ng-class="sport.icon"></i>
+          <span md-highlight-text="sportSearchText">{{sport.name}}</span>
+        </md-item-template>
+        <md-not-found>Sport not found.</md-not-found>
+      </md-autocomplete>
 
+      <md-input-container class="md-icon-float">
+        <!-- Standing person, football/soccer also -->
+        <!--<i class="icon ion-android-walk placeholder-icon"></i>-->
+        <label>Title</label>
+        <md-icon>subject</md-icon>
+        <!-- TODO work on debounce behavior ng-model-options="{ debounce: 500 }"-->
+        <!-- TODO ng-trim doesn't do anything -->
+        <input name="title" ng-model="act.title"
+               type="text" required minlength="5" md-maxlength="20" ng-trim="true">
+        <!--ng-show="activityForm.title.$touched"-->
+        <div ng-messages="activityForm.title.$error" ng-show="activityForm.title.$touched">
+          <div ng-message="required">This is required.</div>
+          <div ng-message="minlength">too short!</div>
+          <div ng-message="md-maxlength">too long!</div>
+        </div>
+      </md-input-container>
+
+      <md-datepicker ng-model="act.startDate" md-placeholder="Date" md-min-date="today"></md-datepicker>
+
+      <!-- TODO multi-day event UI -->
+
+      <!-- Date & Time Picker Notes
+
+      * Android *
+      datetime does nothing
+      date UI is ok, but not great
+      On Tablet, a Calendar view is shown, making it much better
+
+      Time (Similar dial UI) really sucks, too many clicks.
+
+      Number doesn't have spinner in Android (desktop does), but #'s keyboard
+
+      Solutions:
+      For Time, just type="number" reformatted I think is the way to go
+      AM/PM swap
+
+      Look at others
+
+      cordovaDatePicker
+      Seems like the same thing as type="date" or "time"
+      The only advantage seems to be the various options (minDate, etc)
+      TODO Test DatePicker in iOS
+
+      Other solutions
+      https://github.com/derekbrameyer/android-betterpickers/
+      Though HTML-based might be better. TODO Search Angular/Ionic Calendar pickers
+      -->
+      <div layout layout-align="start end" layout-wrap>
         <md-input-container class="md-icon-float">
-          <!-- GPS and Compass icons also available-->
-          <!--<i class="icon ion-android-pin placeholder-icon"></i>-->
-          <label>Location</label>
-          <md-icon>place</md-icon>
-          <input name="location" ng-model="act.location"
-                 type="text">
+          <!--<i class="icon ion-android-time placeholder-icon"></i>-->
+          <label>Time</label>
+          <md-icon>access_time</md-icon>
+          <input name="startTime" ng-model="act.startTime" type="time">
         </md-input-container>
-
-
-        <md-input-container>
-          <!--<i class="icon ion-chatbox-working placeholder-icon"></i>-->
-          <!-- textarea md-icon has issues, but putting it in label looks ok. -->
-          <label><md-icon>description</md-icon> Description</label>
-          <textarea name="descr" ng-model="act.descr"></textarea>
+        <md-input-container class="md-icon-float">
+          <!--<i class="icon ion-android-time placeholder-icon"></i>-->
+          <label>until...</label>
+          <md-icon>timelapse</md-icon>
+          <input name="endTime" ng-model="act.endTime" type="time">
         </md-input-container>
-        <!-- md-select doesn't work with icons so just use menu for now -->
-        <!--<md-input-container>-->
-          <!--<md-select placeholder="Visibility" ng-model="visibility">-->
-            <!--<md-option><md-icon>public</md-icon> Public</md-option>-->
-            <!--<md-option><md-icon>people</md-icon> Friends</md-option>-->
-            <!--<md-option><md-icon>lock</md-icon> Invite-only</md-option>-->
-        <!--</md-select>-->
-        <!--</md-input-container>-->
-        <div layout layout-align="center center">
-          <md-menu>
-            <md-button aria-label="Open visibility menu"
-                       class="md-primary ss-timid"
-                       ng-click="createActCtrl.openVisibilityMenu($mdOpenMenu,$event)">
-              <md-icon md-menu-origin>{{visibilityButton.icon}}</md-icon>
-              {{visibilityButton.label}}
-            </md-button>
-            <md-menu-content>
-              <!-- TODO populate menu with choices in repeat?
-               There were some GitHub problems with this I noticed, don't bother for now.
-               -->
-              <md-menu-item ng-hide="omitMenuVisibility == 'public'">
-                <md-button ng-click="createActCtrl.changeVisibility('public')">
-                  <md-icon md-menu-align-target>public</md-icon>
-                  Public
-                </md-button>
-              </md-menu-item>
-              <md-menu-divider ng-show="omitMenuVisibility != 'public'"></md-menu-divider>
-              <md-menu-item ng-hide="omitMenuVisibility == 'friends'">
-                <md-button ng-click="createActCtrl.changeVisibility('friends')">
-                  <md-icon md-menu-align-target>people</md-icon>
-                  Friends
-                </md-button>
-              </md-menu-item>
-              <md-menu-divider ng-show="omitMenuVisibility == 'public'"></md-menu-divider>
-              <md-menu-item ng-hide="omitMenuVisibility == 'invite'">
-                <md-button ng-click="createActCtrl.changeVisibility('invite')">
-                  <md-icon>lock</md-icon>
-                  Invite-only
-                </md-button>
-              </md-menu-item>
-            </md-menu-content>
-          </md-menu>
-          <span class="ss-timid" ng-hide="visibility=='invite'">can find and join.</span>
-        </div>
+      </div>
 
-        <!--
-        Notes:
-        TODO contact chips icon (layout bugs?)
-        md-contact-email="email" needed?
+      <md-input-container class="md-icon-float">
+        <!-- GPS and Compass icons also available-->
+        <!--<i class="icon ion-android-pin placeholder-icon"></i>-->
+        <label>Location</label>
+        <md-icon>place</md-icon>
+        <input name="location" ng-model="act.location"
+               type="text">
+      </md-input-container>
 
-        filter-selected was removed, Controller does this
-        filter-selected="true"
-        Surrounding with md-input-container makes label float over input.
-        -->
-        <md-contact-chips
-          ng-model="act.invited"
-          md-contacts="createActCtrl.queryFriends($query)"
-          md-contact-name="name"
-          md-contact-image="avatarUrl"
-          md-contact-email="email"
-          md-highlight-flags="i"
-          md-require-match="true"
-          secondary-placeholder="another friend?"
-          placeholder="Invite friends..."></md-contact-chips>
 
-        <section layout="row" layout-align="center center">
-          <md-button>
-            <md-icon>people</md-icon>
-            Browse friends
+      <md-input-container>
+        <!--<i class="icon ion-chatbox-working placeholder-icon"></i>-->
+        <!-- textarea md-icon has issues, but putting it in label looks ok. -->
+        <md-icon>description</md-icon>
+        <label>Description</label>
+        <textarea name="descr" ng-model="act.descr"></textarea>
+      </md-input-container>
+      <!-- md-select doesn't work with icons so just use menu for now -->
+      <!--<md-input-container>-->
+      <!--<md-select placeholder="Visibility" ng-model="visibility">-->
+      <!--<md-option><md-icon>public</md-icon> Public</md-option>-->
+      <!--<md-option><md-icon>people</md-icon> Friends</md-option>-->
+      <!--<md-option><md-icon>lock</md-icon> Invite-only</md-option>-->
+      <!--</md-select>-->
+      <!--</md-input-container>-->
+      <div layout layout-align="center center">
+        <md-menu>
+          <md-button aria-label="Open visibility menu"
+                     class="md-primary ss-timid"
+                     ng-click="createActCtrl.openVisibilityMenu($mdOpenMenu,$event)">
+            <md-icon md-menu-origin>{{visibilityButton.icon}}</md-icon>
+            {{visibilityButton.label}}
           </md-button>
-          <md-button>
-            <md-icon>send</md-icon>
-            Direct invite
-          </md-button>
-        </section>
+          <md-menu-content>
+            <!-- TODO populate menu with choices in repeat?
+             There were some GitHub problems with this I noticed, don't bother for now.
+             -->
+            <md-menu-item ng-hide="omitMenuVisibility == 'public'">
+              <md-button ng-click="createActCtrl.changeVisibility('public')">
+                <md-icon md-menu-align-target>public</md-icon>
+                Public
+              </md-button>
+            </md-menu-item>
+            <md-menu-divider ng-show="omitMenuVisibility != 'public'"></md-menu-divider>
+            <md-menu-item ng-hide="omitMenuVisibility == 'friends'">
+              <md-button ng-click="createActCtrl.changeVisibility('friends')">
+                <md-icon md-menu-align-target>people</md-icon>
+                Friends
+              </md-button>
+            </md-menu-item>
+            <md-menu-divider ng-show="omitMenuVisibility == 'public'"></md-menu-divider>
+            <md-menu-item ng-hide="omitMenuVisibility == 'invite'">
+              <md-button ng-click="createActCtrl.changeVisibility('invite')">
+                <md-icon>lock</md-icon>
+                Invite-only
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+        <span class="ss-timid" ng-hide="visibility=='invite'">can find and join.</span>
+      </div>
 
-        <!-- TODO type="submit"? -->
-        <section layout="row" layout-align="end">
+      <!--
+      Notes:
+      TODO contact chips icon (layout bugs?)
+      md-contact-email="email" needed?
+
+      filter-selected was removed, Controller does this
+      filter-selected="true"
+      Surrounding with md-input-container makes label float over input.
+      -->
+      <md-contact-chips
+        ng-model="act.invited"
+        md-contacts="createActCtrl.queryFriends($query)"
+        md-contact-name="name"
+        md-contact-image="avatarUrl"
+        md-contact-email="email"
+        md-highlight-flags="i"
+        md-require-match="true"
+        secondary-placeholder="another friend?"
+        placeholder="Invite friends..."></md-contact-chips>
+
+      <section layout="row" layout-align="center center">
+        <md-button>
+          <md-icon>people</md-icon>
+          Browse friends
+        </md-button>
+        <md-button>
+          <md-icon>send</md-icon>
+          Direct invite
+        </md-button>
+      </section>
+
+      <!-- TODO type="submit"? -->
+      <section layout="row" layout-align="end">
         <md-button ng-click="createActCtrl.createActivity()" class="md-primary md-raised" ng-disabled="activityForm.$invalid">
           <md-icon>done</md-icon>
           Create Activity
         </md-button>
-          </section>
-      </div>
+      </section>
     </form>
   </ion-content>
 </ion-view>

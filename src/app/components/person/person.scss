@@ -1,0 +1,18 @@
+ss-person-item {
+  md-list-item:first-child .md-list-item-inner {
+    .md-list-item-text {
+      padding-bottom: 0;
+    }
+  }
+
+  // FIXME This CSS is messy. Maybe changing AngMaterial SASS variables would be better
+  // Person name is too tall due to line-height 36px
+
+  .md-list-item-text {
+    padding-top: 2px !important;
+
+    div {
+      line-height: normal;
+    }
+  }
+}
