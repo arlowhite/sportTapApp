@@ -6,13 +6,14 @@
 
 // So just do a function
 
+import {SportTapActivity} from "./services/SportTapDb";
 /**
  * Remove the given object from the array.
  * @param array Array to remove from
  * @param value Value to remove
  * @returns {number} The indexOf the value removed, otherwise -1
  */
-export function arrayRemove (array: Array<T>, value: T) {
+export function arrayRemove<T> (array: Array<T>, value: T): number {
   let i = array.indexOf(value);
   if (i >= 0) {
     array.splice(i, 1);
@@ -20,6 +21,6 @@ export function arrayRemove (array: Array<T>, value: T) {
   return i;
 }
 
-export function activitySortStartDate(a, b) {
+export function activitySortStartDate(a: SportTapActivity, b: SportTapActivity): number {
   return a.startUnix - b.startUnix;
 }
