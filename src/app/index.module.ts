@@ -45,7 +45,7 @@ monkeyPatch();
 // TODO Verify performance release features
 // template cache  https://thinkster.io/templatecache-tutorial/ (obsolete due to new build system?)
 // gulp-angular-templatecache for use with Gulp
-angular.module('sportSocial', ['ionic', 'ngMaterial', 'ngMessages'])
+angular.module('sportSocial', ['ionic', 'ngMaterial', 'ngMessages', 'ngAnimate'])
   .config(config)
   .config(routerConfig)
   .run(runBlock)

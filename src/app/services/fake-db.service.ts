@@ -1,5 +1,6 @@
 
 import {SportTapDb, SportTapActivity, SportTapPerson} from "./SportTapDb";
+import {activitySortStartDate} from "util";
 
 var ionIconForSport = {
   soccer: 'ion-ios-football',
@@ -254,10 +255,6 @@ var fakeActivities: FakeSportTapActivity[] = [
   }
 ];
 
-function sortActivityStartDate(a, b) {
-  return a.startUnix - b.startUnix;
-}
-
 fakeActivities.forEach( (act: FakeSportTapActivity) => {
   var date = moment();
   date.startOf('day'); // 12am
@@ -301,7 +298,7 @@ fakeActivities.forEach( (act: FakeSportTapActivity) => {
   act.numRsvpUnknown = numUnknown;
   act.numRsvpPossible = numGoing + numMaybe + numUnknown;
 });
-fakeActivities.sort(sortActivityStartDate);
+fakeActivities.sort(activitySortStartDate);
 
 // After sort, nextActivities will be in order by date
 fakeActivities.forEach( (act: FakeSportTapActivity) => {
@@ -405,7 +402,7 @@ class FakeDbService implements SportTapDb {
         throw new Error('op not supported: '+op);
       }
     });
-    myActs.sort(sortActivityStartDate);
+    myActs.sort(activitySortStartDate);
     return this.$q.when(myActs);
   }
 

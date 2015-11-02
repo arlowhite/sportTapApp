@@ -7,7 +7,8 @@ function activityCardDirective($state, db, $q) {
   return {
     restrict: "E",
     scope: {
-      activity: "="
+      activity: "=",
+      onRsvp: "&"
     },
     templateUrl:"app/components/activity/activity-card.html",
 
@@ -48,6 +49,7 @@ function activityCardDirective($state, db, $q) {
           scope.$watch('activity.myRsvp', function (newVal, oldVal) {
             if(newVal !== oldVal){
               db.updateRsvp(act.id, newVal);
+              scope.onRsvp({rsvp: newVal, activity: act});
             }
           });
         }

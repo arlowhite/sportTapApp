@@ -40,13 +40,14 @@
       <!--</md-card>-->
     </section>
 
-    <section ng-if="homeCtrl.activityInvites">
+    <section ng-if="homeCtrl.activityInvites.length > 0" class="ss-animate-list">
       <md-subheader class="md-primary">Activity invitations</md-subheader>
       <!-- TODO activity invite example
        when decide jumps down?
       -->
-      <ss-activity-card activity="act"
-                        ng-repeat="act in homeCtrl.activityInvites track by act.id"></ss-activity-card>
+      <ss-activity-card activity="act" class="ss-animate-list"
+                        ng-repeat="act in homeCtrl.activityInvites track by act.id"
+                        on-rsvp="homeCtrl.onRsvp(activity, rsvp, 'activityInvites')"></ss-activity-card>
     </section>
 
     <section>
@@ -61,10 +62,11 @@
       </md-button>
     </section>
 
-    <section>
+    <section ng-if="homeCtrl.myActivities.length > 0" class="ss-animate-list">
       <md-subheader class="md-primary">Upcoming events</md-subheader>
-      <ss-activity-card activity="act"
-                        ng-repeat="act in homeCtrl.myActivities track by act.id"></ss-activity-card>
+      <ss-activity-card activity="act" class="ss-animate-list"
+                        ng-repeat="act in homeCtrl.myActivities track by act.id"
+                        on-rsvp="homeCtrl.onRsvp(activity, rsvp, 'myActivities')"></ss-activity-card>
     </section>
 
   </ion-content>

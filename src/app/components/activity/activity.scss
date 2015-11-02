@@ -19,3 +19,8 @@
     font-size: 20px;
   }
 }
+
+ss-activity-card md-card {
+  // Needed for opacity animations to work
+  opacity: inherit;
+}

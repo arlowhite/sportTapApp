@@ -6,7 +6,7 @@
         "statements"],
     "ban": false,
     "class-name": true,
-    "comment-format": [true,
+    "comment-format": [false,
         "check-space"
     ],
     "curly": true,
@@ -18,7 +18,7 @@
     "label-position": true,
     "label-undefined": true,
     "max-line-length": [true, 140],
-    "member-access": true,
+    "member-access": false,
     "member-ordering": [true,
         "public-before-private",
         "static-before-instance",
@@ -36,7 +36,7 @@
         "trace"
     ],
     "no-construct": true,
-    "no-constructor-vars": true,
+    "no-constructor-vars": false,
     "no-debugger": true,
     "no-duplicate-key": true,
     "no-shadowed-variable": true,

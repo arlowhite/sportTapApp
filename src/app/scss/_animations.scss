@@ -133,3 +133,24 @@ md-list-item md-icon.editable{
   left: 0;
   opacity: 1.0;
 }
+
+.ss-animate-list {
+
+  &.ng-leave.ng-leave-active,
+  &.ng-enter {
+    opacity: 0;
+  }
+
+  &.ng-enter.ng-enter-active,
+  &.ng-leave {
+    opacity: 1;
+  }
+
+  &.ng-leave,
+  &.ng-enter {
+    //transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+    //-webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+    transition: 0.5s linear opacity;
+    -webkit-transition: 0.5s linear opacity;
+  }
+}

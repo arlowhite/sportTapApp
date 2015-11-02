@@ -30,8 +30,7 @@ function routerConfig ($stateProvider, $urlRouterProvider) {
           return db.invitedMe();
         },
         myActivities: function(db) {
-          // TODO separate not going?
-          return db.myActivities('>=', 1);
+          return db.myActivities('>=', 2);
         }
       }
     })
