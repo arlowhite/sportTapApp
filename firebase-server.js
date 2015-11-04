@@ -1,7 +1,8 @@
 var FirebaseServer = require('firebase-server');
 
 var port = 5000;
-var hostname = 'test.firebase.localhost';
+var hostname = 'localhost.firebaseio.com';
+
 new FirebaseServer(port, hostname, {
   /* You can put your initial data model here, or just leave it empty */
 });

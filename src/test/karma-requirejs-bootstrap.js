@@ -17,12 +17,23 @@ require.config({
   baseUrl: '/base',
 
   paths: {
-    'angular': 'bower_components/angular/angular'
+    'angular': 'bower_components/angular/angular',
+    'firebase': 'bower_components/firebase/firebase-debug',
+    'angularMocks': 'bower_components/angular-mocks/angular-mocks'
   },
 
   shim: {
     'angular': {
       exports: 'angular'
+    },
+
+    'angularMocks': {
+      exports: 'inject',
+      deps: ['angular']
+    },
+
+    'firebase': {
+      exports: 'Firebase'
     }
   },
 

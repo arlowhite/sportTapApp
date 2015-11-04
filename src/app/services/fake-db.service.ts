@@ -1,6 +1,6 @@
 
 import {SportTapDb, SportTapActivity, SportTapPerson} from "./SportTapDb";
-import {activitySortStartDate} from "util";
+import {activitySortStartDate} from "../util";
 
 var ionIconForSport = {
   soccer: 'ion-ios-football',

@@ -15,8 +15,11 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      {pattern: 'src/app/**/*.spec.js', included: false},
+      {pattern: 'src/app/services/*.js', included: false},
+      {pattern: 'src/app/services/*.js.map', included: false},
       {pattern: 'bower_components/angular/angular.js', included: false},
+      {pattern: 'bower_components/angular-mocks/*.js', included: false},
+      {pattern: 'bower_components/firebase/firebase-debug.js', included: false},
 
       'src/test/karma-requirejs-bootstrap.js'
     ],
@@ -48,21 +51,22 @@ module.exports = function(config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_DEBUG,
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
+    autoWatch: false,
 
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+    // PhantomJS, Chrome
     browsers: ['PhantomJS'],
 
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: true,
 
     // Concurrency level
     // how many browser should be started simultanous

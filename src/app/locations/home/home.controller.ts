@@ -1,6 +1,6 @@
 
 import {SportTapActivity} from "../../services/SportTapDb";
-import {arrayRemove, activitySortStartDate} from "util";
+import {arrayRemove, activitySortStartDate} from "../../util";
 
 
 class HomeController {
