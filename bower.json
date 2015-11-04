@@ -16,7 +16,8 @@
     "moment": "~2.10.6",
     "robotodraft": "1.1.0",
     "ionic": "~1.1.0",
-    "system.js": "~0.19.5"
+    "system.js": "~0.19.5",
+    "firebase": "~2.3.1"
   },
   "resolutions": {
     "angular": "1.4.7",

@@ -5,6 +5,7 @@
     "target": "es5"
   },
   "files": [
-    "index.module.ts"
+    "index.module.ts",
+    "services/db.spec.ts"
   ]
 }
