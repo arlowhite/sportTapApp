@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "module": "amd",
+    "module": "commonjs",
     "sourceMap": true,
     "target": "es5"
   },
   "files": [
     "index.module.ts",
-    "services/db.spec.ts"
+    "services/db.mocha-test.ts"
   ]
 }

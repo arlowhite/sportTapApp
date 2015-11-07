@@ -1,19 +1,30 @@
 import Firebase = require("firebase");
 import {SportTapDb, SportTapPerson, SportTapActivity} from './SportTapDb';
+import IDeferred = angular.IDeferred;
 
 export class SportTapFirebaseDb implements SportTapDb {
 
   private client: Firebase;
   private _myPersonKey: string;
+  private deferredConstructor: <T>() => IDeferred<T>;
 
   constructor(public hostname: string, public port: number,
-              private $q: angular.IQService) {
+              deferredConstructor,
+              firebase: FirebaseStatic = null) {
     'ngInject';
 
-    let client = this.client = new Firebase(`ws://${hostname}:${port}`);
+    this.deferredConstructor = deferredConstructor;
+
+    if(firebase === null){
+      console.log('Defaulting to Firebase from "firebase" module.');
+      firebase = Firebase;
+    }
+
+    let client = this.client = new firebase(`ws://${hostname}:${port}`);
     client.on('value', function(snap) {
       console.log('Got value:', snap.val());
     });
+
 
     var usersRef = client.child('users');
     var key = usersRef.push({
@@ -29,11 +40,11 @@ export class SportTapFirebaseDb implements SportTapDb {
   }
 
   person(id:number):angular.IPromise<SportTapPerson> {
-    var p = this.$q.defer();
+    var def = this.deferredConstructor<SportTapPerson>();
     this.client.child('users').child(this._myPersonKey).once('value', snapshot => {
-      p.resolve(snapshot.val());
+      def.resolve(snapshot.val());
     });
-    return p.promise;
+    return def.promise;
   }
 
   activity(id:number):angular.IPromise<SportTapActivity> {
@@ -41,11 +52,9 @@ export class SportTapFirebaseDb implements SportTapDb {
   }
 
   myFriends():angular.IPromise<SportTapPerson[]> {
-    var def = this.$q.defer();
+    var def = this.deferredConstructor<SportTapPerson[]>();
     this.client.child('users').once('value', snapshot => {
-      var val = snapshot.val();
-      console.log('HERE', val);
-      def.resolve(val);
+      def.resolve(snapshot.val());
     });
     return def.promise;
   }

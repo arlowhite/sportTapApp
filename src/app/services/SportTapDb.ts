@@ -1,6 +1,13 @@
 
 import IPromise = angular.IPromise;
 
+/*
+Wanted to make interface take generic Promise type so could construct with different Deferred/Promise
+implementations, but couldn't figure out how to make <Promise<T>> nested generic work.
+
+So just use angular.IPromise since bluebird also implements then, catch, finally.
+ */
+
 export interface SportTapDb {
 
   myId(): number;

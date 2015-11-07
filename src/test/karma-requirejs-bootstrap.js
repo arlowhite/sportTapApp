@@ -1,3 +1,16 @@
+/**
+ * Karma requirejs bootstrap.
+ * Had difficult getting node_modules with deps required.
+ * Tried karma-commonjs and karma-commonjs-plus
+ *
+ * Also, got context _ error often.
+ * Decided to just go with SystemJS.
+ *
+ * @type {requirejs|exports|module.exports}
+ */
+
+var requirejs = require('requirejs');
+
 var allTestFiles = [];
 var TEST_REGEXP = /(spec|test)\.js$/i;
 
@@ -12,30 +25,56 @@ Object.keys(window.__karma__.files).forEach(function(file) {
   }
 });
 
-require.config({
+requirejs.config({
   // Karma serves files under /base, which is the basePath from your config file
   baseUrl: '/base',
 
-  paths: {
-    'angular': 'bower_components/angular/angular',
-    'firebase': 'bower_components/firebase/firebase-debug',
-    'angularMocks': 'bower_components/angular-mocks/angular-mocks'
-  },
+  /*
+  The assert is brittle, but I'm not sure how you're supposed to get Node's assert in Karma.
+   */
+  //paths: {
+  //  'assert': 'node_modules/assert/assert',
+  //  'angular': 'bower_components/angular/angular',
+  //  'firebase': 'bower_components/firebase/firebase-debug',
+  //  'angularMocks': 'bower_components/angular-mocks/angular-mocks',
+  //  'bluebird': 'node_modules/bluebird/js/browser/bluebird',
+  //  'faye-websocket': 'node_modules/faye-websocket/lib/faye/websocket',
+  //  //'proxyquire': 'node_modules/proxyquire/lib/proxyquire',
+  //  //'util': 'node_modules/util/util',
+  //  //'websocket-driver': ''
+  //},
 
-  shim: {
-    'angular': {
-      exports: 'angular'
-    },
+  //packages: ['node_modules/proxyquire', 'node_modules/util', 'node_modules/assert'],
+  //
+  //shim: {
+  //  'angular': {
+  //    exports: 'angular'
+  //  },
+  //
+  //  'angularMocks': {
+  //    exports: 'inject',
+  //    deps: ['angular']
+  //  },
+  //
+  //  'firebase': {
+  //    exports: 'Firebase'
+  //  },
+  //
+  //  //'proxyquire': {
+  //  //  deps: ['assert']
+  //  //},
+  //  //
+  //  //'faye-websocket': {
+  //  //  deps: ['assert']
+  //  //},
+  //  //
+  //  //'assert': {
+  //  //  deps: ['util'],
+  //  //  exports: 'assert'
+  //  //}
+  //},
 
-    'angularMocks': {
-      exports: 'inject',
-      deps: ['angular']
-    },
-
-    'firebase': {
-      exports: 'Firebase'
-    }
-  },
+  nodeRequire: require,
 
   // dynamically load all test files
   deps: allTestFiles,
