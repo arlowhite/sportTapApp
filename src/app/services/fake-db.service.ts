@@ -270,8 +270,8 @@ fakeActivities.forEach( (act: FakeSportTapActivity) => {
 
   var numGoing= 0, numMaybe= 0, numNo= 0, numUnknown=0;
   var rsvps = act.rsvps;
-  for(var i=0; i<rsvps.length; i++){
-    var r = rsvps[i].r;
+  for(let rsvp of rsvps){
+    var r = rsvp.r;
 
     if(r==3){
       numGoing++;
@@ -303,9 +303,9 @@ fakeActivities.sort(activitySortStartDate);
 // After sort, nextActivities will be in order by date
 fakeActivities.forEach( (act: FakeSportTapActivity) => {
   var rsvps = act.rsvps;
-  for (let i = 0; i < rsvps.length; i++) {
+  for (let rsvp of rsvps) {
     // set person.nextActivities
-    var rsvpPersonId = rsvps[i].pId;
+    var rsvpPersonId = rsvp.pId;
     var person = fakeUsers[rsvpPersonId];
     if (!person.nextActivities) {
       person.nextActivities = [];
@@ -313,7 +313,7 @@ fakeActivities.forEach( (act: FakeSportTapActivity) => {
     person.nextActivities.push(act.id);
 
     if (rsvpPersonId === myPersonId) {
-      act.myRsvp = rsvps[i].r;
+      act.myRsvp = rsvp.r;
       console.log('myRsvp on', act);
     }
   }
@@ -338,9 +338,12 @@ class FakeDbService implements SportTapDb {
   }
 
   activity (id) {
-    for(var i=0; i<fakeActivities.length; i++){
-      if(fakeActivities[i].id == id){
-        return this.$q.when(fakeActivities[i]);
+    for(let act of fakeActivities){
+      if(act.id == id){
+        if (act.id !== id) {
+          console.warn('Inexact match on Activity.id', act.id, id);
+        }
+        return this.$q.when(act);
       }
     }
     // TODO correct response for not found?
@@ -409,23 +412,22 @@ class FakeDbService implements SportTapDb {
   /**
    * Update user's RSVP for an Activity
    * @param activityId
-   * @param rsvp
+   * @param newRsvp
    */
-  updateRsvp (activityId, rsvp) {
-    console.log('db.updateRsvp', activityId, rsvp);
+  updateRsvp (activityId, newRsvp) {
+    console.log('db.updateRsvp', activityId, newRsvp);
     this.activity(activityId).then(function (act) {
       var found = false;
-      var rsvps = act.rsvps;
-      for(var i=0; i<rsvps.length;i++){
-        if(rsvps[i].pId == myPersonId){
-          rsvps[i].r = rsvp;
+      for(let rsvp of act.rsvps){
+        if(rsvp.pId === myPersonId){
+          rsvp.r = newRsvp;
           found = true;
           break;
         }
       }
       if(!found){
         console.error('Failed to find matching RSVP for person/activity', myPersonId, act.id);
-        console.log(rsvps);
+        console.log(act.rsvps);
       }
     });
   }

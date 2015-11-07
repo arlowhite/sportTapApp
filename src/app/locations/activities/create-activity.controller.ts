@@ -54,13 +54,14 @@ class CreateActivityController {
     });
 
     $q.all([db.myFriends(), db.invitedMe()]).then((results) => {
-      // FIXME WTF was I doing?
       let searchablePeople = [];
+      // append the two arrays in results together into searchablePeople
       searchablePeople.push.apply(searchablePeople, results[0]);
       searchablePeople.push.apply(searchablePeople, results[1]);
-      for (var i = 0; i < searchablePeople.length; i++) {
-        searchablePeople[i]._lowername = searchablePeople[i].name.toLowerCase();
-        searchablePeople[i].email = 'foo@foo.com';
+      // Lowercase the name for comparison later
+      for (let person of searchablePeople) {
+        person._lowername = person.name.toLowerCase();
+        person.email = 'foo@foo.com';
       }
       console.log('peeps', searchablePeople);
       this.searchablePeople = searchablePeople;
@@ -82,8 +83,8 @@ class CreateActivityController {
   excludeSelected(contact) {
     //return contact.id not in $scope.act.invited;
     var invited = this.$scope.act.invited;
-    for (var i = 0; i < invited.length; i++) {
-      if (contact.id === invited[i].id) {
+    for (let invitee of invited) {
+      if (contact.id === invitee.id) {
         return false;
       }
     }
