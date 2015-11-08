@@ -62,8 +62,10 @@ module.exports = function(config) {
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     // I couldn't get requirejs to load node_modules properly with the nodeRequire thing
-    // Could use mocha instead of jasmine.
-    frameworks: ['systemjs', 'jasmine'],
+
+    // https://github.com/karma-runner/karma-mocha
+    frameworks: ['systemjs', 'mocha'],
+    // I think this was suggested by outdated docs; doesn't seem necessary.
     //plugins: ['karma-systemjs'],
 
     systemjs: {
