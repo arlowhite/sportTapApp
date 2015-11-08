@@ -4,7 +4,7 @@ import IDeferred = angular.IDeferred;
 
 export class SportTapFirebaseDb implements SportTapDb {
 
-  private client: Firebase;
+  public client: Firebase;
   private _myPersonKey: string;
   private deferredConstructor: <T>() => IDeferred<T>;
 
@@ -25,14 +25,24 @@ export class SportTapFirebaseDb implements SportTapDb {
       console.log('Got value:', snap.val());
     });
 
+  }
 
-    var usersRef = client.child('users');
-    var key = usersRef.push({
-      name: 'Arlo',
-      age: 29
-    }).key();
-    console.log('Arlo key: ', key);
-    this._myPersonKey = key;
+  /**
+   * Wipe-out all data and reinitialize default structure and values.
+   */
+  resetDatabase(callback: () => any) {
+    this.client.set({}, () => {
+      // TODO Remove testing data
+      var usersRef = this.client.child('users');
+      // key() makes this sync?
+      var key = usersRef.push({
+        name: 'Arlo',
+        age: 29
+      }).key();
+      console.log('Arlo key: ', key);
+      this._myPersonKey = key;
+      callback();
+    });
   }
 
   myId():number {

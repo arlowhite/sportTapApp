@@ -47,8 +47,8 @@ var PORT = 5000;
 var Firebase = proxyquire('firebase', {
 	'faye-websocket': {
 		Client: function (url) {
+      // Example iterrated URL subdomains, not really needed
 			//url = url.replace(/dummy\d+\.firebaseio\.test/i, 'localhost').replace('wss://', 'ws://');
-      console.log('GOT url', url);
 			return new originalWebsocket.Client('ws://localhost:'+PORT);
 		}
 	}
@@ -75,10 +75,15 @@ var Firebase = proxyquire('firebase', {
 
 var db = new SportTapFirebaseDb('localhost.firebaseio.com', 5000, Promise.defer, Firebase);
 //    // FIXME No difference if firebase-server is actually running, is it connecting?
-console.log('Created SportTapFirebaseDb');
-
+console.log('Created SportTapFirebaseDb. ');
 
 describe('creating users', () => {
+
+  before(function(done){
+    // Wipe Database before testing
+    console.log('  wiping database...');
+    db.resetDatabase(done)
+  });
 
   after(() => {
     // Go offline?
@@ -105,10 +110,13 @@ describe('creating users', () => {
 
   it('lots of users', () => {
     var p = db.myFriends().then(friends => {
+      let count = 0;
       for (let key in friends) {
         let friend = friends[key];
         expect(friend).to.have.property('name', 'Arlo');
+        count ++;
       }
+      expect(count).to.equal(1);
     });
     //expect(p).to.eventually.have.property('name');
 //to.eventually.equal(2)
