@@ -10,20 +10,23 @@ So just use angular.IPromise since bluebird also implements then, catch, finally
 
 export interface SportTapDb {
 
-  myId(): number;
-  person(id: number): IPromise<SportTapPerson>;
-  activity(id: number): IPromise<SportTapActivity>;
+  myId(): string;
+  person(id: string): IPromise<SportTapPerson>;
+
+  createActivity(activity: SportTapActivity);
+  activity(id: string): IPromise<SportTapActivity>;
+
   myFriends(): IPromise<SportTapPerson[]>;
   invitedMe(): IPromise<SportTapPerson[]>;
   myActivities(operation: string, rsvp: number): IPromise<SportTapActivity[]>;
-  updateRsvp(activityId: number, rsvp: number);
+  updateRsvp(activityId: string, rsvp: number);
   sportIcon(sportId: string): string;
   // TODO merge with SportTapSportTag?
   querySports(query: string): any[];
 }
 
 export interface SportTapPerson {
-  id: number;
+  id: string;
   name: string;
   age?: number;
   gender: string;
@@ -35,13 +38,13 @@ export interface SportTapPerson {
 
   nextActivityDate?: string;
   nextActivity?: string;
-  nextActivityId?: number;
-  nextActivities?: number[];
+  nextActivityId?: string;
+  nextActivities?: string[];
 }
 
 export interface SportTapActivity {
-  id: number;
-  creatorId: number;
+  id: string;
+  creatorId: string;
   title: string;
   sport: string;
   locName: string;

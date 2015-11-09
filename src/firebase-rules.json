@@ -1,0 +1,12 @@
+{
+  "rules": {
+
+    ".write": "auth.uid === 'admin'",
+
+    "users": {
+      "$user_id": {
+        ".write": "$user_id === auth.uid"
+      }
+    }
+  }
+}

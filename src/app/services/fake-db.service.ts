@@ -13,9 +13,9 @@ var ionIconForSport = {
   scuba: 'ion-ios-body'
 };
 
-var fakeUsers: {[personId: number]: SportTapPerson} = {
-  2: {
-    id: 2,
+var fakeUsers: {[personId: string]: SportTapPerson} = {
+  '2': {
+    id: '2',
     name: 'Raquel',
     //age: 30, null?
     gender: 'female',
@@ -31,8 +31,8 @@ var fakeUsers: {[personId: number]: SportTapPerson} = {
     nextActivityDate: 'Weekend',
     nextActivity: 'Road ride to Pismo'
   },
-  3: {
-    id: 3,
+  '3': {
+    id: '3',
     name: 'Arlo White',
     age: 30,
     gender: 'male',
@@ -57,8 +57,8 @@ var fakeUsers: {[personId: number]: SportTapPerson} = {
     //  {}
     //]
   },
-  4: {
-    id: 4,
+  '4': {
+    id: '4',
     name: 'Tully',
     age: 24,
     gender: 'male',
@@ -74,8 +74,8 @@ var fakeUsers: {[personId: number]: SportTapPerson} = {
     // TODO think about how best to encode invitedYou
     invitedYou: true
   },
-  5: {
-    id: 5,
+  '5': {
+    id: '5',
     name: 'Dana',
     age: 25,
     gender: 'female',
@@ -90,8 +90,8 @@ var fakeUsers: {[personId: number]: SportTapPerson} = {
     ],
     invitedYou: true
   },
-  6: {
-    id: 6,
+  '6': {
+    id: '6',
     name: 'Arya',
     age: 15,
     gender: 'female',
@@ -104,10 +104,10 @@ var fakeUsers: {[personId: number]: SportTapPerson} = {
       {id:'fencing', name:'Fencing', num: 3},
       {id:'spying', name:'Spying', num: 3}
     ],
-    nextActivityId: 1
+    nextActivityId: '1'
   },
-  7: {
-    id: 7,
+  '7': {
+    id: '7',
     name: 'Daenerys',
     age: 20,
     gender: 'female',
@@ -122,8 +122,8 @@ var fakeUsers: {[personId: number]: SportTapPerson} = {
       {id:'running', name:'Running', num: 3}
     ]
   },
-  8: {
-    id: 8,
+  '8': {
+    id: '8',
     name: 'Jon Snow',
     age: 20,
     gender: 'male',
@@ -137,8 +137,8 @@ var fakeUsers: {[personId: number]: SportTapPerson} = {
       {id:'cc-ski', name:'Cross-country Skiing', num: 3}
     ]
   },
-  9: {
-    id: 9,
+  '9': {
+    id: '9',
     name: 'Sansa',
     age: 17,
     gender: 'female',
@@ -153,8 +153,8 @@ var fakeUsers: {[personId: number]: SportTapPerson} = {
       {id:'running', name:'Running', num: 3}
     ]
   },
-  10: {
-    id: 10,
+  '10': {
+    id: '10',
     name: 'Tyrion',
     age: 37,
     gender: 'male',
@@ -170,10 +170,10 @@ var fakeUsers: {[personId: number]: SportTapPerson} = {
   }
 
 };
-var firstPersonId = 2;
-var lastPersonId = 10;
+const firstPersonId = 2;
+const lastPersonId = 10;
 
-var myPersonId = 3; // Arlo
+const myPersonId = '3'; // Arlo
 
 /**
  * Add fields used to generate dates in the future.
@@ -186,68 +186,68 @@ interface FakeSportTapActivity extends SportTapActivity {
 
 var fakeActivities: FakeSportTapActivity[] = [
   {
-    id: 1,
-    creatorId: 3,
+    id: '1',
+    creatorId: '3',
     title: "Scuba dive",
     sport: "scuba",
     locName: "Target rock",
     descr: "You must bring scuba gear. Make sure to rent gear from the shop before it closes at 6pm.",
     rsvps:[
-      {pId:3, r:3},
-      {pId:6, r:3},
-      {pId:7, r:3},
-      {pId:8, r:3},
-      {pId:4, r:2},
-      {pId:10, r:1}
+      {pId:'3', r:'3'},
+      {pId:'6', r:'3'},
+      {pId:'7', r:'3'},
+      {pId:'8', r:'3'},
+      {pId:'4', r:'2'},
+      {pId:'10', r:'1'}
     ],
     _daysAhead:2,
     _hoursAhead:9,
     _duration: 2
   },
   {
-    id: 2,
-    creatorId: 2,
+    id: '2',
+    creatorId: '2',
     title: "Backpacking South Sister",
     sport: 'hiking',
     locName: "Deschutes National Wilderness",
     descr: "1 night backpacking trip. Remember to go over the checklist.",
     rsvps:[
-      {pId:2, r:3},
-      {pId:3, r:2},
-      {pId:6, r:2},
-      {pId:4, r:1},
-      {pId:5, r:0}
+      {pId:'2', r:'3'},
+      {pId:'3', r:'2'},
+      {pId:'6', r:'2'},
+      {pId:'4', r:'1'},
+      {pId:'5', r:'0'}
     ],
     _daysAhead:7,
     _hoursAhead:7,
     _duration: 35
   },
   {
-    id: 3,
-    creatorId: 2,
+    id: '3',
+    creatorId: '2',
     title: "2 mile run",
     sport: "hiking",
     locName: "Madonna lemon loop",
     descr: "Jog about 2 miles on the Madonna lemon trail network.",
     rsvps:[
-      {pId:2, r:3},
-      {pId:3, r:0},
-      {pId:8, r:2}
+      {pId:'2', r:'3'},
+      {pId:'3', r:'0'},
+      {pId:'8', r:'2'}
     ],
     _daysAhead:1,
     _hoursAhead:19,
     _duration: 1.5
   },
   {
-    id: 4,
-    creatorId: 7,
+    id: '4',
+    creatorId: '7',
     title: "Dragon riding lessons",
     sport: "flying",
     locName: "Meereen dragon tower",
     descr: "Don't smell like meat.",
     rsvps:[
-      {pId:7, r:3},
-      {pId:10, r:2}
+      {pId:'7', r:'3'},
+      {pId:'10', r:'2'}
     ],
     _daysAhead:1,
     _hoursAhead:19,
@@ -329,15 +329,19 @@ class FakeDbService implements SportTapDb {
     this.$q = $q;
   }
 
-  myId (){
+  myId (): string{
     return myPersonId;
   }
 
-  person  (id) {
+  person  (id: string) {
     return this.$q.when(fakeUsers[id]);
   }
 
-  activity (id) {
+  createActivity(activity:SportTapActivity) {
+    throw new Error('not implemented');
+  }
+
+  activity (id: string) {
     for(let act of fakeActivities){
       if(act.id == id){
         if (act.id !== id) {

@@ -2,11 +2,15 @@ import Firebase = require("firebase");
 import {SportTapDb, SportTapPerson, SportTapActivity} from './SportTapDb';
 import IDeferred = angular.IDeferred;
 
+type IPromise<T> = angular.IPromise<T>;
+
 export class SportTapFirebaseDb implements SportTapDb {
 
   public client: Firebase;
   private _myPersonKey: string;
   private deferredConstructor: <T>() => IDeferred<T>;
+
+  private activitiesRef: Firebase;
 
   constructor(public hostname: string, public port: number,
               deferredConstructor,
@@ -21,35 +25,24 @@ export class SportTapFirebaseDb implements SportTapDb {
     }
 
     let client = this.client = new firebase(`ws://${hostname}:${port}`);
-    client.on('value', function(snap) {
-      console.log('Got value:', snap.val());
-    });
+
+    // Just for convenience and to prevent typos in the future
+    // looking at source, .child() is fairly heavy, validation and new Firebase.
+    this.activitiesRef = client.child('activities');
 
   }
 
-  /**
-   * Wipe-out all data and reinitialize default structure and values.
-   */
-  resetDatabase(callback: () => any) {
-    this.client.set({}, () => {
-      // TODO Remove testing data
-      var usersRef = this.client.child('users');
-      // key() makes this sync?
-      var key = usersRef.push({
-        name: 'Arlo',
-        age: 29
-      }).key();
-      console.log('Arlo key: ', key);
-      this._myPersonKey = key;
-      callback();
-    });
+  /*
+   For now, just call Firebase directly, an extra layer is not necessary, doesn't add any value
+   except to wrap the return in a Promise.
+    */
+  //createUser(email: string, password: string): IPromise<Firebase...> {}
+
+  myId():string {
+    return '3';
   }
 
-  myId():number {
-    return 3;
-  }
-
-  person(id:number):angular.IPromise<SportTapPerson> {
+  person(id:string): IPromise<SportTapPerson> {
     var def = this.deferredConstructor<SportTapPerson>();
     this.client.child('users').child(this._myPersonKey).once('value', snapshot => {
       def.resolve(snapshot.val());
@@ -57,11 +50,21 @@ export class SportTapFirebaseDb implements SportTapDb {
     return def.promise;
   }
 
-  activity(id:number):angular.IPromise<SportTapActivity> {
+  // TODO decide on API, Promise, callback, how to capture key?
+  createActivity(activity:SportTapActivity) {
+    this.activitiesRef.push(activity, function () {
+      console.log('activity saved in DB', arguments);
+    });
+    // 2nd arg, onComplete
+    // Object mutated?
+    //.key();
+  }
+
+  activity(id:string): IPromise<SportTapActivity> {
     return undefined;
   }
 
-  myFriends():angular.IPromise<SportTapPerson[]> {
+  myFriends(): IPromise<SportTapPerson[]> {
     var def = this.deferredConstructor<SportTapPerson[]>();
     this.client.child('users').once('value', snapshot => {
       def.resolve(snapshot.val());
@@ -69,15 +72,15 @@ export class SportTapFirebaseDb implements SportTapDb {
     return def.promise;
   }
 
-  invitedMe():angular.IPromise<SportTapPerson[]> {
+  invitedMe(): IPromise<SportTapPerson[]> {
     return undefined;
   }
 
-  myActivities(operation:string, rsvp:number):angular.IPromise<SportTapActivity[]> {
+  myActivities(operation:string, rsvp:number): IPromise<SportTapActivity[]> {
     return undefined;
   }
 
-  updateRsvp(activityId:number, rsvp:number) {
+  updateRsvp(activityId:string, rsvp:number) {
   }
 
   sportIcon(sportId:string):string {
