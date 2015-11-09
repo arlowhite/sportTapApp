@@ -61,6 +61,7 @@ Assertion.addMethod('code', function(error_code) {
 
 });
 
+const HOSTNAME = 'localhost.firebaseio.com';
 const PORT = 5000;
 
 const Firebase = proxyquire('firebase', {
@@ -93,11 +94,19 @@ const Firebase = proxyquire('firebase', {
 // Note: with $q need to do $timeout.flush()
 
 const ADMIN_CUSTOM_AUTH_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2IjowLCJkIjp7InVpZCI6ImFkbWluIn0sImlhd' +
-  'CI6MTQ0NzA0NTYwN30.T97tcd-K7qQeHVb4DJlfqCKpehpq9RhEO-IftJ1tlrg'
+  'CI6MTQ0NzA0NTYwN30.T97tcd-K7qQeHVb4DJlfqCKpehpq9RhEO-IftJ1tlrg';
 const CUSTOM_AUTH_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2IjowLCJkIjp7InVpZCI6InVuaXQtdGVzdGluZyJ9LC' +
   'JpYXQiOjE0NDcwNDU2Nzd9.IVrLgZZxUmp8KQVfPHmCGIWQXRsZXHTg1aA_qXcAnUY';
-const db = new SportTapFirebaseDb('localhost.firebaseio.com', 5000, Promise.defer, Firebase);
-//    // FIXME No difference if firebase-server is actually running, is it connecting?
+const CUSTOM_AUTH_TOKEN_MALIGNANT = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2IjowLCJkIjp7InVpZCI6Im1hbGlnbmFud' +
+  'C11bml0LXRlc3RpbmcifSwiaWF0IjoxNDQ3MDU1ODI1fQ.Ut7QHgqjw7xJHVrOmZRGBo0BRjSF0IaqCn-80MOWbvQ';
+
+const MAIN_UID = 'unit-testing';
+const MALIGNANT_UID = 'malignant-unit-testing';
+// A value to set indicating maliginant user succeeded. TODO check for this in data dump
+const MALICIOUS_VALUE = 'MALICIOUS VALUE!!!';
+
+const db = new SportTapFirebaseDb(HOSTNAME, PORT, Promise.defer, Firebase);
+// Not sure how to check if connected except for tests failing.
 console.log('Created SportTapFirebaseDb');
 
 // Mocha has a root suite
@@ -108,13 +117,17 @@ before(function(done){
   // They cannot revoke a read or write privilege."
   console.log(', admin wiping database...');
 
+  // Don't use db object to wipe database;
+  let firebase = new Firebase(`ws://${HOSTNAME}:${PORT}`);
+
   // Need to authenticate first to have permission to set root
-  db.client.authWithCustomToken(ADMIN_CUSTOM_AUTH_TOKEN, function(error, authData) {
+  firebase.authWithCustomToken(ADMIN_CUSTOM_AUTH_TOKEN, function(error, authData) {
     expect(error).to.be.null;
     expect(authData).to.have.property('uid', 'admin');
 
-    db.client.set({}, (error) => {
+    firebase.set({}, (error) => {
       expect(error).to.be.null;
+      firebase.unauth();
       done();
     });
   });
@@ -142,7 +155,7 @@ describe('custom auth with unit-testing', function() {
   it("custom auth", function (done) {
     client.authWithCustomToken(CUSTOM_AUTH_TOKEN, function (error, authData) {
       expect(error).to.be.null;
-      expect(authData).to.have.property('uid', 'unit-testing');
+      expect(authData).to.have.property('uid', MAIN_UID);
       expect(authData).to.have.property('provider', 'custom');
       done();
     });
@@ -208,16 +221,14 @@ describe('custom auth with unit-testing', function() {
 //  });
 });
 
-
+var activityKey;
 describe('activities', function() {
   it('create activity', function () {
     //let act: SportTapActivity = {
     //  id: 'foo'
     //};
     //act.
-    db.createActivity({
-      id: '1',
-      creatorId: '3',
+    let p = db.createActivity({
       title: "Scuba dive",
       sport: "scuba",
       locName: "Target rock",
@@ -230,6 +241,46 @@ describe('activities', function() {
         {pId:'4', r:'2'},
         {pId:'10', r:'1'}
       ]
+    });
+    expect(p).to.be.fulfilled;
+    p.then(key => {
+      activityKey = key;
+    });
+    return p;
+  });
+
+  it('update activity', function (done) {
+    db.activitiesRef.child(activityKey).update({
+      title: 'Changed title'
+    }, (error) => {
+      expect(error).to.be.null;
+      done();
+    });
+  });
+
+});
+
+describe('malicous behavior', function() {
+  let client = db.client;
+
+  before(function (done) {
+    client.unauth();
+
+    client.authWithCustomToken(CUSTOM_AUTH_TOKEN_MALIGNANT, function (error, authData) {
+      expect(error).to.be.null;
+      expect(authData).to.have.property('uid', MALIGNANT_UID);
+      expect(authData).to.have.property('provider', 'custom');
+      done();
+    });
+  });
+
+  it("cannot write to other user's activity", function (done) {
+    db.activitiesRef.child(activityKey).update({
+      creatorId: MAIN_UID,
+      title: MALICIOUS_VALUE
+    }, (error) => {
+      expect(error).code(PERMISSION_DENIED);
+      done();
     });
   });
 });

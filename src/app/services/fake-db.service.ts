@@ -2,6 +2,8 @@
 import {SportTapDb, SportTapActivity, SportTapPerson} from "./SportTapDb";
 import {activitySortStartDate} from "../util";
 
+type IPromise<T> = angular.IPromise<T>;
+
 var ionIconForSport = {
   soccer: 'ion-ios-football',
   football: 'ion-ios-americanfootball',
@@ -337,7 +339,7 @@ class FakeDbService implements SportTapDb {
     return this.$q.when(fakeUsers[id]);
   }
 
-  createActivity(activity:SportTapActivity) {
+  createActivity(activity:SportTapActivity): IPromise<string> {
     throw new Error('not implemented');
   }
 

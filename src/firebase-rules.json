@@ -1,12 +1,29 @@
 {
   "rules": {
 
-    ".write": "auth.uid === 'admin'",
+    // Need defaults?
+    ".write": false,
+    ".read": false,
 
+    // TODO is users created when authenticated? use it for profile info?
     "users": {
       "$user_id": {
         ".write": "$user_id === auth.uid"
       }
+    },
+
+    "activities": {
+      "$activity_id": {
+        // Must be creator of existing activity to write to it
+//        ".write": "auth.uid === data.child('creatorId').val() === auth.uid || auth.uid",
+
+        ".write": "newData.child('creatorId').val() === auth.uid"
+
+//        "creatorId": {
+//          ".write": false
+//        }
+      }
+
     }
   }
 }

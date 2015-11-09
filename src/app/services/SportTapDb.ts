@@ -1,5 +1,5 @@
 
-import IPromise = angular.IPromise;
+type IPromise<T> = angular.IPromise<T>;
 
 /*
 Wanted to make interface take generic Promise type so could construct with different Deferred/Promise
@@ -13,7 +13,7 @@ export interface SportTapDb {
   myId(): string;
   person(id: string): IPromise<SportTapPerson>;
 
-  createActivity(activity: SportTapActivity);
+  createActivity(activity: SportTapActivity): IPromise<string>;
   activity(id: string): IPromise<SportTapActivity>;
 
   myFriends(): IPromise<SportTapPerson[]>;
@@ -43,8 +43,8 @@ export interface SportTapPerson {
 }
 
 export interface SportTapActivity {
-  id: string;
-  creatorId: string;
+  id?: string;
+  creatorId?: string;
   title: string;
   sport: string;
   locName: string;

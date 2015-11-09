@@ -7,16 +7,17 @@ type IPromise<T> = angular.IPromise<T>;
 export class SportTapFirebaseDb implements SportTapDb {
 
   public client: Firebase;
-  private _myPersonKey: string;
+  //private _myUserKey: string;
   private deferredConstructor: <T>() => IDeferred<T>;
 
-  private activitiesRef: Firebase;
+  public activitiesRef: Firebase;
 
   constructor(public hostname: string, public port: number,
               deferredConstructor,
               firebase: FirebaseStatic = null) {
     'ngInject';
 
+    //this._myUserKey = null;
     this.deferredConstructor = deferredConstructor;
 
     if(firebase === null){
@@ -25,6 +26,11 @@ export class SportTapFirebaseDb implements SportTapDb {
     }
 
     let client = this.client = new firebase(`ws://${hostname}:${port}`);
+
+    client.onAuth(function(authData){
+      console.log('onAuth', authData);
+      //this._myUserKey
+    }, this);
 
     // Just for convenience and to prevent typos in the future
     // looking at source, .child() is fairly heavy, validation and new Firebase.
@@ -38,26 +44,40 @@ export class SportTapFirebaseDb implements SportTapDb {
     */
   //createUser(email: string, password: string): IPromise<Firebase...> {}
 
+
+
   myId():string {
-    return '3';
+    //if (this._myUserKey === null) {
+    //  throw new Error('Not authenticated!');
+    //}
+    //return this._myUserKey;
+    return this.client.getAuth().uid;
   }
 
   person(id:string): IPromise<SportTapPerson> {
     var def = this.deferredConstructor<SportTapPerson>();
-    this.client.child('users').child(this._myPersonKey).once('value', snapshot => {
+    this.client.child('users').child(this.myId()).once('value', snapshot => {
       def.resolve(snapshot.val());
     });
     return def.promise;
   }
 
-  // TODO decide on API, Promise, callback, how to capture key?
-  createActivity(activity:SportTapActivity) {
-    this.activitiesRef.push(activity, function () {
-      console.log('activity saved in DB', arguments);
-    });
-    // 2nd arg, onComplete
-    // Object mutated?
-    //.key();
+  createActivity(activity:SportTapActivity): IPromise<string> {
+    if(activity.hasOwnProperty('id')) {
+      throw new Error('Activity.id already exists');
+    }
+
+    // Rules verify that this is the current user'd UID
+    activity.creatorId = this.myId();
+
+    const def = this.deferredConstructor<string>();
+    const key = this.activitiesRef.push(activity, (error) => {
+      if (error) {
+        def.reject(error);
+      }
+      def.resolve(key);
+    }).key();
+    return def.promise;
   }
 
   activity(id:string): IPromise<SportTapActivity> {

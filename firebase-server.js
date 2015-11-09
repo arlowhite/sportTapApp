@@ -1,18 +1,29 @@
 var FirebaseServer = require('firebase-server');
 var fs = require("fs");
+var util = require('util');
 
 var port = 5000;
 var hostname = 'localhost.firebaseio.com';
 
 var SECRET = 'MYSECRET123';
-//var generate_token_with_uid = 'unit-testing';
+//var generate_token_with_uid = 'malignant-unit-testing';
 
 var server = new FirebaseServer(port, hostname + ':' + port, {
   /* You can put your initial data model here, or just leave it empty */
 });
 
-var rules = fs.readFileSync("src/firebase-rules.json");
-server.setRules(JSON.parse(rules));
+var rulesText = fs.readFileSync("src/firebase-rules.json", 'utf8');
+/* json-comments, strip-json-comments, json5 all changed double-quotes to single and were a bit overkill
+Just remove // quotes myself
+*/
+var rx = /\s*\/\/[^\n]+/g;
+rulesText = rulesText.replace(rx, '');
+console.log('Firebase Rules (after comment removal):\n', rulesText);
+var rules = JSON.parse(rulesText);
+// Allow the admin token to wipe database for unit tests
+rules.rules['.write'] = "auth.uid === 'admin'";
+//util.inspect(rules, {showHidden: false, depth: null}));
+server.setRules(rules);
 
 if (typeof generate_token_with_uid !== 'undefined' && generate_token_with_uid.length > 1) {
   var FirebaseTokenGenerator = require("firebase-token-generator");
