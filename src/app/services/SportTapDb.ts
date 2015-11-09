@@ -21,8 +21,7 @@ export interface SportTapDb {
   myActivities(operation: string, rsvp: number): IPromise<SportTapActivity[]>;
   updateRsvp(activityId: string, rsvp: number);
   sportIcon(sportId: string): string;
-  // TODO merge with SportTapSportTag?
-  querySports(query: string): any[];
+  querySports(query: string): SportTapSportTag[];
 }
 
 export interface SportTapPerson {
@@ -66,9 +65,12 @@ export interface SportTapActivity {
   myRsvp?: number;
 }
 
-interface SportTapSportTag {
+export interface SportTapSportTag {
   id: string;
   name: string;
-  // FIXME meaningless, better name
-  num: number;
+  // Ionic IonIcon for dev since more sports icons available.
+  // optional since calculated in some code
+  icon?: string;
+  // FIXME meaningless sports number in user profiles
+  num?: number;
 }

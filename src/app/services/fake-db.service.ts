@@ -1,5 +1,5 @@
 
-import {SportTapDb, SportTapActivity, SportTapPerson} from "./SportTapDb";
+import {SportTapDb, SportTapActivity, SportTapPerson, SportTapSportTag} from "./SportTapDb";
 import {activitySortStartDate} from "../util";
 
 type IPromise<T> = angular.IPromise<T>;
@@ -438,16 +438,20 @@ class FakeDbService implements SportTapDb {
     });
   }
 
+  // TODO remove this method?
   sportIcon (sportId) {
     // For now, just use ion icons since it has a few sports
     return ionIconForSport[sportId];
   }
 
-  querySports (text) {
+  querySports (text): SportTapSportTag[] {
+    if(!text) {
+      return [];
+    }
     var lowerQuery = text.toLowerCase();
-    var results = [];
-    for(var key in ionIconForSport) {
-      if (key.indexOf(lowerQuery) != -1) {
+    let results: SportTapSportTag[] = [];
+    for(let key in ionIconForSport) {
+      if (key.indexOf(lowerQuery) !== -1) {
         results.push({
           icon: ionIconForSport[key],
           id: key,
