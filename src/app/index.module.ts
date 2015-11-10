@@ -45,7 +45,7 @@ monkeyPatch();
 // TODO Verify performance release features
 // template cache  https://thinkster.io/templatecache-tutorial/ (obsolete due to new build system?)
 // gulp-angular-templatecache for use with Gulp
-angular.module('sportSocial', ['ionic', 'ngMaterial', 'ngMessages', 'ngAnimate'])
+angular.module('sportTap', ['ionic', 'ngMaterial', 'ngMessages', 'ngAnimate'])
   .config(config)
   .config(routerConfig)
   .run(runBlock)
@@ -74,7 +74,7 @@ angular.module('sportSocial', ['ionic', 'ngMaterial', 'ngMessages', 'ngAnimate']
 ionic.Platform.ready(function () {
 // Need to manually bootstrap for SystemJS to work
   console.log('document/ionic ready, bootstraping angular');
-  angular.bootstrap(document, ['sportSocial'], {
+  angular.bootstrap(document, ['sportTap'], {
     strictDi: false
   });
 });
@@ -83,7 +83,7 @@ ionic.Platform.ready(function () {
 // TODO enable strictDi for builds where ngAnnotate was run
 //angular.element(document).ready(function() {
 //  console.log('document ready, bootstraping angular');
-//  angular.bootstrap(document, ['sportSocial'], {
+//  angular.bootstrap(document, ['sportTap'], {
 //    strictDi: false
 //  });
 //});

@@ -3,6 +3,7 @@
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
+var zip = require('gulp-zip');
 
 var $ = require('gulp-load-plugins')({
   pattern: ['gulp-*', 'uglify-save-license', 'del']
@@ -19,7 +20,7 @@ gulp.task('partials', function () {
       quotes: true
     }))
     .pipe($.angularTemplatecache('templateCacheHtml.js', {
-      module: 'sportSocial',
+      module: 'sportTap',
       root: 'app'
     }))
     .pipe(gulp.dest(conf.paths.tmp + '/partials/'));
@@ -91,3 +92,10 @@ gulp.task('clean', function (done) {
 });
 
 gulp.task('build', ['html', 'fonts', 'assets']);
+
+gulp.task('phonegap_zip', function(){
+  return gulp.src([path.join(conf.paths.dist, '/**/*'), 'config.xml'])
+        .pipe(zip('phonegap.zip'))
+//        .on('error', swallowError)
+        .pipe(gulp.dest('phonegap/'));
+});
